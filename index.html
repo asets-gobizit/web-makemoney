@@ -112,6 +112,14 @@
       color: var(--navy);
       box-shadow: var(--shadow-sm);
     }
+    .header-meta {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+    .header-meta a {
+      color: var(--green);
+    }
     @media (max-width: 800px) {
       .nav { padding: 14px 0; }
       .logo-img { height: 48px; }
@@ -482,10 +490,13 @@
     <div class="logos">
       <img class="logo-img" src="logo.png" alt="Make Money AI" style="height: 64px;">
     </div>
-    <div class="lang-toggle" role="tablist" aria-label="Language">
-      <button data-lang="en" class="active" aria-pressed="true">EN</button>
-      <button data-lang="es" aria-pressed="false">ES</button>
-      <button data-lang="fr" aria-pressed="false">FR</button>
+    <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+      <div class="lang-toggle" role="tablist" aria-label="Language">
+        <button data-lang="en" class="active" aria-pressed="true">EN</button>
+        <button data-lang="es" aria-pressed="false">ES</button>
+        <button data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <div class="header-meta">by <a href="https://gobizit.ai">GoBizIT</a></div>
     </div>
   </div>
 </header>
@@ -640,8 +651,8 @@
 <footer>
   <div class="container">
     <p><strong>Make Money AI</strong> · Research · Advisory · Build</p>
-    <p><a href="mailto:danny@makemoney.ai">danny@makemoney.ai</a></p>
-    <p class="small">© 2026 Make Money AI. All rights reserved.</p>
+    <p><a href="mailto:danny@gobizit.ai">danny@gobizit.ai</a></p>
+    <p class="small">© 2026 Make Money AI · GoBizIT. All rights reserved.</p>
   </div>
 </footer>
 
