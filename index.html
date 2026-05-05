@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make Money AI - Show Me The Money</title>
+    <title>Make Money AI - Income Signals for Entrepreneurs</title>
     <style>
         * {
             margin: 0;
@@ -11,264 +11,592 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #0B0B0F;
+            --accent-blue: #00D9FF;
+            --accent-green: #00FF88;
+            --accent-purple: #667eea;
+            --text-light: #E0E0E0;
+            --text-muted: #808080;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HERO SECTION */
+        .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.98);
             padding: 60px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 700px;
-            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
-        .logo-image {
-            max-width: 280px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .logo-hero {
+            max-width: 240px;
             height: auto;
             margin: 0 auto 40px;
             display: block;
+            opacity: 0.9;
         }
 
-        .slogan {
-            font-size: 32px;
+        .hero h1 {
+            font-size: 56px;
             font-weight: 700;
-            color: #1a1a1a;
-            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subheadline {
+            font-size: 20px;
+            color: var(--text-light);
+            line-height: 1.8;
             margin-bottom: 40px;
-            line-height: 1.3;
+            opacity: 0.9;
         }
 
-        .slogan .highlight {
-            color: #667eea;
-        }
-
-        .story {
-            background: #f8f9ff;
-            border-left: 4px solid #667eea;
-            padding: 24px;
+        .cta-primary {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            color: var(--primary);
+            text-decoration: none;
             border-radius: 8px;
-            margin-bottom: 40px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+            margin-bottom: 20px;
         }
 
-        .story h3 {
-            font-size: 16px;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 12px;
-            text-transform: uppercase;
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .micro-text {
+            font-size: 13px;
+            color: var(--text-muted);
             letter-spacing: 1px;
         }
 
-        .story p {
-            color: #555;
+        /* SECTION SPACING */
+        section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+
+        section .section-intro {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+            max-width: 600px;
             line-height: 1.8;
-            font-size: 15px;
-            margin-bottom: 12px;
         }
 
-        .story p:last-child {
-            margin-bottom: 0;
+        /* POSITIONING SECTION */
+        .positioning {
+            background: linear-gradient(180deg, rgba(0, 217, 255, 0.05) 0%, transparent 100%);
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
         }
 
-        .pain-points {
+        .positioning-copy {
+            font-size: 18px;
+            line-height: 2;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        .positioning-copy p {
+            margin-bottom: 16px;
+        }
+
+        /* ENTRY POINTS */
+        .entry-points {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
         }
 
-        .pain-point {
-            background: #fff5f5;
-            border: 1px solid #ffd4d4;
-            padding: 16px;
-            border-radius: 8px;
+        .entry-point {
+            padding: 32px;
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-point::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .entry-point:hover {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.08);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.1);
+        }
+
+        .entry-point:hover::before {
+            left: 100%;
+        }
+
+        .entry-point h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .entry-point p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* HOW IT WORKS */
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .how-step {
             text-align: center;
         }
 
-        .pain-point span {
-            display: block;
-            font-size: 28px;
-            margin-bottom: 8px;
+        .step-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 16px;
+            line-height: 1;
         }
 
-        .pain-point p {
-            font-size: 13px;
-            color: #666;
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: var(--text-muted);
             line-height: 1.6;
         }
 
-        .solution {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            border: 2px solid #667eea;
-            padding: 24px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-            text-align: center;
+        /* REALITY CHECK */
+        .reality-check {
+            background: rgba(102, 126, 234, 0.08);
+            border-left: 4px solid var(--accent-purple);
+            padding: 48px;
+            border-radius: 12px;
+            margin-bottom: 60px;
         }
 
-        .solution h3 {
-            font-size: 16px;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .reality-check .fail-section {
+            margin-bottom: 32px;
         }
 
-        .solution p {
-            color: #1a1a1a;
+        .reality-check .fail-section p {
             font-size: 16px;
-            font-weight: 500;
             line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 8px;
         }
 
-        .cta {
-            text-align: center;
-            margin-bottom: 40px;
+        .reality-check .flip {
+            padding-top: 32px;
+            border-top: 1px solid rgba(102, 126, 234, 0.3);
+            margin-top: 32px;
         }
 
-        .cta-text {
-            font-size: 16px;
-            color: #667eea;
+        .reality-check .flip p {
+            font-size: 18px;
             font-weight: 600;
+            color: var(--accent-green);
         }
 
-        .loading {
-            margin-top: 12px;
+        /* SIGNAL FEED */
+        .signal-feed {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 60px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #667eea;
-            margin: 0 3px;
-            animation: pulse 1.5s infinite;
+        .signal-label {
+            font-size: 12px;
+            color: var(--accent-blue);
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
         }
 
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
+        .signal-item {
+            padding: 16px;
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 3px solid var(--accent-green);
+            margin-bottom: 12px;
+            border-radius: 4px;
+            animation: slideIn 0.5s ease;
         }
 
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.3;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
             }
-            50% {
+            to {
                 opacity: 1;
+                transform: translateX(0);
             }
         }
 
-        .footer {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid #eee;
-            font-size: 13px;
-            color: #999;
+        .signal-item p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* LEAD CAPTURE */
+        .lead-capture {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 255, 136, 0.05) 100%);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 60px 40px;
+            border-radius: 16px;
             text-align: center;
+            margin: 100px auto;
+            max-width: 600px;
         }
 
-        .footer p {
-            margin: 4px 0;
+        .lead-capture h3 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: var(--text-light);
         }
 
-        .footer a {
-            color: #667eea;
+        .lead-capture p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: rgba(0, 217, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .cta-secondary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .form-trust {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            padding: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--accent-blue);
             text-decoration: none;
-            border-bottom: 1px solid #667eea;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
         }
 
-        .footer a:hover {
-            color: #764ba2;
-            border-bottom-color: #764ba2;
+        footer a:hover {
+            border-bottom-color: var(--accent-blue);
         }
 
-        @media (max-width: 600px) {
-            .pain-points {
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subheadline {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            section h2 {
+                font-size: 28px;
+            }
+
+            .entry-points {
                 grid-template-columns: 1fr;
             }
 
-            .slogan {
-                font-size: 24px;
+            .how-it-works {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .container {
+            .lead-capture {
                 padding: 40px 24px;
-            }
-
-            .logo-image {
-                max-width: 220px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="logo.png" alt="Make Money AI" class="logo-image">
-
-        <div class="slogan">
-            <span class="highlight">Show Me The Money</span>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="logo.png" alt="Make Money AI" class="logo-hero">
+            <h1>You're leaving income on the table.</h1>
+            <p class="subheadline">
+                Not because you can't earn more.<br>
+                Because you don't see the opportunities.
+            </p>
+            <button class="cta-primary" onclick="document.querySelector('.lead-capture').scrollIntoView({behavior: 'smooth'})">Enter the System</button>
+            <p class="micro-text">No fluff. No courses. Just signals.</p>
         </div>
+    </section>
 
-        <div class="story">
-            <h3>The Problem</h3>
-            <p>You're an AI entrepreneur. You've tested 10+ AI tools. You've built with Claude, ChatGPT, Anthropic, OpenAI, Groq, and a dozen others. You've experimented with n8n workflows, Make.com automations, Zapier integrations.</p>
-            <p>You've spent countless hours learning APIs, debugging integrations, optimizing prompts.</p>
-            <p><strong>But you haven't made any money.</strong></p>
+    <!-- POSITIONING -->
+    <section class="positioning">
+        <h2>This is not another "make money online" site.</h2>
+        <div class="section-intro">
+            There are thousands of tools. Thousands of ideas. Thousands of "opportunities."
         </div>
+        <div class="positioning-copy">
+            <p>Most of them go nowhere.</p>
+            <p>This system does one thing:</p>
+            <p><strong>👉 It shows you what is actually worth acting on.</strong></p>
+        </div>
+    </section>
 
-        <div class="pain-points">
-            <div class="pain-point">
-                <span>🔧</span>
-                <p>So many tools, so much complexity</p>
+    <!-- ENTRY POINTS -->
+    <section>
+        <h2>Choose your entry point</h2>
+        <p class="section-intro">Each path reveals real strategies — not theory.</p>
+        <div class="entry-points">
+            <div class="entry-point">
+                <h3>AI Freelance Signals</h3>
+                <p>High-demand skills + where clients pay most</p>
             </div>
-            <div class="pain-point">
-                <span>⏰</span>
-                <p>Months of experimentation, no revenue</p>
+            <div class="entry-point">
+                <h3>Automation Opportunities</h3>
+                <p>Tools & workflows that cut costs or add revenue</p>
             </div>
-            <div class="pain-point">
-                <span>💸</span>
-                <p>Subscriptions add up, profits don't</p>
+            <div class="entry-point">
+                <h3>Digital Asset Plays</h3>
+                <p>Content, data, code — building assets that earn</p>
             </div>
-            <div class="pain-point">
-                <span>❌</span>
-                <p>Ideas won't turn into income</p>
+            <div class="entry-point">
+                <h3>Micro SaaS Ideas</h3>
+                <p>Tiny software → recurring revenue fast</p>
+            </div>
+            <div class="entry-point">
+                <h3>Arbitrage Models</h3>
+                <p>Exploiting gaps → quick execution income</p>
             </div>
         </div>
+    </section>
 
-        <div class="solution">
-            <h3>Here's What's Coming</h3>
-            <p><strong>Make Money AI</strong> is the answer for AI entrepreneurs who are tired of experimenting and ready to monetize.</p>
-            <p style="margin-top: 12px; font-size: 14px;">We're building the playbook, the templates, and the community to help you turn your AI skills into actual revenue.</p>
-        </div>
-
-        <div class="cta">
-            <div class="cta-text">Stay tuned</div>
-            <div class="loading">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+    <!-- HOW IT WORKS -->
+    <section>
+        <h2>How it works</h2>
+        <div class="how-it-works">
+            <div class="how-step">
+                <div class="step-number">1</div>
+                <div class="step-title">Scan</div>
+                <div class="step-desc">We analyze where money is moving</div>
+            </div>
+            <div class="how-step">
+                <div class="step-number">2</div>
+                <div class="step-title">Filter</div>
+                <div class="step-desc">Remove noise, keep only actionable ideas</div>
+            </div>
+            <div class="how-step">
+                <div class="step-number">3</div>
+                <div class="step-title">Signal</div>
+                <div class="step-desc">You get clear opportunities</div>
+            </div>
+            <div class="how-step">
+                <div class="step-number">4</div>
+                <div class="step-title">Execute</div>
+                <div class="step-desc">Turn signal into income</div>
             </div>
         </div>
+    </section>
 
-        <div class="footer">
-            <p>© 2026 Make Money AI. Part of the GoBizIT ecosystem.</p>
-            <p>makemoney.gobizit.ai</p>
-            <p style="margin-top: 12px;"><a href="privacy.html">Privacy Policy</a></p>
+    <!-- REALITY CHECK -->
+    <section>
+        <h2>Most people fail here</h2>
+        <div class="reality-check">
+            <div class="fail-section">
+                <p>They <strong>consume</strong>. They don't <strong>act</strong>.</p>
+                <p>They <strong>chase trends</strong>. They don't <strong>build systems</strong>.</p>
+                <p>That's why they stay stuck.</p>
+            </div>
+            <div class="flip">
+                <p>This is built for execution.</p>
+            </div>
         </div>
+    </section>
+
+    <!-- SIGNAL FEED -->
+    <section>
+        <h2>Live Signal Feed</h2>
+        <p class="section-intro">New opportunities detected daily</p>
+        <div class="signal-feed">
+            <div class="signal-label">🔥 New Opportunity</div>
+            <div class="signal-item">
+                <p><strong>AI automation for local businesses</strong> — High demand, low competition, recurring revenue model</p>
+            </div>
+            <div class="signal-item">
+                <p><strong>Prompt engineering consulting</strong> — Enterprises need someone to optimize their AI stack</p>
+            </div>
+            <div class="signal-item">
+                <p><strong>Data labeling at scale</strong> — AI companies paying $2K+/month for trained labelists</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEAD CAPTURE -->
+    <div class="lead-capture">
+        <h3>Your first income signal is waiting.</h3>
+        <p>Get your first 3 income signals (free) + a map to execute one this week.</p>
+        <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <input type="email" placeholder="Your email" required>
+            </div>
+            <button type="submit" class="cta-secondary">Send My Signals</button>
+            <p class="form-trust">No spam. Just opportunities.</p>
+        </form>
     </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Make Money AI. Part of the GoBizIT ecosystem.</p>
+        <p style="margin-top: 8px;"><a href="privacy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            const button = event.target.querySelector('button');
+
+            // Visual feedback
+            button.textContent = 'Sending...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.textContent = 'Check your email ✓';
+                button.style.background = 'linear-gradient(135deg, #00FF88, #00D9FF)';
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
