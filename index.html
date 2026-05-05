@@ -388,30 +388,10 @@
       </div>
     </div>
     <div class="hero-visual">
-      <svg class="bot-animation" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- Bot body -->
-        <rect x="60" y="50" width="80" height="100" fill="#1E40AF" rx="8"/>
-        <!-- Head -->
-        <circle cx="100" cy="40" r="20" fill="#00D9FF"/>
-        <!-- Eyes -->
-        <circle cx="92" cy="38" r="3" fill="#051020"/>
-        <circle cx="108" cy="38" r="3" fill="#051020"/>
-        <!-- Body glow -->
-        <g opacity="0.3" stroke="#00D9FF" stroke-width="2" fill="none">
-          <rect x="50" y="40" width="100" height="120" rx="10"/>
-        </g>
-        <!-- Animated pulse -->
-        <circle cx="100" cy="100" r="5" fill="#10B981" opacity="0.8">
-          <animate attributeName="r" values="5;15" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <!-- Arms -->
-        <line x1="60" y1="80" x2="30" y2="70" stroke="#00D9FF" stroke-width="3" stroke-linecap="round"/>
-        <line x1="140" y1="80" x2="170" y2="70" stroke="#00D9FF" stroke-width="3" stroke-linecap="round"/>
-        <!-- Hand circles -->
-        <circle cx="30" cy="70" r="4" fill="#10B981"/>
-        <circle cx="170" cy="70" r="4" fill="#10B981"/>
-      </svg>
+      <video autoplay muted loop playsinline style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
+        <source src="hero-bots.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 </section>
