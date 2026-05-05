@@ -3,22 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2300D9FF'>🤖</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
 
   <!-- Primary meta -->
   <title>Make Money AI — Autonomous Revenue Agents</title>
-  <meta name="description" content="Build AI bots that earn revenue autonomously. Real case studies, proven monetization patterns, and advisory from Danny on creating income-generating agents with Claude." />
+  <meta name="description" content="Build AI bots that earn revenue autonomously. Real case studies, proven monetization patterns, and advisory from Danny on creating income-generating agents." />
   <meta name="author" content="Make Money AI · GoBizIT" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://makemoney.gobizit.ai/" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Make Money AI — Autonomous Revenue Agents" />
-  <meta property="og:description" content="Build AI bots that earn revenue autonomously. Case studies, patterns, and advisory." />
-  <meta property="og:url" content="https://makemoney.gobizit.ai/" />
-  <meta property="og:site_name" content="Make Money AI" />
-  <meta property="og:locale" content="en_US" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,19 +18,17 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ========================================================================
-       Design tokens — Make Money (blue/cyan + green accents, professional B2B)
-       ======================================================================== */
     :root {
-      --navy:      #0B1B3D;       /* Deep blue */
-      --navy-deep: #051020;       /* Hero background */
-      --blue:      #1E40AF;       /* Primary blue */
-      --cyan:      #00D9FF;       /* Accent cyan (bots, energy) */
-      --green:     #10B981;       /* Accent green (success, growth) */
-      --cream:     #faf8f5;       /* Body background */
-      --ink:       #1a1f3a;       /* Body text */
-      --ink-soft:  #4a5070;       /* Secondary text */
-      --line:      #e3e7f0;       /* Borders */
+      --navy:      #0B1B3D;
+      --navy-deep: #051020;
+      --cyan:      #00D9FF;
+      --green:     #10B981;
+      --green-dark:#059669;
+      --green-soft:#d1fae5;
+      --cream:     #faf8f5;
+      --ink:       #1a1f3a;
+      --ink-soft:  #4a5070;
+      --line:      #e3e7f0;
       --white:     #ffffff;
       --max-w:     1140px;
       --radius:    14px;
@@ -70,116 +60,102 @@
     h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); margin-bottom: 0.6em; }
     h3 { font-size: 1.2rem; font-weight: 600; }
     p  { margin: 0 0 1em; }
-    em { font-style: italic; color: var(--cyan); font-weight: 600; }
+    em { font-style: italic; color: var(--green-dark); font-weight: 600; }
     a  { color: var(--green); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
-    /* ========================================================================
-       Header — sticky nav
-       ======================================================================== */
+    /* Header */
     header {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
     }
     .nav {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      padding: 16px 0;
+      padding: 14px 0;
     }
-    .nav-logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--navy);
-      letter-spacing: -0.02em;
+    .logos {
+      grid-column: 2;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
     }
-    .nav-logo em {
-      color: var(--cyan);
+    .lang-toggle { grid-column: 3; justify-self: end; }
+    .logo-img { height: 58px; width: auto; display: block; }
+    .mm-badge {
+      background: var(--navy);
+      padding: 11px 20px;
+      border-radius: 8px;
+      display: inline-flex; align-items: center;
     }
-    .nav-right {
-      display: flex;
-      gap: 24px;
-      align-items: center;
+    .mm-badge .logo-img { height: 48px; }
+    .logo-divider { color: var(--ink-soft); font-weight: 300; font-size: 1.5rem; }
+    .lang-toggle {
+      display: inline-flex;
+      background: var(--green-soft);
+      border-radius: var(--radius-pill);
+      padding: 4px;
     }
-    .nav-link {
-      font-size: 0.95rem;
-      font-weight: 500;
+    .lang-toggle button {
+      border: none; background: transparent;
+      padding: 6px 14px;
+      font-family: inherit; font-size: 0.9rem; font-weight: 600;
       color: var(--ink-soft);
-      transition: color 0.2s;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .nav-link:hover {
+    .lang-toggle button.active {
+      background: var(--white);
       color: var(--navy);
-      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (max-width: 800px) {
+      .nav { padding: 14px 0; }
+      .logo-img { height: 48px; }
+      .mm-badge { padding: 9px 16px; }
+      .mm-badge .logo-img { height: 40px; }
     }
 
-    /* ========================================================================
-       Hero — animated bot visualization background
-       ======================================================================== */
+    /* Hero */
     .hero {
       background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, #1a2d52 100%);
       color: var(--white);
-      padding: 100px 0 90px;
+      padding: 90px 0 80px;
       position: relative;
       overflow: hidden;
-      min-height: 580px;
+      min-height: 520px;
     }
-    .hero::before {
-      content: '';
+    .hero-video {
       position: absolute;
-      top: -20%;
-      right: -15%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(0,217,255,0.12) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      animation: float 8s ease-in-out infinite;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(40px) rotate(5deg); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(135deg, rgba(5,16,32,0.78) 0%, rgba(11,27,61,0.62) 60%, rgba(26,45,82,0.55) 100%),
+        radial-gradient(ellipse at 30% 40%, rgba(5,16,32,0.35) 0%, transparent 60%);
+      pointer-events: none;
     }
     .hero .container {
       position: relative;
       z-index: 2;
       max-width: 880px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
     }
-    .hero-text { max-width: 580px; }
-    .hero-visual {
-      position: relative;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    @media (max-width: 900px) {
-      .hero .container {
-        grid-template-columns: 1fr;
-      }
-      .hero-visual {
-        display: none;
-      }
-    }
-
-    /* Animated bot SVG */
-    .bot-animation {
-      width: 280px;
-      height: 280px;
-      filter: drop-shadow(0 20px 40px rgba(0,217,255,0.2));
-    }
-
+    .hero-text { max-width: 720px; }
     .hero-tag {
       display: inline-block;
       padding: 7px 16px;
-      background: rgba(0,217,255,0.15);
-      border: 1px solid rgba(0,217,255,0.4);
+      background: rgba(0,217,255,0.18);
+      border: 1px solid rgba(0,217,255,0.45);
       border-radius: var(--radius-pill);
       font-size: 0.92rem; font-weight: 600;
       color: #7dd3f0;
@@ -192,7 +168,20 @@
       font-size: 1.15rem;
       color: rgba(255,255,255,0.78);
       max-width: 580px;
-      margin-bottom: 28px;
+    }
+    .hero-sectors {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 28px;
+    }
+    .hero-sector-pill {
+      display: inline-flex; align-items: center;
+      padding: 8px 18px;
+      border: 1px solid rgba(16,185,129,0.6);
+      border-radius: var(--radius-pill);
+      background: rgba(16,185,129,0.08);
+      color: #a7f3d0;
+      font-size: 0.98rem; font-weight: 600;
+      letter-spacing: 0.02em;
     }
     .hero-cta-row {
       display: flex; flex-wrap: wrap; gap: 18px;
@@ -205,302 +194,454 @@
       border-radius: var(--radius-pill);
       font-weight: 600; font-size: 1rem;
       transition: transform 0.2s, box-shadow 0.2s;
+      animation: cta-pulse-ring 2.4s ease-in-out infinite, cta-pulse-breath 2.4s ease-in-out infinite;
     }
     .hero-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(16,185,129,0.4);
+      box-shadow: 0 10px 30px rgba(16,185,129,0.45);
       text-decoration: none;
+      animation-play-state: paused;
     }
     .hero-cta-secondary {
       display: inline-flex; align-items: center; gap: 8px;
-      color: rgba(255,255,255,0.85);
+      color: rgba(255,255,255,0.92);
       font-weight: 500; font-size: 1rem;
       padding: 10px 4px;
-      border-bottom: 1px solid rgba(0,217,255,0.4);
-      transition: all 0.2s;
+      transition: transform 0.2s, color 0.2s;
     }
     .hero-cta-secondary:hover {
       color: var(--cyan);
-      border-color: var(--cyan);
+      transform: translateX(3px);
       text-decoration: none;
     }
 
-    /* ========================================================================
-       Value Snapshot — 3-column grid
-       ======================================================================== */
-    .snapshot {
+    @keyframes cta-pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.55), 0 6px 18px rgba(16,185,129,0.20); }
+      70%  { box-shadow: 0 0 0 14px rgba(16,185,129,0), 0 6px 18px rgba(16,185,129,0.20); }
+      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0), 0 6px 18px rgba(16,185,129,0.20); }
+    }
+    @keyframes cta-pulse-breath {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+
+    /* Market Snapshot */
+    .market-snapshot {
       background: var(--navy-deep);
       color: var(--white);
       padding: 64px 0 72px;
       border-top: 1px solid rgba(255,255,255,0.06);
     }
-    .snapshot .eyebrow {
+    .market-snapshot .eyebrow {
       display: inline-flex; align-items: center; gap: 14px;
       font-size: 0.88rem; font-weight: 700;
       letter-spacing: 0.18em; text-transform: uppercase;
       color: rgba(255,255,255,0.65);
       margin-bottom: 36px;
     }
-    .snapshot .eyebrow::before {
+    .market-snapshot .eyebrow::before {
       content: ""; display: inline-block;
       width: 60px; height: 2px;
       background: var(--cyan);
     }
-    .snapshot-cols {
+    .market-cols {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
     }
-    .snapshot-col h3 {
-      color: var(--white);
-      margin-bottom: 12px;
-      font-size: 1.15rem;
+    .market-col + .market-col {
+      border-left: 1px solid rgba(255,255,255,0.10);
+      padding-left: 48px;
     }
-    .snapshot-col p {
-      font-size: 0.98rem;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.7;
-    }
-    .snapshot-col strong {
+    .market-col:not(:last-child) { padding-right: 48px; }
+    .market-col h3 {
       color: var(--cyan);
-      font-weight: 600;
+      font-size: 1.02rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    .market-col p {
+      color: rgba(255,255,255,0.78);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    @media (max-width: 800px) {
+      .market-cols { grid-template-columns: 1fr; gap: 28px; }
+      .market-col + .market-col { border-left: none; padding-left: 0; }
+      .market-col:not(:last-child) { padding-right: 0; }
     }
 
-    /* ========================================================================
-       Sections — cards + narrative
-       ======================================================================== */
-    section {
-      padding: 80px 0;
+    /* Sections */
+    section.block { padding: 56px 0; }
+    .sub-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--ink); line-height: 1.3;
+      margin: 0 0 18px;
     }
-    section h2 {
-      margin-bottom: 40px;
-    }
-    .section-intro {
-      max-width: 720px;
-      margin-bottom: 48px;
-    }
+    .sub-heading em { color: var(--green-dark); }
+    .lede { font-size: 1.1rem; color: var(--ink-soft); max-width: 760px; margin-bottom: 1.5em; }
 
-    .cards-grid {
+    /* Two-card grid */
+    .two-up {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
-      margin-bottom: 48px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 30px;
     }
     .card {
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 32px;
-      transition: all 0.3s;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .card:hover {
-      border-color: var(--green);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-    .card h3 {
-      margin-bottom: 12px;
-      color: var(--navy);
-    }
-    .card p {
-      font-size: 0.98rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-    }
-    .card-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .card .card-tag {
       display: inline-block;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--green);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 10px;
     }
+    .card h3 { margin-bottom: 10px; }
+    .card-lede { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 6px 0 14px; }
+    .card-lede em { color: var(--green-dark); }
 
-    /* ========================================================================
-       CTA Section
-       ======================================================================== */
-    .cta-section {
-      background: var(--blue);
-      color: var(--white);
-      padding: 64px 0;
+    /* Sectors */
+    .sectors {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .sector {
+      background: var(--white);
+      border-left: 4px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 24px 26px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sector h3 { color: var(--navy); margin-bottom: 6px; }
+    .sector p { margin: 8px 0 0; color: var(--ink-soft); font-size: 0.97rem; }
+
+    /* Checks */
+    ul.checks {
+      list-style: none; padding: 0; margin: 24px 0 0;
+      display: grid; gap: 12px;
+    }
+    ul.checks li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 18px;
+      background: var(--white);
       border-radius: var(--radius);
-      text-align: center;
-      margin: 80px 0;
+      border: 1px solid var(--line);
     }
-    .cta-section h2 {
-      color: var(--white);
-      margin-bottom: 24px;
+    ul.checks li::before {
+      content: "";
+      width: 6px; height: 6px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--green);
+      margin-top: 10px;
+      animation: pulse-dot 5s ease-in-out infinite;
     }
-    .cta-section p {
-      color: rgba(255,255,255,0.85);
-      max-width: 580px;
-      margin: 0 auto 32px;
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.9); }
     }
 
-    /* ========================================================================
-       Footer
-       ======================================================================== */
+    /* CTA Panel */
+    .partnership-panel {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a52 60%, var(--green-dark) 100%);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      margin-top: 30px;
+      box-shadow: var(--shadow-md);
+    }
+    .partnership-panel h2 { color: var(--white); }
+    .partnership-panel h2 em { color: #7dd3f0; }
+    .partnership-panel p { color: rgba(255,255,255,0.85); }
+    .partnership-routes {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      margin-top: 24px;
+    }
+    .route {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .route strong { color: var(--white); display: block; margin-bottom: 6px; }
+    .route p { font-size: 0.95rem; margin: 0; }
+    .partnership-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); color: var(--navy);
+      padding: 14px 26px;
+      border-radius: var(--radius-pill);
+      font-weight: 700; font-size: 1rem;
+      margin-top: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: cta-pulse-ring 2.4s ease-in-out infinite, cta-pulse-breath 2.4s ease-in-out infinite;
+    }
+    .partnership-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      text-decoration: none;
+      animation-play-state: paused;
+    }
+
+    /* Get Started */
+    .get-started {
+      background: var(--navy-deep);
+      color: var(--white);
+      padding: 96px 0 64px;
+      text-align: center;
+    }
+    .get-started .container { max-width: 760px; }
+    .get-eyebrow {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem; font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin: 0 0 28px;
+    }
+    .get-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.7rem; font-weight: 700;
+      line-height: 1.18;
+      color: var(--white);
+      margin: 0 0 26px;
+    }
+    .get-heading em { color: #7dd3f0; }
+    .get-body {
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-size: 1.08rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.78);
+    }
+    .get-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green); color: var(--white);
+      padding: 16px 34px;
+      border-radius: var(--radius-pill);
+      font-weight: 700; font-size: 1.05rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: cta-pulse-ring 2.4s ease-in-out infinite, cta-pulse-breath 2.4s ease-in-out infinite;
+    }
+    .get-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(16,185,129,0.45);
+      text-decoration: none;
+      animation-play-state: paused;
+    }
+
+    /* Footer */
     footer {
       background: var(--navy);
-      color: var(--white);
-      padding: 48px 0;
-      text-align: center;
+      color: rgba(255,255,255,0.72);
+      padding: 44px 0 28px;
       font-size: 0.92rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
     }
-    footer a {
-      color: var(--cyan);
+    footer .container { display: grid; gap: 22px; }
+    footer a { color: #7dd3f0; }
+    footer .small {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 18px;
+      margin-top: 6px;
+      text-align: center;
     }
 
-    /* ========================================================================
-       Responsive
-       ======================================================================== */
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.5rem; }
+    section.block.alt { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    section.block.tinted { background: var(--green-soft); }
+
+    @media (max-width: 800px) {
       .hero { padding: 60px 0 80px; }
-      section { padding: 60px 0; }
-      .hero-visual { display: none; }
+      .two-up, .sectors, .partnership-routes { grid-template-columns: 1fr; }
+      .nav { flex-wrap: wrap; gap: 12px; }
+      section.block { padding: 50px 0; }
+      .get-started { padding: 64px 0 70px; }
+      .get-heading { font-size: 1.9rem; }
+      .partnership-panel { padding: 28px 22px; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="container">
-    <div class="nav">
-      <div class="nav-logo">Make <em>Money</em> AI</div>
-      <div class="nav-right">
-        <a href="#research" class="nav-link">Research</a>
-        <a href="#patterns" class="nav-link">Patterns</a>
-        <a href="#advisory" class="nav-link">Advisory</a>
-      </div>
+  <div class="container nav">
+    <div class="logos">
+      <div style="font-size: 2.2rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em;">Make <span style="color: var(--cyan);">Money</span></div>
+      <span style="color: var(--ink-soft); font-size: 1.5rem;">·</span>
+      <span class="mm-badge"><span style="color: var(--white); font-weight: 600; font-size: 0.9rem;">AI</span></span>
+    </div>
+    <div class="lang-toggle" role="tablist" aria-label="Language">
+      <button data-lang="en" class="active" aria-pressed="true">EN</button>
+      <button data-lang="es" aria-pressed="false">ES</button>
+      <button data-lang="fr" aria-pressed="false">FR</button>
     </div>
   </div>
 </header>
 
 <section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/poster.jpg" aria-hidden="true">
+    <source src="hero-bots.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
   <div class="container">
     <div class="hero-text">
-      <div class="hero-tag">Autonomous Revenue</div>
-      <h1>AI Bots That <em>Earn Money</em> Autonomously</h1>
-      <p class="hero-sub">Real case studies. Proven monetization patterns. Advisory from Danny on building income-generating agents that work while you sleep.</p>
+      <span class="hero-tag" data-i18n="hero.tag">AI · Autonomous · Revenue</span>
+      <h1 data-i18n="hero.title">Bots That <em data-i18n="hero.titleEm">Earn Money</em> Autonomously</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Real case studies. Proven monetization patterns. Build income-generating AI agents that work 24/7 without human intervention.</p>
+      <div class="hero-sectors">
+        <span class="hero-sector-pill" data-i18n="hero.sector1">B2B Coding Agents</span>
+        <span class="hero-sector-pill" data-i18n="hero.sector2">Vertical SaaS</span>
+        <span class="hero-sector-pill" data-i18n="hero.sector3">Marketplaces</span>
+        <span class="hero-sector-pill" data-i18n="hero.sector4">AI Services</span>
+      </div>
       <div class="hero-cta-row">
-        <a href="#research" class="hero-cta">See Case Studies</a>
-        <a href="#advisory" class="hero-cta-secondary">Get Advisory →</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <video autoplay muted loop playsinline style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
-        <source src="hero-bots.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </div>
-</section>
-
-<section class="snapshot">
-  <div class="container">
-    <div class="eyebrow">How It Works</div>
-    <div class="snapshot-cols">
-      <div class="snapshot-col">
-        <h3>Autonomous Revenue</h3>
-        <p>AI bots powered by Claude operate independently, executing tasks and generating income <strong>24/7</strong> without manual intervention. From API calls to customer transactions.</p>
-      </div>
-      <div class="snapshot-col">
-        <h3>Proven Patterns</h3>
-        <p>B2B coding agents, vertical SaaS, marketplace plays, and persona-driven models. We've researched <strong>19+ real cases</strong> making actual money right now.</p>
-      </div>
-      <div class="snapshot-col">
-        <h3>Consulting & Advisory</h3>
-        <p>Danny helps founders and entrepreneurs build their income agents. From architecture to launch, we guide you through the monetization playbook.</p>
+        <a href="#research" class="hero-cta" data-i18n="hero.cta">View Research →</a>
+        <a href="#advisory" class="hero-cta-secondary" data-i18n="hero.cta2">Get Advisory →</a>
       </div>
     </div>
   </div>
 </section>
 
-<section id="research">
+<section class="market-snapshot">
   <div class="container">
-    <h2>Real Income Signals</h2>
-    <p class="section-intro">These aren't hypotheticals. These are verified cases of AI agents and Claude-powered tools generating real revenue in 2026.</p>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon">🔬</div>
-        <h3>B2B Coding Agents</h3>
-        <p><strong>Cursor, Replit, Cognition:</strong> $100M–$155M ARR each. The dominant pattern — agents that write software for paying engineers.</p>
+    <div class="eyebrow" data-i18n="snap.eyebrow">The Opportunity</div>
+    <div class="market-cols">
+      <div class="market-col">
+        <h3 data-i18n="snap.problem.title">The Challenge</h3>
+        <p data-i18n="snap.problem.body">Most AI ideas stay ideas. Getting from concept to revenue-generating bot requires architecture, smart implementation, and knowledge of what actually works in production.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">🎯</div>
-        <h3>Vertical SaaS</h3>
-        <p><strong>OffDeal (M&A), Tasklet, Artemis (SecOps):</strong> Vertical-specific agents using Claude Agent SDK hitting real revenue in 6–12 months.</p>
+      <div class="market-col">
+        <h3 data-i18n="snap.market.title">The Market</h3>
+        <p data-i18n="snap.market.body">AI agent revenue is exploding. Cursor ($155M ARR), Replit ($150M ARR), OffDeal, Tasklet — all deployed Claude-powered agents solving vertical problems at premium SaaS pricing.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">💡</div>
-        <h3>Indie Revenue (Real)</h3>
-        <p><strong>Pieter Levels, TextToQuote, others:</strong> $500–$62K MRR. Proof that one person can bootstrap a Claude-powered SaaS to revenue in days.</p>
+      <div class="market-col">
+        <h3 data-i18n="snap.what.title">What We Do</h3>
+        <p data-i18n="snap.what.body">Design, build, and launch autonomous revenue agents. From architecture to production to monetization strategy — we handle it end-to-end.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="patterns" style="background: var(--green-soft, #e8f0e8);">
+<section class="block">
   <div class="container">
-    <h2>Monetization Patterns That Work</h2>
-    <p class="section-intro">Not all AI ideas are equal. Here's what actually generates sustainable revenue:</p>
-    <div class="cards-grid">
+    <h2 data-i18n="research.title">Real Income <em>Signals</em></h2>
+    <p class="lede" data-i18n="research.lede">These aren't hypotheticals. These are verified cases of AI agents making real money right now.</p>
+    <div class="two-up">
       <div class="card">
-        <h3>1. Agent Automates Work</h3>
-        <p>The bot replaces human time on a repeatable task — customer service, data entry, content, code generation. Charge per task or per subscription.</p>
+        <span class="card-tag" data-i18n="research.tag1">Proven Revenue</span>
+        <h3 data-i18n="research.title1">B2B Coding Agents</h3>
+        <p class="card-lede" data-i18n="research.lede1"><em>$100M–$155M ARR each.</em></p>
+        <p data-i18n="research.body1">Cursor, Replit, Cognition. The dominant pattern: agents that write code for paying engineers. Sticky, defensible, high-margin business.</p>
+        <ul class="checks">
+          <li data-i18n="research.f1">Monthly subscription ($20–$150/mo)</li>
+          <li data-i18n="research.f2">Per-task metering ($0.001–$0.05 per completion)</li>
+          <li data-i18n="research.f3">Enterprise pricing ($5K–$50K/mo)</li>
+        </ul>
       </div>
       <div class="card">
-        <h3>2. Agent Builds Marketplaces</h3>
-        <p>Create a platform where agents and humans transact. You take 10–20% of every deal. Examples: freelance matching, content licensing.</p>
-      </div>
-      <div class="card">
-        <h3>3. Agent Solves Vertical Problems</h3>
-        <p>Build deep expertise in one industry (legal, healthcare, real estate). Charge premium SaaS prices because ROI is crystal clear.</p>
-      </div>
-      <div class="card">
-        <h3>4. Agent Powers Your Service</h3>
-        <p>Use the agent internally to deliver better outcomes to your consulting clients. Bill them for the intelligence, not the agent.</p>
+        <span class="card-tag" data-i18n="research.tag2">Proven Revenue</span>
+        <h3 data-i18n="research.title2">Vertical SaaS Agents</h3>
+        <p class="card-lede" data-i18n="research.lede2"><em>$5M–$50M ARR emerging.</em></p>
+        <p data-i18n="research.body2">OffDeal (M&A automation), Tasklet (business ops), Artemis (SecOps). Go deep in one industry. Premium pricing because ROI is obvious.</p>
+        <ul class="checks">
+          <li data-i18n="research.f4">Vertical-specific agent + Agent SDK</li>
+          <li data-i18n="research.f5">3-6 month sales cycle (enterprise buyers)</li>
+          <li data-i18n="research.f6">$1K–$10K MRR per customer</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="advisory">
+<section class="block tinted">
   <div class="container">
-    <h2>Advisory & Build Services</h2>
-    <p class="section-intro">Danny works directly with founders and businesses to design and launch income-generating AI agents.</p>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon">📋</div>
-        <h3>Agent Architecture</h3>
-        <p>Design the agent's scope, decision logic, and integration points. We map customer workflows and identify the highest-leverage automation.</p>
+    <h2 data-i18n="patterns.title">Monetization Patterns That <em>Work</em></h2>
+    <p class="lede" data-i18n="patterns.lede">Not all AI ideas are created equal. These patterns have proof of revenue.</p>
+    <div class="sectors">
+      <div class="sector">
+        <h3 data-i18n="pattern1.title">Automate Repeatable Work</h3>
+        <p data-i18n="pattern1.body">Bot replaces human time on a specific task. Charge per execution or per subscription.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">🛠️</div>
-        <h3>Build & Launch</h3>
-        <p>End-to-end development using Claude Agent SDK, FastAPI, and modern stacks. From prototype to production revenue in weeks.</p>
+      <div class="sector">
+        <h3 data-i18n="pattern2.title">Build Marketplaces</h3>
+        <p data-i18n="pattern2.body">Platform where agents and humans transact. You take 10–20% of every deal.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">💰</div>
-        <h3>Monetization Strategy</h3>
-        <p>Help you choose the right pricing model, packaging, and go-to-market approach based on proven patterns in your vertical.</p>
+      <div class="sector">
+        <h3 data-i18n="pattern3.title">Solve Vertical Problems</h3>
+        <p data-i18n="pattern3.body">Deep expertise in one industry (legal, healthcare, real estate). Premium SaaS pricing.</p>
+      </div>
+      <div class="sector">
+        <h3 data-i18n="pattern4.title">Power Your Service</h3>
+        <p data-i18n="pattern4.body">Use agent internally to deliver better outcomes. Bill clients for the intelligence.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section">
+<section class="block" id="advisory">
   <div class="container">
-    <h2>Ready to Build Your Revenue Agent?</h2>
-    <p>Join founders and entrepreneurs who are building autonomous income with AI. Get research insights, patterns, and advisory from Danny.</p>
-    <a href="mailto:danny@gobizit.ai?subject=Make%20Money%20AI%20Advisory" class="hero-cta" style="margin: 0 auto;">Start Conversation</a>
+    <h2 data-i18n="advisory.title">Design &amp; Advisory <em>Services</em></h2>
+    <p class="lede" data-i18n="advisory.lede">Danny works directly with founders to architect and launch revenue-generating agents.</p>
+    <div class="two-up">
+      <div class="card">
+        <span class="card-tag" data-i18n="advisory.tag1">Architecture</span>
+        <h3 data-i18n="advisory.title1">Agent Design</h3>
+        <p class="card-lede" data-i18n="advisory.lede1">Scope, decision logic, <em>integration points.</em></p>
+        <p data-i18n="advisory.body1">We map your customer workflows, identify the highest-leverage automations, and design an agent architecture that scales.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag" data-i18n="advisory.tag2">Build</span>
+        <h3 data-i18n="advisory.title2">Build &amp; Launch</h3>
+        <p class="card-lede" data-i18n="advisory.lede2">From prototype to <em>production revenue</em> in weeks.</p>
+        <p data-i18n="advisory.body2">End-to-end development using Claude Agent SDK, FastAPI, and modern stacks. Testing, deployment, and launch support included.</p>
+      </div>
+    </div>
+    <div class="partnership-panel">
+      <h2 data-i18n="cta.title">Ready to Build Your <em>Autonomous Agent?</em></h2>
+      <p data-i18n="cta.sub">Get research, patterns, and advisory. Build something that makes money while you sleep.</p>
+      <div class="partnership-routes">
+        <div class="route">
+          <strong data-i18n="route1.title">Quick Start</strong>
+          <p data-i18n="route1.body">30-min research call. Clarify your idea, identify patterns, plan architecture.</p>
+        </div>
+        <div class="route">
+          <strong data-i18n="route2.title">Full Build</strong>
+          <p data-i18n="route2.body">Design, build, launch. We handle it. Revenue agent in production within 8 weeks.</p>
+        </div>
+      </div>
+      <a href="mailto:danny@gobizit.ai?subject=Make%20Money%20AI%20Advisory" class="partnership-cta" data-i18n="cta.button">Start Conversation →</a>
+      <p class="partner-meta" data-i18n="cta.meta">Available for ongoing advisory. No upfront cost for initial consultation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="get-started">
+  <div class="container">
+    <div class="get-eyebrow" data-i18n="final.eyebrow">Next Step</div>
+    <h2 class="get-heading" data-i18n="final.title">Ready to Build <em>Autonomous Revenue?</em></h2>
+    <p class="get-body" data-i18n="final.body">Get the research. Understand the patterns. Build your bot with our advisory and end-to-end support.</p>
+    <a href="mailto:danny@gobizit.ai?subject=Make%20Money%20AI" class="get-cta" data-i18n="final.cta">Schedule Consultation →</a>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    <p>Make Money AI · Research & Advisory · <a href="mailto:danny@gobizit.ai">danny@gobizit.ai</a></p>
-    <p style="margin-top: 16px; opacity: 0.7;">© 2026 GoBizIT. All rights reserved.</p>
+    <p><strong>Make Money AI</strong> · Research · Advisory · Build</p>
+    <p><a href="mailto:danny@gobizit.ai">danny@gobizit.ai</a> · <a href="https://gobizit.ai">GoBizIT</a></p>
+    <p class="small">© 2026 Make Money AI. All rights reserved.</p>
   </div>
 </footer>
 
