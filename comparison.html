@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Animation Comparison - Canvas 2D vs Three.js 3D</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a1a2e;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #051020 0%, #0B1B3D 60%, #1a2d52 100%);
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      color: #00D9FF;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .version-card {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 14px;
+      padding: 30px;
+      transition: all 0.3s;
+    }
+
+    .version-card:hover {
+      border-color: rgba(0, 217, 255, 0.5);
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    }
+
+    .version-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .version-title.canvas { color: #10B981; }
+    .version-title.three { color: #00D9FF; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge.lightweight { background: rgba(16, 185, 129, 0.3); color: #10B981; }
+    .badge.premium { background: rgba(0, 217, 255, 0.3); color: #00D9FF; }
+
+    .version-desc {
+      color: rgba(255, 255, 255, 0.8);
+      margin: 15px 0 25px;
+      font-size: 1rem;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .specs-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .specs-table td {
+      padding: 12px 0;
+      font-size: 0.95rem;
+    }
+
+    .specs-table td:first-child {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+    }
+
+    .specs-table td:last-child {
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+      border: 2px solid;
+      cursor: pointer;
+    }
+
+    .cta-canvas {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10B981;
+      color: #10B981;
+    }
+
+    .cta-canvas:hover {
+      background: #10B981;
+      color: #0a1a2e;
+    }
+
+    .cta-three {
+      background: rgba(0, 217, 255, 0.2);
+      border-color: #00D9FF;
+      color: #00D9FF;
+    }
+
+    .cta-three:hover {
+      background: #00D9FF;
+      color: #0a1a2e;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 60px 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .comparison-table th {
+      background: rgba(0, 217, 255, 0.15);
+      padding: 16px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+    }
+
+    .comparison-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .check { color: #10B981; font-weight: bold; }
+    .x { color: #ff6b6b; }
+    .medium { color: #FFD93D; }
+
+    footer {
+      border-top: 1px solid rgba(0, 217, 255, 0.2);
+      padding: 30px 20px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 60px;
+    }
+
+    @media (max-width: 900px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎬 Hero Animation Comparison</h1>
+    <p class="subtitle">Canvas 2D vs Three.js 3D — Which is right for your site?</p>
+  </header>
+
+  <div class="container">
+    <!-- Quick Comparison Cards -->
+    <div class="comparison-grid">
+      <div class="version-card">
+        <h2 class="version-title canvas">
+          ✨ Canvas 2D
+          <span class="badge lightweight">Lightweight</span>
+        </h2>
+        <p class="version-desc">Fast, efficient, smooth animations. Perfect for most projects.</p>
+
+        <table class="specs-table">
+          <tr>
+            <td>File Size</td>
+            <td>~40 KB</td>
+          </tr>
+          <tr>
+            <td>Load Time</td>
+            <td>~50ms</td>
+          </tr>
+          <tr>
+            <td>FPS</td>
+            <td>30fps (smooth)</td>
+          </tr>
+          <tr>
+            <td>CPU Usage</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td>Mobile</td>
+            <td>Excellent</td>
+          </tr>
+          <tr>
+            <td>Browser Support</td>
+            <td>All modern</td>
+          </tr>
+        </table>
+
+        <a href="test-canvas.html" class="cta-button cta-canvas">Test Canvas 2D →</a>
+      </div>
+
+      <div class="version-card">
+        <h2 class="version-title three">
+          🌀 Three.js 3D
+          <span class="badge premium">Premium</span>
+        </h2>
+        <p class="version-desc">Full 3D, interactive parallax effects. Stunning visual impact.</p>
+
+        <table class="specs-table">
+          <tr>
+            <td>File Size</td>
+            <td>~150 KB</td>
+          </tr>
+          <tr>
+            <td>Load Time</td>
+            <td>~200ms (includes lib)</td>
+          </tr>
+          <tr>
+            <td>FPS</td>
+            <td>30fps (smooth)</td>
+          </tr>
+          <tr>
+            <td>CPU Usage</td>
+            <td>Moderate</td>
+          </tr>
+          <tr>
+            <td>Mobile</td>
+            <td>Good</td>
+          </tr>
+          <tr>
+            <td>Browser Support</td>
+            <td>Modern + WebGL</td>
+          </tr>
+        </table>
+
+        <a href="test-three.html" class="cta-button cta-three">Test Three.js 3D →</a>
+      </div>
+    </div>
+
+    <!-- Detailed Comparison Table -->
+    <h2 style="text-align: center; color: #00D9FF; margin: 60px 0 30px; font-size: 1.6rem;">
+      Detailed Feature Comparison
+    </h2>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Canvas 2D</th>
+          <th>Three.js 3D</th>
+          <th>Winner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Performance</strong></td>
+          <td><span class="check">✓ Excellent</span></td>
+          <td><span class="medium">⊙ Good</span></td>
+          <td>Canvas 2D</td>
+        </tr>
+        <tr>
+          <td><strong>Visual Complexity</strong></td>
+          <td><span class="medium">⊙ Good</span></td>
+          <td><span class="check">✓ Excellent</span></td>
+          <td>Three.js 3D</td>
+        </tr>
+        <tr>
+          <td><strong>File Size</strong></td>
+          <td><span class="check">✓ Small (40KB)</span></td>
+          <td><span class="medium">⊙ Large (150KB)</span></td>
+          <td>Canvas 2D</td>
+        </tr>
+        <tr>
+          <td><strong>Mobile Performance</strong></td>
+          <td><span class="check">✓ Excellent</span></td>
+          <td><span class="medium">⊙ Good</span></td>
+          <td>Canvas 2D</td>
+        </tr>
+        <tr>
+          <td><strong>3D Effects</strong></td>
+          <td><span class="x">✗ None</span></td>
+          <td><span class="check">✓ Full 3D</span></td>
+          <td>Three.js 3D</td>
+        </tr>
+        <tr>
+          <td><strong>Parallax/Scroll</strong></td>
+          <td><span class="check">✓ Responsive</span></td>
+          <td><span class="check">✓ Dramatic</span></td>
+          <td>Three.js 3D</td>
+        </tr>
+        <tr>
+          <td><strong>Mouse Tracking</strong></td>
+          <td><span class="check">✓ Yes</span></td>
+          <td><span class="check">✓ Yes</span></td>
+          <td>Tie</td>
+        </tr>
+        <tr>
+          <td><strong>Customization</strong></td>
+          <td><span class="check">✓ Easy</span></td>
+          <td><span class="medium">⊙ Moderate</span></td>
+          <td>Canvas 2D</td>
+        </tr>
+        <tr>
+          <td><strong>Browser Compatibility</strong></td>
+          <td><span class="check">✓ Universal</span></td>
+          <td><span class="medium">⊙ WebGL required</span></td>
+          <td>Canvas 2D</td>
+        </tr>
+        <tr>
+          <td><strong>Wow Factor</strong></td>
+          <td><span class="medium">⊙ Professional</span></td>
+          <td><span class="check">✓ Premium</span></td>
+          <td>Three.js 3D</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Recommendations -->
+    <div style="background: rgba(0, 217, 255, 0.1); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 8px; padding: 30px; margin: 60px 0;">
+      <h3 style="color: #00D9FF; margin-top: 0;">Recommendations</h3>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+        <div>
+          <h4 style="color: #10B981;">Choose Canvas 2D if:</h4>
+          <ul style="color: rgba(255, 255, 255, 0.8);">
+            <li>Mobile performance is critical</li>
+            <li>You need maximum browser compatibility</li>
+            <li>Site speed is a priority</li>
+            <li>You want easy customization</li>
+            <li>Lower CPU usage matters</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #00D9FF;">Choose Three.js 3D if:</h4>
+          <ul style="color: rgba(255, 255, 255, 0.8);">
+            <li>You want stunning visual impact</li>
+            <li>Interactive parallax matters</li>
+            <li>Your audience uses modern browsers</li>
+            <li>Premium brand positioning</li>
+            <li>"Wow factor" is important</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Both versions include: 30fps smooth animation • Mouse tracking • Scroll tracking • Cyan/Green/White color scheme • Interactive responsiveness</p>
+    <p style="margin-top: 20px; font-size: 0.9rem;">Created for makemoney.gobizit.ai — Compare, test, and choose the best for your site.</p>
+  </footer>
+</body>
+</html>
