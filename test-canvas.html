@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Canvas 2D Hero Animation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #hero-animation-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div id="hero-animation-container"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-text">
+        <span class="hero-tag" data-i18n="hero.tag">AI · Autonomous · Revenue</span>
+        <h1 data-i18n="hero.title">Bots That <em data-i18n="hero.titleEm">Earn Money</em></h1>
+        <p class="hero-sub" data-i18n="hero.sub">Real case studies. Proven monetization patterns. Build income-generating AI agents that work 24/7 without human intervention.</p>
+        <div class="hero-sectors">
+          <span class="hero-sector-pill" data-i18n="hero.sector1">B2B Coding Agents</span>
+          <span class="hero-sector-pill" data-i18n="hero.sector2">Vertical SaaS</span>
+          <span class="hero-sector-pill" data-i18n="hero.sector3">Marketplaces</span>
+          <span class="hero-sector-pill" data-i18n="hero.sector4">AI Services</span>
+        </div>
+        <div class="hero-cta-row">
+          <a href="#research" class="hero-cta" data-i18n="hero.cta">View Research →</a>
+          <a href="#advisory" class="hero-cta-secondary" data-i18n="hero.cta2">Get Advisory →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding: 40px; background: #f5f5f5; text-align: center; border-top: 2px solid #ddd;">
+    <h2>Canvas 2D Version (Lightweight)</h2>
+    <p>This is the Canvas 2D interactive animation. Mouse movement and scroll tracking enabled.</p>
+    <a href="test-three.html" style="display: inline-block; padding: 12px 24px; background: #00D9FF; color: #0a1a2e; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 16px;">Switch to Three.js 3D Version →</a>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="hero-animation-canvas.js"></script>
+</body>
+</html>
