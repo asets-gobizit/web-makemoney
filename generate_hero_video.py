@@ -12,9 +12,9 @@ def create_frame(frame_num, total_frames, fps=30):
     t = frame_num / fps
 
     try:
-        big_font = ImageFont.truetype("C:\\Windows\\Fonts\\consola.ttf", 100)
-        medium_font = ImageFont.truetype("C:\\Windows\\Fonts\\consola.ttf", 48)
-        small_font = ImageFont.truetype("C:\\Windows\\Fonts\\consola.ttf", 32)
+        big_font = ImageFont.truetype("C:\\Windows\\Fonts\\consola.ttf", 180)
+        medium_font = ImageFont.truetype("C:\\Windows\\Fonts\\consola.ttf", 80)
+        small_font = ImageFont.truetype("C:\\Windows\\Fonts\\consola.ttf", 56)
     except:
         big_font = ImageFont.load_default()
         medium_font = ImageFont.load_default()
@@ -72,9 +72,13 @@ def create_frame(frame_num, total_frames, fps=30):
                     fill=(16, 185, 129, 255)
                 )
 
-    # AI label
-    draw.text((ai_start_x - 50, 80), "AI MODEL",
-             font=small_font, fill=(0, 217, 255, 180))
+    # AI label (with glow)
+    ai_label_x, ai_label_y = ai_start_x + 50, 100
+    for offset in range(1, 5):
+        draw.text((ai_label_x + offset, ai_label_y + offset), "AI MODEL",
+                 font=small_font, fill=(0, 217, 255, 80))
+    draw.text((ai_label_x, ai_label_y), "AI MODEL",
+             font=small_font, fill=(0, 217, 255, 255))
 
     # === RIGHT SIDE: REVENUE CHARTS ===
     chart_x = width // 2 + 200
@@ -187,19 +191,33 @@ def create_frame(frame_num, total_frames, fps=30):
             fill=(16, 185, 129, 255)
         )
 
-    # === LARGE REVENUE TEXT (TOP RIGHT) ===
-    if t > 2:
-        revenue_alpha = min(255, int(255 * (t - 2) / 2))
-        revenue = min(9999999, int(9999999 * (t - 2) / 10))
+    # === LARGE REVENUE TEXT (CENTER, TOP) ===
+    if t > 1.5:
+        revenue_alpha = min(255, int(255 * (t - 1.5) / 1.5))
+        revenue = min(9999999, int(9999999 * (t - 1.5) / 10))
 
         revenue_text = f"${revenue:,}"
-        draw.text((width - 600, 120), revenue_text,
+        rev_x, rev_y = width // 2 - 400, 80
+
+        # Glow shadow
+        for offset in range(1, 8):
+            draw.text((rev_x + offset, rev_y + offset), revenue_text,
+                     font=big_font, fill=(16, 185, 129, revenue_alpha // 5))
+        # Main text
+        draw.text((rev_x, rev_y), revenue_text,
                  font=big_font, fill=(16, 185, 129, revenue_alpha))
 
-    # === TITLE TEXT ===
+    # === TITLE TEXT (VERY LARGE) ===
     if t > 0.3:
         title_alpha = min(255, int(255 * (t - 0.3) / 1))
-        draw.text((width // 2 - 400, 30), "AI REVENUE ENGINE",
+        title_x, title_y = width // 2 - 600, height - 180
+
+        # Shadow/glow
+        for offset in range(1, 6):
+            draw.text((title_x + offset, title_y + offset), "AI REVENUE ENGINE",
+                     font=medium_font, fill=(0, 217, 255, title_alpha // 4))
+        # Main
+        draw.text((title_x, title_y), "AI REVENUE ENGINE",
                  font=medium_font, fill=(0, 217, 255, title_alpha))
 
     return img
