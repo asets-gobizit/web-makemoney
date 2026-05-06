@@ -129,11 +129,7 @@
 
     /* Hero */
     .hero {
-      background-image: linear-gradient(135deg, rgba(5,16,32,0.50) 0%, rgba(11,27,61,0.45) 60%, rgba(26,45,82,0.35) 100%), url('hero-background.jpg');
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      background: linear-gradient(135deg, rgba(5,16,32,0.50) 0%, rgba(11,27,61,0.45) 60%, rgba(26,45,82,0.35) 100%);
       color: var(--white);
       padding: 90px 0 80px;
       position: relative;
@@ -141,7 +137,12 @@
       min-height: 520px;
     }
     .hero-video {
-      display: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
     }
     .hero-overlay {
       display: none;
