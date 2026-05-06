@@ -129,8 +129,11 @@
 
     /* Hero */
     .hero {
-      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, #1a2d52 100%),
-                  url('hero-background.jpg') center/cover no-repeat;
+      background-image: linear-gradient(135deg, rgba(5,16,32,0.25) 0%, rgba(11,27,61,0.20) 60%, rgba(26,45,82,0.15) 100%), url('hero-background.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: var(--white);
       padding: 90px 0 80px;
       position: relative;
@@ -141,13 +144,7 @@
       display: none;
     }
     .hero-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background:
-        linear-gradient(135deg, rgba(5,16,32,0.25) 0%, rgba(11,27,61,0.20) 60%, rgba(26,45,82,0.15) 100%),
-        radial-gradient(ellipse at 30% 40%, rgba(5,16,32,0.08) 0%, transparent 60%);
-      pointer-events: none;
+      display: none;
     }
     .hero .container {
       position: relative;
