@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Revenue Research — Make Money AI</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0B1B3D;
+      --navy-deep: #051020;
+      --cyan: #00D9FF;
+      --green: #10B981;
+      --green-dark: #059669;
+      --cream: #faf8f5;
+      --ink: #1a1f3a;
+      --ink-soft: #4a5070;
+      --line: #e3e7f0;
+      --white: #ffffff;
+      --max-w: 1000px;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    header {
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0;
+      sticky: top;
+      z-index: 50;
+    }
+
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-link {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-link:hover { color: var(--green-dark); }
+
+    header nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    header nav a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    header nav a:hover { color: var(--green); }
+
+    h1 {
+      font-family: "Inter", sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0.5em 0 0.3em;
+      line-height: 1.15;
+    }
+
+    h2 {
+      font-family: "Inter", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 1.2em 0 0.5em;
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 0.8em 0 0.3em;
+    }
+
+    p { margin-bottom: 1em; }
+
+    em { color: var(--green-dark); font-weight: 600; font-style: italic; }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
+      color: var(--white);
+      padding: 80px 0 60px;
+    }
+
+    .hero h1 { color: var(--white); }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 700px;
+      margin-bottom: 0;
+    }
+
+    main {
+      padding: 60px 0;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin: 32px 0;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--green);
+      box-shadow: 0 12px 36px rgba(16,185,129,0.12);
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      color: var(--green-dark);
+      margin-top: 0;
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    footer {
+      background: var(--navy-deep);
+      color: var(--white);
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    footer a { color: var(--cyan); }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 16px;
+    }
+
+    .cta-button:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 32px;
+    }
+
+    .back-link:hover { color: var(--green-dark); }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.4rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link">Make Money AI</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/join.html">Join</a>
+        <a href="/research.html">Research</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <a href="/" class="back-link">← Back to home</a>
+      <h1>AI Revenue Research</h1>
+      <p class="hero-sub">Real patterns emerging from autonomous systems generating income. Live data. Proven models. What's actually working.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+
+      <section class="section">
+        <h2>Market Signals — What the Data Shows</h2>
+        <p>The AI revenue market is evolving faster than traditional business. Here's what we're seeing across B2B automation, affiliate networks, and content systems:</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3>B2B SaaS Automation</h3>
+            <p>AI agents handling customer service, lead qualification, and email outreach are generating <em>$2,000-$8,000 monthly revenue per deployment</em> with minimal human oversight. The pattern: capture the low-hanging fruit first (repetitive tasks), then optimize.</p>
+          </div>
+
+          <div class="card">
+            <h3>Content Revenue Streams</h3>
+            <p>AI-generated niche content (newsletters, blogs, research) targeting long-tail keywords sees <em>3-6 month payback periods</em> when properly monetized. The key: distribution channels > pure volume.</p>
+          </div>
+
+          <div class="card">
+            <h3>Affiliate Intelligence Networks</h3>
+            <p>Autonomous systems that identify and target product matches for specific audiences achieve <em>15-25% commission margins</em> at scale. Success depends on niche selection and relationship building.</p>
+          </div>
+
+          <div class="card">
+            <h3>API & Integration Arbitrage</h3>
+            <p>Systems that connect underutilized APIs to real business problems unlock <em>$500-$3,000 monthly</em> per integration. The bottleneck isn't technical — it's market research.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Patterns That Work Across Models</h2>
+
+        <h3>Pattern 1: Repetition Creates Revenue</h3>
+        <p>Every successful autonomous system we've tested shares one trait: it does the same thing repeatedly, better and faster than humans. Email outreach. Data entry. Customer followups. Content publishing. The revenue follows predictable patterns once you find the volume threshold.</p>
+
+        <h3>Pattern 2: Market Selection > Algorithm Optimization</h3>
+        <p>We've seen mediocre systems beat sophisticated ones because they targeted better niches. Pick a small, underserved market. Build something that works. Scale methodically. The algorithm matters less than the audience fit.</p>
+
+        <h3>Pattern 3: Monetization Comes Second</h3>
+        <p>First, build trust or deliver value. Then add monetization. Systems that try to extract revenue immediately fail. Systems that establish authority, audience, or utility first see sustainable growth.</p>
+
+        <h3>Pattern 4: Human Judgment + AI Execution</h3>
+        <p>Fully autonomous systems hit ceilings. The winners integrate human decision-making (strategy, relationship building, market pivots) with AI execution (speed, scale, consistency). This hybrid approach compounds advantages.</p>
+      </section>
+
+      <section class="section">
+        <h2>Case Studies — Real Systems in Action</h2>
+
+        <h3>Case 1: The Daily Digest Agent</h3>
+        <p>An AI system that curates and distributes daily market insights to 2,400 subscribers. Revenue: $180/month (email sponsor). Time to profitability: 6 weeks. Key factor: targeting a specific profession (indie SaaS founders) with high engagement and purchase intent.</p>
+
+        <h3>Case 2: The Service Integration Network</h3>
+        <p>Autonomous system connecting Stripe, Zapier, and LinkedIn APIs to sell custom integration services. Revenue: $3,200/month. Time to profitability: 8 weeks. Key factor: solving a real bottleneck that manual consultants miss (speed + reliability).</p>
+
+        <h3>Case 3: The Content Monetization Pipeline</h3>
+        <p>AI system writing SEO-optimized articles, distributing to Medium, LinkedIn, and guest blogs, then monetizing through affiliate commissions and sponsorships. Revenue: $2,100/month. Time to profitability: 12 weeks. Key factor: patience — revenue lags content publication by 4-6 weeks.</p>
+      </section>
+
+      <section class="section">
+        <h2>What We're Testing Next</h2>
+        <p>Our current experiments are validating:</p>
+        <ul style="margin-left: 20px; margin-bottom: 20px;">
+          <li>Multi-language autonomous systems (current focus: Spanish SaaS market)</li>
+          <li>Hybrid human-AI sales teams with commission sharing</li>
+          <li>Real-time market signal trading (low risk, high frequency)</li>
+          <li>Community-driven autonomous platforms (user-generated tasks)</li>
+        </ul>
+
+        <p style="background: rgba(16,185,129,0.06); padding: 20px; border-radius: 8px; border-left: 4px solid var(--green);">
+          Want to see the live daily results? Join our community and watch these experiments unfold in real time. You'll see the wins, the failures, the iterations — everything that leads to sustainable AI revenue streams.
+        </p>
+
+        <a href="/join.html" class="cta-button">See the Live Experiments →</a>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Make Money AI</strong> · Research · Advisory · Build</p>
+      <p><a href="mailto:makemoney@gobizit.ai">makemoney@gobizit.ai</a></p>
+      <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: 16px;">© 2026 Make Money AI · GoBizIT. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

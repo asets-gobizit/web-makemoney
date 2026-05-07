@@ -74,9 +74,25 @@
     }
     .nav {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
       padding: 14px 0;
+      gap: 24px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--green);
+      text-decoration: none;
     }
     .logos {
       grid-column: 2;
@@ -490,6 +506,11 @@
 
 <header>
   <div class="container nav">
+    <div class="nav-links">
+      <a href="/research.html">Research</a>
+      <a href="/about.html">About</a>
+      <a href="/join.html" style="color: var(--green); font-weight: 700;">Join →</a>
+    </div>
     <div class="logos">
       <img class="logo-img" src="logo.png" alt="Make Money AI" style="height: 64px;">
     </div>
@@ -519,8 +540,8 @@
         <span class="hero-sector-pill" data-i18n="hero.sector4">AI Services</span>
       </div>
       <div class="hero-cta-row">
-        <a href="#research" class="hero-cta" data-i18n="hero.cta">View Research →</a>
-        <a href="#advisory" class="hero-cta-secondary" data-i18n="hero.cta2">Get Advisory →</a>
+        <a href="/research.html" class="hero-cta" data-i18n="hero.cta">View Research →</a>
+        <a href="/join.html" class="hero-cta-secondary" data-i18n="hero.cta2">Get Advisory →</a>
       </div>
     </div>
   </div>

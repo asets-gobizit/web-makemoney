@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Community — Make Money AI</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0B1B3D;
+      --green: #10B981;
+      --green-dark: #059669;
+      --green-soft: #d1fae5;
+      --cream: #faf8f5;
+      --ink: #1a1f3a;
+      --ink-soft: #4a5070;
+      --line: #e3e7f0;
+      --white: #ffffff;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--cream) 0%, #f5f3f0 100%);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 520px;
+      width: 100%;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(5,16,32,0.10);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--green-soft);
+      color: var(--green-dark);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-family: "Inter", sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .early-access {
+      background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(16,185,129,0.02) 100%);
+      border-left: 4px solid var(--green);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+
+    .early-access strong {
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+    }
+
+    .bullet::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 800;
+      flex-shrink: 0;
+      font-size: 1.2rem;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--green);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .checkbox-frequency {
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    .error-message {
+      display: none;
+      background: rgba(220, 38, 38, 0.08);
+      color: #7f1d1d;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 0.9rem;
+      border-left: 4px solid #dc2626;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 12px;
+      animation: vibrate-button 3s ease-in-out infinite;
+    }
+
+    .submit-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+      animation-play-state: paused;
+    }
+
+    @keyframes vibrate-button {
+      0%, 100% {
+        transform: translateX(0) scaleX(1);
+        filter: hue-rotate(0deg);
+      }
+      25% {
+        transform: translateX(-2px);
+        filter: hue-rotate(10deg);
+      }
+      50% {
+        transform: translateX(2px);
+        filter: hue-rotate(0deg);
+      }
+      75% {
+        transform: translateX(-1px);
+        filter: hue-rotate(-10deg);
+      }
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--green);
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 32px 24px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <div class="badge">⏰ Early Access Offer</div>
+
+      <h1>Get Behind the Curtain</h1>
+
+      <p class="subtitle">Watch a real AI money-making system being built — wins, losses, breakthroughs — completely unfiltered.</p>
+
+      <div class="early-access">
+        <strong>🎁 Limited-Time Offer:</strong> New members get <strong>free lifetime access</strong> to all journals. Future members will pay to access this content. Lock in your spot now — it's completely free.
+      </div>
+
+      <div class="bullets">
+        <div class="bullet">Real daily experiments with autonomous AI agents</div>
+        <div class="bullet">Human perspective (struggles, failures, wins) + AI agent perspective (metrics, patterns, optimization)</div>
+        <div class="bullet">No fluff — just the raw data and decisions from building a money-making AI system in public</div>
+      </div>
+
+      <form id="registrationForm" onsubmit="handleSubmit(event)">
+        <div class="error-message" id="errorMsg"></div>
+
+        <div class="form-group">
+          <label for="name">First Name *</label>
+          <input type="text" id="name" name="name" placeholder="Your first name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>How do you want to receive updates? * (select at least one)</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="daily" name="frequency" value="daily">
+              <label for="daily" class="checkbox-label">
+                Daily
+                <span class="checkbox-frequency">(fresh insights every morning)</span>
+              </label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="weekly" name="frequency" value="weekly">
+              <label for="weekly" class="checkbox-label">
+                Weekly
+                <span class="checkbox-frequency">(curated weekly recap)</span>
+              </label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="monthly" name="frequency" value="monthly">
+              <label for="monthly" class="checkbox-label">
+                Monthly
+                <span class="checkbox-frequency">(monthly deep-dive)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Get Instant Access →</button>
+      </form>
+
+      <a href="/" class="back-link">← Back to home</a>
+    </div>
+
+    <div class="success-message" id="successMsg">
+      <div class="success-icon">✨</div>
+      <h2 style="color: var(--navy); margin-bottom: 8px; font-family: Inter;">Welcome to the Community!</h2>
+      <p style="color: var(--ink-soft); margin-bottom: 16px;">Redirecting you to the journals...</p>
+      <p style="font-size: 0.9rem; color: #999;">If you aren't redirected in 3 seconds, <a href="/journals/" style="color: var(--green); text-decoration: none;">click here</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+
+      // Check email format
+      if (!email.includes('@')) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      // Check at least one subscription selected
+      const checkedBoxes = document.querySelectorAll('input[name="frequency"]:checked');
+      if (checkedBoxes.length === 0) {
+        errorMsg.textContent = 'Please select at least one subscription option.';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      errorMsg.classList.remove('show');
+
+      // Collect subscription preferences
+      const subscriptions = Array.from(checkedBoxes).map(box => box.value);
+
+      // Save to localStorage
+      const registrationData = {
+        name,
+        email,
+        subscriptions,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('mmgate_token', JSON.stringify(registrationData));
+
+      // Try to POST to API
+      fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(registrationData)
+      }).catch(() => {
+        // Fallback to mailto if API fails
+        window.location.href = `mailto:makemoney@gobizit.ai?subject=New%20Member%20Registration&body=Name:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0ASubscriptions:%20${encodeURIComponent(subscriptions.join(', '))}`;
+        return;
+      });
+
+      // Show success message and redirect
+      document.getElementById('registrationForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+      setTimeout(() => {
+        window.location.href = '/journals/';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
