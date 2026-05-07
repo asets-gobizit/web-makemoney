@@ -97,19 +97,22 @@
     .nav-cta-button {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       background: var(--green);
       color: var(--white);
-      padding: 10px 22px;
+      padding: 12px 32px;
       border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 800;
       text-decoration: none;
       border: none;
       cursor: pointer;
       transition: all 0.3s;
       animation: shine-pulse 2s ease-in-out infinite, blink-button 1.5s ease-in-out infinite;
       box-shadow: 0 0 20px rgba(16,185,129,0.4);
+      min-width: 280px;
+      text-align: center;
     }
     .nav-cta-button:hover {
       background: var(--green-dark);
@@ -539,9 +542,8 @@
 <header>
   <div class="container nav">
     <div class="nav-links">
-      <a href="/research.html">Research</a>
       <a href="/about.html">About</a>
-      <a href="/join.html" class="nav-cta-button">🎁 Free Access Now</a>
+      <a href="/join.html" class="nav-cta-button">You do not wanna miss this gift 🚀</a>
     </div>
     <div class="logos">
       <img class="logo-img" src="logo.png" alt="Make Money AI" style="height: 64px;">
