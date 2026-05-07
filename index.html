@@ -104,6 +104,19 @@
 
         .subscribe-form input:focus { border-color: #667eea; }
 
+        .subscribe-form select {
+            padding: 11px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #444;
+            background: #fff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .subscribe-form select:focus { border-color: #667eea; }
+
         .btn {
             padding: 11px 20px;
             background: #667eea;
@@ -183,9 +196,14 @@
             <p><span class="dot"></span> Get each daily entry by email — free, unsubscribe anytime.</p>
             <div class="subscribe-form">
                 <input type="email" id="email-input" placeholder="your@email.com">
+                <select id="freq-input" title="Email frequency">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
                 <button class="btn" onclick="subscribe()">Subscribe</button>
             </div>
-            <div id="subscribe-msg">You're in. First entry incoming.</div>
+            <div id="subscribe-msg">You're in. Emails arriving at your chosen frequency.</div>
         </div>
 
         <div class="stats-row">
@@ -227,7 +245,7 @@ async function subscribe() {
         const resp = await fetch('/api/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ email, frequency: document.getElementById('freq-input').value })
         });
         const data = await resp.json();
         if (data.success) {

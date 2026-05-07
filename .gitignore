@@ -1,0 +1,22 @@
+# Secrets and credentials — never commit
+*.env
+.env
+start-api.bat
+
+# SQLite subscriber database — local only
+api/subscribers.db
+
+# Log files
+api/*.log
+api/access.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

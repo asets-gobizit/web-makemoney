@@ -47,12 +47,25 @@ def init_db():
         CREATE TABLE IF NOT EXISTS subscribers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE NOT NULL,
+            name TEXT,
+            frequency TEXT DEFAULT 'daily',
             subscribed_at TEXT NOT NULL,
             source TEXT DEFAULT 'website',
             zoho_synced INTEGER DEFAULT 0,
             active INTEGER DEFAULT 1
         )
     """)
+    # Migration: add frequency column to existing tables
+    try:
+        conn.execute("ALTER TABLE subscribers ADD COLUMN frequency TEXT DEFAULT 'daily'")
+        conn.commit()
+    except Exception:
+        pass  # Column already exists
+    try:
+        conn.execute("ALTER TABLE subscribers ADD COLUMN name TEXT")
+        conn.commit()
+    except Exception:
+        pass  # Column already exists
     conn.execute("""
         CREATE TABLE IF NOT EXISTS unsubscribes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -170,6 +183,10 @@ def subscribe():
         return jsonify({"success": False, "message": "Invalid JSON"}), 400
 
     email = (body.get("email") or "").strip().lower()
+    name = (body.get("name") or "").strip()
+    frequency = (body.get("frequency") or "daily").strip().lower()
+    if frequency not in ("daily", "weekly", "monthly"):
+        frequency = "daily"
     source = body.get("source", "website")
 
     if not email or not is_valid_email(email):
@@ -183,11 +200,11 @@ def subscribe():
     conn = sqlite3.connect(DB_PATH)
     try:
         conn.execute(
-            "INSERT INTO subscribers (email, subscribed_at, source) VALUES (?, ?, ?)",
-            (email, now, source)
+            "INSERT INTO subscribers (email, name, frequency, subscribed_at, source) VALUES (?, ?, ?, ?, ?)",
+            (email, name, frequency, now, source)
         )
         conn.commit()
-        logging.info(f"New subscriber: {email} source={source}")
+        logging.info(f"New subscriber: {email} freq={frequency} source={source}")
     except sqlite3.IntegrityError:
         conn.close()
         return jsonify({"success": True, "message": "Already subscribed."}), 200

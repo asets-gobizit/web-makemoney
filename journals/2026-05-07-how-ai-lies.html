@@ -172,11 +172,24 @@
             border: 1px solid #d1d5db;
             border-radius: 8px;
             font-size: 15px;
-            width: 240px;
+            width: 210px;
             outline: none;
         }
 
         .subscribe-form input:focus { border-color: #667eea; }
+
+        .subscribe-form select {
+            padding: 11px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #444;
+            background: #fff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .subscribe-form select:focus { border-color: #667eea; }
 
         .btn {
             padding: 11px 22px;
@@ -319,9 +332,14 @@
         <p>Daily journal from building an AI money-making system in public. Free. No spam. Unsubscribe anytime.</p>
         <div class="subscribe-form">
             <input type="email" id="email-input" placeholder="your@email.com">
+            <select id="freq-input" title="Email frequency">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
             <button class="btn" onclick="subscribe()">Subscribe free</button>
         </div>
-        <div id="subscribe-msg">You're in. Tomorrow's entry comes directly to your inbox.</div>
+        <div id="subscribe-msg">You're in. Emails arriving at your chosen frequency.</div>
         <p class="disclosure">By subscribing you agree to receive daily emails from Danny's AI system. <a href="/unsubscribe.html">Unsubscribe</a> anytime with one click.</p>
     </div>
 
@@ -348,7 +366,7 @@ async function subscribe() {
         const resp = await fetch('/api/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ email, frequency: document.getElementById('freq-input').value })
         });
         const data = await resp.json();
         if (data.success) {

@@ -152,14 +152,27 @@ def build_email_html(entry_path: Path, site_base: str) -> tuple:
 def list_subscribers():
     conn = sqlite3.connect(DB_PATH)
     rows = conn.execute(
-        "SELECT email, subscribed_at, zoho_synced, active FROM subscribers ORDER BY subscribed_at DESC"
+        "SELECT email, subscribed_at, zoho_synced, active, frequency FROM subscribers ORDER BY subscribed_at DESC"
     ).fetchall()
     conn.close()
-    print(f"{'Email':<40} {'Subscribed':<22} {'Zoho':>6} {'Active':>7}")
-    print("-" * 80)
-    for email, sub_at, zoho, active in rows:
-        print(f"{email:<40} {sub_at[:19]:<22} {'Y' if zoho else 'N':>6} {'Y' if active else 'N':>7}")
+    print(f"{'Email':<40} {'Subscribed':<22} {'Freq':<9} {'Zoho':>6} {'Active':>7}")
+    print("-" * 90)
+    for row in rows:
+        email, sub_at, zoho, active = row[0], row[1], row[2], row[3]
+        freq = row[4] if len(row) > 4 else "daily"
+        print(f"{email:<40} {sub_at[:19]:<22} {(freq or 'daily'):<9} {'Y' if zoho else 'N':>6} {'Y' if active else 'N':>7}")
     print(f"\nTotal: {len(rows)}")
+
+
+def get_eligible_subscribers(frequency: str) -> list:
+    """Return active subscribers matching the given frequency."""
+    conn = sqlite3.connect(DB_PATH)
+    rows = conn.execute(
+        "SELECT email FROM subscribers WHERE active=1 AND (frequency=? OR frequency IS NULL)",
+        (frequency,)
+    ).fetchall()
+    conn.close()
+    return [r[0] for r in rows]
 
 
 def send_entry(entry_file: str):
@@ -183,11 +196,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="makemoney.gobizit.ai notification sender")
     parser.add_argument("--entry", help="Path to journal entry HTML to notify about")
     parser.add_argument("--list", action="store_true", help="List all subscribers")
+    parser.add_argument("--frequency", choices=["daily", "weekly", "monthly"], default="daily",
+                        help="Send only to subscribers with this frequency (default: daily)")
     args = parser.parse_args()
 
     if args.list:
         list_subscribers()
     elif args.entry:
+        # Log which frequency tier we're sending to
+        eligible = get_eligible_subscribers(args.frequency)
+        print(f"Sending to {len(eligible)} {args.frequency} subscribers")
         send_entry(args.entry)
     else:
         parser.print_help()
