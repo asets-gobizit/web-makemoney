@@ -194,6 +194,8 @@
       height: 100%;
       object-fit: cover;
       z-index: 0;
+      border: none;
+      display: block;
     }
     .hero-overlay {
       display: none;
@@ -557,9 +559,7 @@
 </header>
 
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="hero-background.jpg" aria-hidden="true">
-    <source src="hero-bots.mp4" type="video/mp4">
-  </video>
+  <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true"></iframe>
   <div class="hero-overlay"></div>
   <div class="container">
     <div class="hero-text">
