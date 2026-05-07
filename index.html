@@ -593,7 +593,7 @@
   </div>
 </header>
 
-<section class="hero" onclick="window.location.href='/join.html'">
+<section class="hero" onclick="if(localStorage.getItem('hideMMPopup') !== 'true') { window.location.href='/join.html'; }">
   <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true" style="pointer-events: none;"></iframe>
   <div class="hero-overlay" style="cursor: pointer;"></div>
   <div class="container">
