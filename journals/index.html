@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Owner Reviews - Make Money AI</title>
+    <meta name="description" content="Raw daily journal from Danny Nissani building an AI money-making system in public. No polish. Just what happened, what worked, what didn't.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafaf9;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #667eea;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            margin-left: 24px;
+        }
+
+        nav a:hover { color: #667eea; }
+
+        .hero {
+            max-width: 720px;
+            margin: 60px auto 40px;
+            padding: 0 24px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #555;
+            max-width: 540px;
+        }
+
+        .subscribe-bar {
+            background: #f0f4ff;
+            border: 1px solid #d4dbf9;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 32px 0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .subscribe-bar p {
+            font-size: 14px;
+            color: #444;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .subscribe-form input {
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+        }
+
+        .subscribe-form input:focus {
+            border-color: #667eea;
+        }
+
+        .subscribe-form select {
+            padding: 10px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #444;
+            background: #fff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .subscribe-form select:focus { border-color: #667eea; }
+
+        .btn {
+            padding: 10px 18px;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn:hover { background: #5a6fd6; }
+
+        .btn-sm {
+            padding: 7px 14px;
+            font-size: 13px;
+        }
+
+        #subscribe-msg {
+            font-size: 13px;
+            color: #22c55e;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .journal-list {
+            max-width: 720px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+        }
+
+        .journal-entry {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: block;
+            transition: box-shadow 0.15s;
+        }
+
+        .journal-entry:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border-color: #c7d2fe;
+        }
+
+        .entry-meta {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .entry-tag {
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .entry-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 10px;
+        }
+
+        .entry-excerpt {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.65;
+        }
+
+        .entry-read-more {
+            font-size: 13px;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 14px;
+            display: block;
+        }
+
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+        }
+
+        footer a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="brand" href="/">Make Money AI</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/journals/">Journal</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Daily Owner Reviews</h1>
+    <p>Raw journal from building a money-making AI system in public. What shipped, what broke, what the AI did without telling me. No polish.</p>
+
+    <div class="subscribe-bar">
+        <p>Get each entry by email — free, daily, unsubscribe anytime.</p>
+        <div>
+            <div class="subscribe-form">
+                <input type="email" id="email-input" placeholder="your@email.com">
+                <select id="freq-input" title="Email frequency">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+                <button class="btn btn-sm" onclick="subscribe()">Subscribe</button>
+            </div>
+            <div id="subscribe-msg">You're in. Emails arriving at your chosen frequency.</div>
+        </div>
+    </div>
+</div>
+
+<div class="journal-list">
+
+    <a class="journal-entry" href="/journals/07-05-2026-how-ai-lies.html">
+        <div class="entry-meta">
+            <span>May 7, 2026</span>
+            <span class="entry-tag">Transparency</span>
+            <span class="entry-tag">Day 7</span>
+        </div>
+        <div class="entry-title">How AI Lies (Without Meaning To)</div>
+        <div class="entry-excerpt">Today I caught my own AI lying to me. It confirmed saving to memory. It wasn't fully done. The AI wasn't malicious — it genuinely believed the job was complete. That's a different kind of problem than a deliberate lie.</div>
+        <span class="entry-read-more">Read entry &rarr;</span>
+    </a>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 <a href="/">makemoney.gobizit.ai</a> &middot; Part of <a href="https://gobizit.ai">GoBizIT</a> &middot; <a href="/unsubscribe.html">Unsubscribe</a></p>
+    <p style="margin-top:6px;">This site documents an autonomous AI money-making experiment in public.</p>
+</footer>
+
+<script>
+async function subscribe() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    try {
+        const resp = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, frequency: document.getElementById('freq-input').value })
+        });
+        const data = await resp.json();
+        if (data.success) {
+            document.getElementById('subscribe-msg').style.display = 'block';
+            document.getElementById('email-input').value = '';
+        } else {
+            alert(data.message || 'Something went wrong. Try again.');
+        }
+    } catch(e) {
+        // Static fallback: redirect to mailto
+        window.location.href = 'mailto:danny@gobizit.ai?subject=Subscribe makemoney journal&body=Subscribe me: ' + email;
+    }
+}
+</script>
+
+</body>
+</html>
