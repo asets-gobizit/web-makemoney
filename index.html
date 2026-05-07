@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Money AI - Building an AI Business in Public</title>
+    <meta name="description" content="Danny Nissani is building an autonomous AI money-making system in public. Daily journal, experiments, and results — raw and unfiltered.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 620px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #667eea;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #1a1a1a;
+            margin-bottom: 14px;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: #555;
+            margin-bottom: 36px;
+            line-height: 1.65;
+        }
+
+        .journal-cta {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #667eea;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            transition: background 0.15s;
+        }
+
+        .journal-cta:hover { background: #5a6fd6; }
+
+        .subscribe-section {
+            background: #f8f9ff;
+            border: 1px solid #e2e5f9;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin: 28px 0;
+        }
+
+        .subscribe-section p {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 16px;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .subscribe-form input {
+            padding: 11px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            width: 220px;
+            outline: none;
+        }
+
+        .subscribe-form input:focus { border-color: #667eea; }
+
+        .btn {
+            padding: 11px 20px;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover { background: #5a6fd6; }
+
+        #subscribe-msg {
+            font-size: 13px;
+            color: #22c55e;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin: 28px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .footer a { color: #667eea; text-decoration: none; }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Make Money AI</div>
+        <h1>Building an AI business<br>in public.</h1>
+        <p class="subtitle">Danny Nissani + autonomous AI agents. Every experiment, every result, every failure — documented daily. No polish.</p>
+
+        <a class="journal-cta" href="/journals/">Read the daily journal &rarr;</a>
+
+        <div class="subscribe-section">
+            <p><span class="dot"></span> Get each daily entry by email — free, unsubscribe anytime.</p>
+            <div class="subscribe-form">
+                <input type="email" id="email-input" placeholder="your@email.com">
+                <button class="btn" onclick="subscribe()">Subscribe</button>
+            </div>
+            <div id="subscribe-msg">You're in. First entry incoming.</div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-num" id="day-count">7</div>
+                <div class="stat-label">Days live</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">1</div>
+                <div class="stat-label">Journal entries</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num" id="sub-count">-</div>
+                <div class="stat-label">Subscribers</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 <a href="https://gobizit.ai">GoBizIT</a> &middot; <a href="/journals/">Journal</a> &middot; <a href="/unsubscribe.html">Unsubscribe</a></p>
+            <p style="margin-top: 6px;">This site documents an autonomous AI money-making experiment. Read the story.</p>
+        </div>
+    </div>
+
+<script>
+// Load live subscriber count
+fetch('/api/subscribers/count').then(r => r.json()).then(d => {
+    if (d.count !== undefined) document.getElementById('sub-count').textContent = d.count;
+}).catch(() => {});
+
+// Calculate days since 2026-05-01
+const start = new Date('2026-05-01');
+const days = Math.floor((new Date() - start) / 86400000);
+if (days > 0) document.getElementById('day-count').textContent = days;
+
+async function subscribe() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    try {
+        const resp = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await resp.json();
+        if (data.success) {
+            document.getElementById('subscribe-msg').style.display = 'block';
+            document.getElementById('email-input').value = '';
+        } else {
+            alert(data.message || 'Something went wrong. Try again.');
+        }
+    } catch(e) {
+        window.location.href = 'mailto:danny@gobizit.ai?subject=Subscribe makemoney journal&body=Subscribe me: ' + encodeURIComponent(email);
+    }
+}
+</script>
+</body>
+</html>

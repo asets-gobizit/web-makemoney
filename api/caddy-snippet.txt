@@ -1,0 +1,30 @@
+# Caddy config snippet for makemoney.gobizit.ai
+# Add to existing Caddyfile — reverse proxy /api/* to Flask on port 5055
+
+makemoney.gobizit.ai {
+    # Static files (journals, index, unsubscribe)
+    root * C:/Users/dansk/Claude/web-makemoney
+    file_server
+
+    # API routes → Flask subscriber backend
+    handle /api/* {
+        reverse_proxy 127.0.0.1:5055
+    }
+
+    # Journals directory listing disabled — served via file_server above
+    encode gzip
+
+    log {
+        output file C:/Users/dansk/Claude/web-makemoney/api/access.log
+        format console
+    }
+}
+
+# To start Flask backend:
+#   cd C:\Users\dansk\Claude\web-makemoney
+#   pip install -r api/requirements.txt
+#   python api/subscribe.py
+
+# To run as Windows service (NSSM):
+#   nssm install makemoney-api python C:\Users\dansk\Claude\web-makemoney\api\subscribe.py
+#   nssm start makemoney-api
