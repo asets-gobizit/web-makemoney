@@ -126,7 +126,14 @@
     textureLoader.load(imageUrl,
       // onLoad callback
       (texture) => {
-        const geometry = new THREE.PlaneGeometry(3, 2);
+        // Calculate aspect ratio to fill viewport
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const aspectRatio = vw / vh;
+        const planeHeight = 3;
+        const planeWidth = planeHeight * aspectRatio;
+
+        const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
         const material = new THREE.MeshPhongMaterial({ map: texture });
         plane = new THREE.Mesh(geometry, material);
         scene.add(plane);
