@@ -272,6 +272,100 @@ def health():
     return jsonify({"status": "ok", "ts": datetime.now().isoformat()}), 200
 
 
+@app.route("/api/register", methods=["POST"])
+def register():
+    """Handle journal access registration: name + email + subscription preferences."""
+    try:
+        body = request.get_json(force=True)
+    except Exception:
+        return jsonify({"success": False, "message": "Invalid JSON"}), 400
+
+    name = (body.get("name") or "").strip()
+    email = (body.get("email") or "").strip().lower()
+    subscriptions = body.get("subscriptions", [])
+
+    # Validate
+    if not name:
+        return jsonify({"success": False, "message": "Name is required"}), 400
+
+    if not email or not is_valid_email(email):
+        return jsonify({"success": False, "message": "Invalid email address"}), 400
+
+    if not subscriptions or not isinstance(subscriptions, list) or len(subscriptions) == 0:
+        return jsonify({"success": False, "message": "At least one subscription option must be selected"}), 400
+
+    # Validate subscription values
+    valid_subs = {"daily", "weekly", "monthly"}
+    subscriptions = [s for s in subscriptions if s in valid_subs]
+    if not subscriptions:
+        return jsonify({"success": False, "message": "Invalid subscription options"}), 400
+
+    client_ip = request.remote_addr or ""
+
+    try:
+        # Save to Excel
+        excel_path = Path.home() / ".claude" / "@" / "team-ai.biz" / "data" / "makemoney-subscribers.xlsx"
+        excel_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Create/append to Excel
+        try:
+            from openpyxl import load_workbook
+            has_openpyxl = True
+        except ImportError:
+            has_openpyxl = False
+            logging.warning("openpyxl not installed - Excel export skipped")
+
+        if has_openpyxl and str(excel_path).startswith(str(Path.home())):
+            try:
+                from openpyxl import Workbook
+                if not excel_path.exists():
+                    wb = Workbook()
+                    ws = wb.active
+                    ws.title = "Subscribers"
+                    headers = ["Timestamp", "Name", "Email", "Daily", "Weekly", "Monthly", "IP Address"]
+                    ws.append(headers)
+                    wb.save(str(excel_path))
+
+                # Append row
+                wb = load_workbook(str(excel_path))
+                ws = wb.active
+                daily = "Yes" if "daily" in subscriptions else ""
+                weekly = "Yes" if "weekly" in subscriptions else ""
+                monthly = "Yes" if "monthly" in subscriptions else ""
+                row = [datetime.now().isoformat(), name, email, daily, weekly, monthly, client_ip]
+                ws.append(row)
+                wb.save(str(excel_path))
+                logging.info(f"Excel save OK: {email} to {excel_path}")
+            except Exception as e:
+                logging.warning(f"Excel save failed: {e}")
+
+        # Save to SQLite (for backwards compat)
+        conn = sqlite3.connect(DB_PATH)
+        try:
+            # Use subscribers table but add subscription columns if needed
+            daily_flag = 1 if "daily" in subscriptions else 0
+            weekly_flag = 1 if "weekly" in subscriptions else 0
+            monthly_flag = 1 if "monthly" in subscriptions else 0
+
+            # Try insert, ignore if email already exists
+            conn.execute(
+                """INSERT OR IGNORE INTO subscribers
+                   (email, name, frequency, subscribed_at, source)
+                   VALUES (?, ?, ?, ?, ?)""",
+                (email, name, ",".join(subscriptions), datetime.now().isoformat(), "registration")
+            )
+            conn.commit()
+            logging.info(f"Registered: {email} subs={subscriptions}")
+        finally:
+            conn.close()
+
+        return jsonify({"success": True, "message": f"Welcome, {name}! Your registration is confirmed."}), 201
+
+    except Exception as e:
+        logging.error(f"Registration error for {email}: {e}")
+        return jsonify({"success": False, "message": f"Registration failed: {str(e)}"}), 500
+
+
 if __name__ == "__main__":
     init_db()
     logging.info("Subscribe API starting on port 5055")
