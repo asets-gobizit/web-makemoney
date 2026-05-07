@@ -94,6 +94,38 @@
       color: var(--green);
       text-decoration: none;
     }
+    .nav-cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: shine-pulse 2s ease-in-out infinite, blink-button 1.5s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(16,185,129,0.4);
+    }
+    .nav-cta-button:hover {
+      background: var(--green-dark);
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(16,185,129,0.7);
+      animation-play-state: paused;
+      text-decoration: none;
+    }
+    @keyframes shine-pulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(16,185,129,0.3), inset 0 0 15px rgba(255,255,255,0.1); }
+      50% { box-shadow: 0 0 35px rgba(16,185,129,0.7), inset 0 0 15px rgba(255,255,255,0.3); }
+    }
+    @keyframes blink-button {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
     .logos {
       grid-column: 2;
       display: flex; align-items: center; justify-content: center; gap: 16px;
@@ -509,7 +541,7 @@
     <div class="nav-links">
       <a href="/research.html">Research</a>
       <a href="/about.html">About</a>
-      <a href="/join.html" style="color: var(--green); font-weight: 700;">Join →</a>
+      <a href="/join.html" class="nav-cta-button">🎁 Free Access Now</a>
     </div>
     <div class="logos">
       <img class="logo-img" src="logo.png" alt="Make Money AI" style="height: 64px;">
