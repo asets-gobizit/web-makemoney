@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hero Animation Comparison - Canvas 2D vs Three.js 3D</title>
+  <title>Image2Video Comparison - Zoom vs Pan vs 3D Interactive</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -39,18 +39,40 @@
       padding: 40px 20px;
     }
 
+    .image-group {
+      margin-bottom: 80px;
+      padding: 30px;
+      background: rgba(5, 16, 32, 0.5);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 14px;
+    }
+
+    .image-title {
+      font-size: 1.8rem;
+      color: #00D9FF;
+      margin: 0 0 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+    }
+
     .comparison-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 60px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 1200px) {
+      .comparison-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .version-card {
       background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
       border: 1px solid rgba(0, 217, 255, 0.2);
-      border-radius: 14px;
-      padding: 30px;
+      border-radius: 12px;
+      padding: 25px;
       transition: all 0.3s;
     }
 
@@ -60,125 +82,106 @@
     }
 
     .version-title {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin: 0 0 10px;
+      margin: 0 0 15px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .version-title.canvas { color: #10B981; }
-    .version-title.three { color: #00D9FF; }
+    .version-title.zoom { color: #10B981; }
+    .version-title.pan { color: #00D9FF; }
+    .version-title.three-d { color: #9333ea; }
 
     .badge {
       display: inline-block;
       padding: 4px 12px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
-    .badge.lightweight { background: rgba(16, 185, 129, 0.3); color: #10B981; }
-    .badge.premium { background: rgba(0, 217, 255, 0.3); color: #00D9FF; }
+    .badge.subtle { background: rgba(16, 185, 129, 0.3); color: #10B981; }
+    .badge.dynamic { background: rgba(0, 217, 255, 0.3); color: #00D9FF; }
+    .badge.interactive { background: rgba(147, 51, 234, 0.3); color: #9333ea; }
 
     .version-desc {
       color: rgba(255, 255, 255, 0.8);
-      margin: 15px 0 25px;
-      font-size: 1rem;
+      font-size: 0.95rem;
+      margin: 15px 0 20px;
     }
 
-    .specs-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
+    .specs {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      font-size: 0.9rem;
     }
 
-    .specs-table tr {
+    .specs-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .specs-table td {
-      padding: 12px 0;
-      font-size: 0.95rem;
-    }
+    .specs-row:last-child { border-bottom: none; }
 
-    .specs-table td:first-child {
+    .specs-label {
       color: rgba(255, 255, 255, 0.7);
       font-weight: 500;
     }
 
-    .specs-table td:last-child {
-      text-align: right;
+    .specs-value {
       font-weight: 600;
+      color: #00D9FF;
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 14px 28px;
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
       border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s;
       border: 2px solid;
+      font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s;
     }
 
-    .cta-canvas {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: #10B981;
-      color: #10B981;
-    }
-
-    .cta-canvas:hover {
-      background: #10B981;
-      color: #0a1a2e;
-    }
-
-    .cta-three {
-      background: rgba(0, 217, 255, 0.2);
+    .btn-test {
+      background: rgba(0, 217, 255, 0.1);
       border-color: #00D9FF;
       color: #00D9FF;
     }
 
-    .cta-three:hover {
+    .btn-test:hover {
       background: #00D9FF;
       color: #0a1a2e;
     }
 
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 60px 0;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      overflow: hidden;
+    .btn-download {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: #10B981;
+      color: #10B981;
     }
 
-    .comparison-table th {
-      background: rgba(0, 217, 255, 0.15);
-      padding: 16px;
-      text-align: left;
-      font-weight: 700;
-      border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+    .btn-download:hover {
+      background: #10B981;
+      color: #0a1a2e;
     }
-
-    .comparison-table td {
-      padding: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .comparison-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .check { color: #10B981; font-weight: bold; }
-    .x { color: #ff6b6b; }
-    .medium { color: #FFD93D; }
 
     footer {
       border-top: 1px solid rgba(0, 217, 255, 0.2);
@@ -192,207 +195,134 @@
       .comparison-grid {
         grid-template-columns: 1fr;
       }
-
-      h1 {
-        font-size: 1.8rem;
-      }
+      h1 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🎬 Hero Animation Comparison</h1>
-    <p class="subtitle">Canvas 2D vs Three.js 3D — Which is right for your site?</p>
+    <h1>🎬 Image2Video Comparison</h1>
+    <p class="subtitle">Two animation styles — Choose your perfect video background</p>
   </header>
 
   <div class="container">
-    <!-- Quick Comparison Cards -->
-    <div class="comparison-grid">
-      <div class="version-card">
-        <h2 class="version-title canvas">
-          ✨ Canvas 2D
-          <span class="badge lightweight">Lightweight</span>
-        </h2>
-        <p class="version-desc">Fast, efficient, smooth animations. Perfect for most projects.</p>
 
-        <table class="specs-table">
-          <tr>
-            <td>File Size</td>
-            <td>~40 KB</td>
-          </tr>
-          <tr>
-            <td>Load Time</td>
-            <td>~50ms</td>
-          </tr>
-          <tr>
-            <td>FPS</td>
-            <td>30fps (smooth)</td>
-          </tr>
-          <tr>
-            <td>CPU Usage</td>
-            <td>Low</td>
-          </tr>
-          <tr>
-            <td>Mobile</td>
-            <td>Excellent</td>
-          </tr>
-          <tr>
-            <td>Browser Support</td>
-            <td>All modern</td>
-          </tr>
-        </table>
+    <div class="image-group">
+      <h2 class="image-title">my-hero-background-2</h2>
 
-        <a href="test-canvas.html" class="cta-button cta-canvas">Test Canvas 2D →</a>
+      <div class="comparison-grid">
+        <!-- ZOOM VERSION -->
+        <div class="version-card">
+          <h3 class="version-title zoom">
+            ✨ Subtle Zoom
+            <span class="badge subtle">Gentle</span>
+          </h3>
+          <p class="version-desc">Smooth 1.02x zoom over the duration. Perfect for professional/minimal aesthetics.</p>
+
+          <div class="specs">
+            <div class="specs-row">
+              <span class="specs-label">Animation</span>
+              <span class="specs-value">Zoom Effect</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Duration</span>
+              <span class="specs-value">16s</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">File Size</span>
+              <span class="specs-value">0.6 MB</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Best For</span>
+              <span class="specs-value">Corporate, SaaS</span>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <a href="videos/my-hero-background-2_zoom.mp4" target="_blank" class="btn btn-test">Test Video →</a>
+            <button class="btn btn-download" onclick="alert('Download feature coming soon')">Pick This →</button>
+          </div>
+        </div>
+
+        <!-- PAN VERSION -->
+        <div class="version-card">
+          <h3 class="version-title pan">
+            🎥 Dynamic Pan
+            <span class="badge dynamic">Cinematic</span>
+          </h3>
+          <p class="version-desc">Camera movement across image. Creates cinematic motion and depth.</p>
+
+          <div class="specs">
+            <div class="specs-row">
+              <span class="specs-label">Animation</span>
+              <span class="specs-value">Pan Effect</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Duration</span>
+              <span class="specs-value">16s</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">File Size</span>
+              <span class="specs-value">0.6 MB</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Best For</span>
+              <span class="specs-value">Creative, Product</span>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <a href="videos/my-hero-background-2_pan.mp4" target="_blank" class="btn btn-test">Test Video →</a>
+            <button class="btn btn-download" onclick="alert('Download feature coming soon')">Pick This →</button>
+          </div>
+        </div>
+
+        <!-- 3D INTERACTIVE VERSION -->
+        <div class="version-card">
+          <h3 class="version-title three-d">
+            🌀 Interactive 3D
+            <span class="badge interactive">Immersive</span>
+          </h3>
+          <p class="version-desc">Mouse-controlled 3D plane. Move your cursor to rotate the image in 3D space.</p>
+
+          <div class="specs">
+            <div class="specs-row">
+              <span class="specs-label">Interaction</span>
+              <span class="specs-value">Mouse Tracking</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Library</span>
+              <span class="specs-value">Three.js WebGL</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Controls</span>
+              <span class="specs-value">Mouse + Scroll</span>
+            </div>
+            <div class="specs-row">
+              <span class="specs-label">Best For</span>
+              <span class="specs-value">Premium, Modern</span>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <a href="my-hero-background-2_3d.html" target="_blank" class="btn btn-test">Test 3D →</a>
+            <button class="btn btn-download" onclick="alert('Download feature coming soon')">Pick This →</button>
+          </div>
+        </div>
       </div>
 
-      <div class="version-card">
-        <h2 class="version-title three">
-          🌀 Three.js 3D
-          <span class="badge premium">Premium</span>
-        </h2>
-        <p class="version-desc">Full 3D, interactive parallax effects. Stunning visual impact.</p>
-
-        <table class="specs-table">
-          <tr>
-            <td>File Size</td>
-            <td>~150 KB</td>
-          </tr>
-          <tr>
-            <td>Load Time</td>
-            <td>~200ms (includes lib)</td>
-          </tr>
-          <tr>
-            <td>FPS</td>
-            <td>30fps (smooth)</td>
-          </tr>
-          <tr>
-            <td>CPU Usage</td>
-            <td>Moderate</td>
-          </tr>
-          <tr>
-            <td>Mobile</td>
-            <td>Good</td>
-          </tr>
-          <tr>
-            <td>Browser Support</td>
-            <td>Modern + WebGL</td>
-          </tr>
-        </table>
-
-        <a href="test-three.html" class="cta-button cta-three">Test Three.js 3D →</a>
+      <!-- Original Image Preview -->
+      <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+        <p style="margin: 0 0 15px; color: #00D9FF; font-weight: 600;">Original Image</p>
+        <img src="images/my-hero-background-2.jpg" style="max-width: 100%; height: auto; border-radius: 8px;" alt="my-hero-background-2">
       </div>
     </div>
 
-    <!-- Detailed Comparison Table -->
-    <h2 style="text-align: center; color: #00D9FF; margin: 60px 0 30px; font-size: 1.6rem;">
-      Detailed Feature Comparison
-    </h2>
-
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>Canvas 2D</th>
-          <th>Three.js 3D</th>
-          <th>Winner</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Performance</strong></td>
-          <td><span class="check">✓ Excellent</span></td>
-          <td><span class="medium">⊙ Good</span></td>
-          <td>Canvas 2D</td>
-        </tr>
-        <tr>
-          <td><strong>Visual Complexity</strong></td>
-          <td><span class="medium">⊙ Good</span></td>
-          <td><span class="check">✓ Excellent</span></td>
-          <td>Three.js 3D</td>
-        </tr>
-        <tr>
-          <td><strong>File Size</strong></td>
-          <td><span class="check">✓ Small (40KB)</span></td>
-          <td><span class="medium">⊙ Large (150KB)</span></td>
-          <td>Canvas 2D</td>
-        </tr>
-        <tr>
-          <td><strong>Mobile Performance</strong></td>
-          <td><span class="check">✓ Excellent</span></td>
-          <td><span class="medium">⊙ Good</span></td>
-          <td>Canvas 2D</td>
-        </tr>
-        <tr>
-          <td><strong>3D Effects</strong></td>
-          <td><span class="x">✗ None</span></td>
-          <td><span class="check">✓ Full 3D</span></td>
-          <td>Three.js 3D</td>
-        </tr>
-        <tr>
-          <td><strong>Parallax/Scroll</strong></td>
-          <td><span class="check">✓ Responsive</span></td>
-          <td><span class="check">✓ Dramatic</span></td>
-          <td>Three.js 3D</td>
-        </tr>
-        <tr>
-          <td><strong>Mouse Tracking</strong></td>
-          <td><span class="check">✓ Yes</span></td>
-          <td><span class="check">✓ Yes</span></td>
-          <td>Tie</td>
-        </tr>
-        <tr>
-          <td><strong>Customization</strong></td>
-          <td><span class="check">✓ Easy</span></td>
-          <td><span class="medium">⊙ Moderate</span></td>
-          <td>Canvas 2D</td>
-        </tr>
-        <tr>
-          <td><strong>Browser Compatibility</strong></td>
-          <td><span class="check">✓ Universal</span></td>
-          <td><span class="medium">⊙ WebGL required</span></td>
-          <td>Canvas 2D</td>
-        </tr>
-        <tr>
-          <td><strong>Wow Factor</strong></td>
-          <td><span class="medium">⊙ Professional</span></td>
-          <td><span class="check">✓ Premium</span></td>
-          <td>Three.js 3D</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Recommendations -->
-    <div style="background: rgba(0, 217, 255, 0.1); border: 2px solid rgba(0, 217, 255, 0.3); border-radius: 8px; padding: 30px; margin: 60px 0;">
-      <h3 style="color: #00D9FF; margin-top: 0;">Recommendations</h3>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-        <div>
-          <h4 style="color: #10B981;">Choose Canvas 2D if:</h4>
-          <ul style="color: rgba(255, 255, 255, 0.8);">
-            <li>Mobile performance is critical</li>
-            <li>You need maximum browser compatibility</li>
-            <li>Site speed is a priority</li>
-            <li>You want easy customization</li>
-            <li>Lower CPU usage matters</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: #00D9FF;">Choose Three.js 3D if:</h4>
-          <ul style="color: rgba(255, 255, 255, 0.8);">
-            <li>You want stunning visual impact</li>
-            <li>Interactive parallax matters</li>
-            <li>Your audience uses modern browsers</li>
-            <li>Premium brand positioning</li>
-            <li>"Wow factor" is important</li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
 
   <footer>
-    <p>Both versions include: 30fps smooth animation • Mouse tracking • Scroll tracking • Cyan/Green/White color scheme • Interactive responsiveness</p>
-    <p style="margin-top: 20px; font-size: 0.9rem;">Created for makemoney.gobizit.ai — Compare, test, and choose the best for your site.</p>
+    <p><strong>Image2Video</strong> — Generate professional animated video backgrounds from your images</p>
+    <p style="margin-top: 15px; font-size: 0.9rem;">Generated: 2026-05-07 21:03:00</p>
   </footer>
 </body>
 </html>

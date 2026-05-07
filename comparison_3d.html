@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image2Video - Interactive 3D Plane</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #0a1a2e 0%, #051020 100%);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+    canvas { display: block; }
+    #controls {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(5, 16, 32, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      color: #00D9FF;
+      font-size: 0.9rem;
+      max-width: 300px;
+    }
+    #controls h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    #controls p {
+      margin: 8px 0;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.4;
+    }
+    #info {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(5, 16, 32, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+    }
+    #loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(5, 16, 32, 0.9);
+      padding: 30px 50px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      color: #00D9FF;
+      text-align: center;
+      z-index: 10;
+    }
+    #loading.hidden { display: none; }
+    .spinner {
+      border: 3px solid rgba(0, 217, 255, 0.2);
+      border-top: 3px solid #00D9FF;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div>Loading 3D Scene...</div>
+    <div class="spinner"></div>
+  </div>
+
+  <div id="controls">
+    <h3>🌀 Interactive 3D Plane</h3>
+    <p><strong>Mouse Movement:</strong> Rotate the plane in 3D space</p>
+    <p><strong>Scroll:</strong> Zoom in/out</p>
+    <p style="margin-top: 12px; color: #10B981;"><strong>Tip:</strong> Move your mouse slowly for smooth rotation</p>
+  </div>
+
+  <div id="info">
+    <div>Mouse X: <span id="mouseX">0</span>°</div>
+    <div>Mouse Y: <span id="mouseY">0</span>°</div>
+  </div>
+
+  <script src="./three.min.js"></script>
+  <script>
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x0a1a2e, 1);
+    document.body.appendChild(renderer.domElement);
+
+    camera.position.z = 2;
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0x00d9ff, 0.8);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    // Load image and create plane
+    const textureLoader = new THREE.TextureLoader();
+    let plane;
+
+    // Compute absolute file:// URL for proper path resolution with file:// protocol
+    const imageUrl = new URL('./images/my-hero-background-2.jpg', window.location.href).href;
+    textureLoader.load(imageUrl,
+      // onLoad callback
+      (texture) => {
+        const geometry = new THREE.PlaneGeometry(3, 2);
+        const material = new THREE.MeshPhongMaterial({ map: texture });
+        plane = new THREE.Mesh(geometry, material);
+        scene.add(plane);
+
+        document.getElementById('loading').classList.add('hidden');
+        console.log('✓ Image loaded successfully');
+      },
+      // onProgress callback (optional)
+      (progressEvent) => {
+        if (progressEvent.lengthComputable) {
+          const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
+          console.log('Loading: ' + percentComplete + '%');
+        }
+      },
+      // onError callback
+      (error) => {
+        console.error('✗ Failed to load image:', error);
+        document.getElementById('loading').innerHTML = '<div style="color: #ff6b6b;">Failed to load image.<br>Check browser console for details.</div>';
+      }
+    );
+
+    // Mouse tracking
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+
+    document.addEventListener('mousemove', (event) => {
+      // Normalize mouse position to -1 to 1
+      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      // Target rotation in radians
+      targetRotationY = mouseX * 0.5;  // Rotate around Y axis based on mouse X
+      targetRotationX = mouseY * 0.3;  // Rotate around X axis based on mouse Y
+
+      // Update info display
+      document.getElementById('mouseX').textContent = (mouseX * 90).toFixed(0);
+      document.getElementById('mouseY').textContent = (mouseY * 90).toFixed(0);
+    });
+
+    // Scroll zoom
+    let zoom = 2;
+    document.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      zoom += event.deltaY * 0.001;
+      zoom = Math.max(0.5, Math.min(5, zoom));
+      camera.position.z = zoom;
+    }, { passive: false });
+
+    // Window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (plane) {
+        // Smooth rotation towards target
+        plane.rotation.x += (targetRotationX - plane.rotation.x) * 0.1;
+        plane.rotation.y += (targetRotationY - plane.rotation.y) * 0.1;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
