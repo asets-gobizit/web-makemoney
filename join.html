@@ -396,7 +396,7 @@
         </div>
       </form>
 
-      <a href="/" class="back-link">← Back to home</a>
+      <a href="/" class="back-link" onclick="localStorage.setItem('hideMMPopup', 'true'); return true;">← Back to home</a>
     </div>
 
     <div class="success-message" id="successMsg">
@@ -408,6 +408,22 @@
   </div>
 
   <script>
+    // Save preference immediately when checkbox is clicked
+    document.addEventListener('DOMContentLoaded', function() {
+      const hidePopupCheckbox = document.getElementById('hidePopup');
+      if (hidePopupCheckbox) {
+        hidePopupCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            localStorage.setItem('hideMMPopup', 'true');
+            console.log('✓ Preference saved: Do not show popup again');
+          } else {
+            localStorage.removeItem('hideMMPopup');
+            console.log('✓ Preference cleared');
+          }
+        });
+      }
+    });
+
     function handleSubmit(e) {
       e.preventDefault();
 
@@ -443,12 +459,6 @@
         timestamp: new Date().toISOString()
       };
       localStorage.setItem('mmgate_token', JSON.stringify(registrationData));
-
-      // Save "don't show again" preference if checked
-      const hidePopupCheckbox = document.getElementById('hidePopup');
-      if (hidePopupCheckbox && hidePopupCheckbox.checked) {
-        localStorage.setItem('hideMMPopup', 'true');
-      }
 
       // Try to POST to API
       fetch('/api/register', {
