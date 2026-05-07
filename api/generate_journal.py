@@ -125,7 +125,7 @@ def get_subscriber_count() -> int:
 
 def build_danny_review_template(for_date: str, tasks: list, experiments: list, commits: list) -> str:
     dt = datetime.strptime(for_date, "%Y-%m-%d")
-    formatted = dt.strftime("%B %-d, %Y") if hasattr(dt, "strftime") else for_date
+    formatted = dt.strftime("%B %d, %Y").replace(" 0", " ") if hasattr(dt, "strftime") else for_date
 
     task_lines = "\n".join([f"- {t['title']}" for t in tasks]) if tasks else "- (no completed tasks today)"
     exp_lines = "\n".join([f"- {e['title']}" for e in experiments]) if experiments else "- (no experiments logged today)"
@@ -185,7 +185,7 @@ scope: business/make-money
 
 def build_ai_actions_log(for_date: str, tasks: list, experiments: list, commits: list, coord_entries: list, subscriber_count: int) -> str:
     dt = datetime.strptime(for_date, "%Y-%m-%d")
-    formatted = dt.strftime("%B %-d, %Y") if hasattr(dt, "strftime") else for_date
+    formatted = dt.strftime("%B %d, %Y").replace(" 0", " ") if hasattr(dt, "strftime") else for_date
 
     task_block = ""
     for t in tasks:
@@ -284,6 +284,12 @@ def main():
     sub_count = get_subscriber_count()
 
     print(f"  Tasks: {len(tasks)} | Experiments: {len(experiments)} | Commits: {len(commits)} | Subscribers: {sub_count}")
+
+    import sys
+    # Ensure stdout handles UTF-8 on Windows
+    if sys.stdout.encoding != 'utf-8':
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
     if args.what in ("danny", "both"):
         content = build_danny_review_template(for_date, tasks, experiments, commits)
