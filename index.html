@@ -185,7 +185,10 @@
       padding: 90px 0 80px;
       position: relative;
       overflow: hidden;
-      min-height: 520px;
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
     }
     .hero-video {
       position: absolute;
@@ -196,6 +199,11 @@
       z-index: 0;
       border: none;
       display: block;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .hero-video:hover {
+      transform: scale(1.05);
     }
     .hero-overlay {
       display: none;
@@ -558,9 +566,9 @@
   </div>
 </header>
 
-<section class="hero">
-  <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true"></iframe>
-  <div class="hero-overlay"></div>
+<section class="hero" onclick="window.location.href='/join.html'">
+  <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true" style="pointer-events: none;"></iframe>
+  <div class="hero-overlay" style="cursor: pointer;"></div>
   <div class="container">
     <div class="hero-text">
       <span class="hero-tag" data-i18n="hero.tag">AI · Autonomous · Revenue</span>
