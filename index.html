@@ -286,6 +286,33 @@
       transform: translateX(3px);
       text-decoration: none;
     }
+    .hero-want-button {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid var(--green);
+      border-radius: 12px;
+      color: var(--white);
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    .hero-want-button:hover {
+      background: rgba(16, 185, 129, 0.25);
+      transform: translateX(-50%) scale(1.1);
+      box-shadow: 0 8px 30px rgba(16,185,129,0.4);
+      border-color: #7dd3f0;
+    }
 
     @keyframes cta-pulse-ring {
       0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.55), 0 6px 18px rgba(16,185,129,0.20); }
@@ -569,6 +596,13 @@
 <section class="hero" onclick="window.location.href='/join.html'">
   <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true" style="pointer-events: none;"></iframe>
   <div class="hero-overlay" style="cursor: pointer;"></div>
+
+  <!-- "I want this" button square at bottom of hero -->
+  <a href="/join.html" class="hero-want-button" onclick="event.stopPropagation();">
+    <span style="font-size: 1.4rem; margin-bottom: 8px;">🚀</span>
+    <div style="font-weight: 800; font-size: 0.95rem;">I want this</div>
+  </a>
+
   <div class="container">
     <div class="hero-text">
       <span class="hero-tag" data-i18n="hero.tag">AI · Autonomous · Revenue</span>
@@ -580,7 +614,6 @@
         <span class="hero-sector-pill" data-i18n="hero.sector2">Vertical SaaS</span>
         <span class="hero-sector-pill" data-i18n="hero.sector3">Marketplaces</span>
         <span class="hero-sector-pill" data-i18n="hero.sector4">AI Services</span>
-        <a href="/join.html" class="hero-sector-pill" style="cursor: pointer; text-decoration: none; transition: all 0.2s; font-weight: 700;">I want this 🚀</a>
       </div>
       <div class="hero-cta-row">
         <a href="/research.html" class="hero-cta" data-i18n="hero.cta">View Research →</a>
