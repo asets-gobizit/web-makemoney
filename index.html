@@ -744,23 +744,6 @@
   </div>
 </footer>
 
-<script>
-  // Check if user selected "Don't show this popup again"
-  document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('hideMMPopup') === 'true') {
-      // Hide the "I want this" button
-      const wantThisBtn = document.querySelector('.hero-sectors a[href="/join.html"]');
-      if (wantThisBtn) {
-        wantThisBtn.style.display = 'none';
-      }
-      // Hide the top CTA button
-      const topCTABtn = document.querySelector('.nav-cta-button');
-      if (topCTABtn) {
-        topCTABtn.style.display = 'none';
-      }
-    }
-  });
-</script>
 
 </body>
 </html>
