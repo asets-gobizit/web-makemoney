@@ -427,12 +427,20 @@
 
 <body>
   <script>
-    // Prevent bfcache doubling issue on navigation
+    // CRITICAL: Disable bfcache to prevent page doubling on back/forward
+    window.addEventListener('unload', function() {});
+
+    // Force reload if page is restored from bfcache
     window.addEventListener('pageshow', function(event) {
       if (event.persisted) {
         location.reload();
       }
     });
+
+    // Prevent back button caching
+    if (performance.navigation.type === 2) {
+      location.reload();
+    }
   </script>
 
   <!-- Modal Backdrop -->
