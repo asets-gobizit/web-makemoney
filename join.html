@@ -426,6 +426,15 @@
 </head>
 
 <body>
+  <script>
+    // Prevent bfcache doubling issue on navigation
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        location.reload();
+      }
+    });
+  </script>
+
   <!-- Modal Backdrop -->
   <div class="backdrop"></div>
 
