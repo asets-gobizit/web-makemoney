@@ -39,14 +39,29 @@
     .hero-section {
       background: linear-gradient(135deg, rgba(5,16,32,0.50) 0%, rgba(11,27,61,0.45) 60%, rgba(26,45,82,0.35) 100%);
       color: var(--white);
-      padding: 80px 0;
+      padding: 60px 0;
       position: relative;
       overflow: hidden;
-      min-height: 500px;
+      min-height: 300px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
       z-index: 1000;
+    }
+
+    @media (max-height: 900px) {
+      .hero-section {
+        min-height: 280px;
+        padding: 40px 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        min-height: 200px;
+        padding: 30px 0;
+        grid-template-columns: 1fr;
+      }
     }
 
     .hero-3d-container {
@@ -323,7 +338,6 @@
       <iframe src="hero-3d.html" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="hero-content">
-      <h2 style="color: white; font-size: 2.8rem; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(5,16,32,0.7);">Register & Get Access</h2>
       <p style="color: rgba(255,255,255,0.78); font-size: 1.15rem; max-width: 500px; text-shadow: 0 1px 8px rgba(5,16,32,0.6);">Join our community to unlock autonomous AI revenue capabilities.</p>
     </div>
   </section>
