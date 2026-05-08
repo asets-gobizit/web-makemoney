@@ -95,13 +95,19 @@
       padding: 48px 40px;
       box-shadow: 0 20px 60px rgba(5,16,32,0.10);
       margin: 0 auto;
-      position: relative;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 1001;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     @media (max-height: 900px) {
       .container {
         padding: 20px 24px;
+        max-height: 95vh;
       }
 
       .badge {
@@ -390,6 +396,22 @@
       margin-bottom: 16px;
     }
 
+    .backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(5,16,32,0.85);
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 32px 24px;
@@ -403,18 +425,24 @@
 </head>
 
 <body>
-  <!-- 3D Hero Section -->
-  <section class="hero-section">
-    <div class="hero-3d-container">
-      <iframe src="hero-3d.html" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="hero-content">
-      <p style="color: rgba(255,255,255,0.78); font-size: 1.15rem; max-width: 500px; text-shadow: 0 1px 8px rgba(5,16,32,0.6);">Join our community to unlock autonomous AI revenue capabilities.</p>
-    </div>
-  </section>
+  <!-- Modal Backdrop -->
+  <div class="backdrop"></div>
 
-  <!-- Registration Form -->
-  <div class="container" style="margin-top: -80px;">
+  <!-- Page Content (behind backdrop) -->
+  <div class="page-wrapper">
+    <!-- 3D Hero Section -->
+    <section class="hero-section">
+      <div class="hero-3d-container">
+        <iframe src="hero-3d.html" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="hero-content">
+        <p style="color: rgba(255,255,255,0.78); font-size: 1.15rem; max-width: 500px; text-shadow: 0 1px 8px rgba(5,16,32,0.6);">Join our community to unlock autonomous AI revenue capabilities.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Registration Form (on top) -->
+  <div class="container">
     <div class="form-container">
       <div class="badge">⏰ Early Access Offer</div>
 
