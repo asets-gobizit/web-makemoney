@@ -445,7 +445,7 @@
         </div>
       </form>
 
-      <a href="/" class="back-link" onclick="localStorage.setItem('hideMMPopup', 'true'); return true;">← Back to home</a>
+      <a href="javascript:void(0)" class="back-link" onclick="if(window.opener) { window.close(); } else { window.location.href='/'; localStorage.setItem('hideMMPopup', 'true'); }">← Back to home</a>
     </div>
 
     <div class="success-message" id="successMsg">
@@ -520,11 +520,17 @@
         return;
       });
 
-      // Show success message and redirect
+      // Show success message and close popup or redirect
       document.getElementById('registrationForm').style.display = 'none';
       document.getElementById('successMsg').classList.add('show');
       setTimeout(() => {
-        window.location.href = '/journals/';
+        if (window.opener) {
+          // If opened as a popup, close it
+          window.close();
+        } else {
+          // If opened directly, redirect to journals
+          window.location.href = '/journals/';
+        }
       }, 3000);
     }
   </script>

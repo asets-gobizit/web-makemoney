@@ -578,7 +578,7 @@
   <div class="container nav">
     <div class="nav-links">
       <a href="/about.html">About</a>
-      <a href="/join.html" class="nav-cta-button">You do not wanna miss this gift 🎁</a>
+      <button class="nav-cta-button" onclick="openRegistrationPopup()" style="border: none; cursor: pointer;">You do not wanna miss this gift 🎁</button>
     </div>
     <div class="logos">
       <img class="logo-img" src="logo.png" alt="Make Money AI" style="height: 64px;">
@@ -591,7 +591,7 @@
   </div>
 </header>
 
-<section class="hero" onclick="if(localStorage.getItem('hideMMPopup') !== 'true') { window.location.href='/join.html'; }">
+<section class="hero" onclick="if(localStorage.getItem('hideMMPopup') !== 'true') { openRegistrationPopup(); }">
   <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true"></iframe>
   <div class="hero-overlay" style="cursor: pointer;"></div>
   <div class="container">
@@ -744,6 +744,29 @@
   </div>
 </footer>
 
+
+<script>
+function openRegistrationPopup() {
+  // Check if user has opted out
+  if (localStorage.getItem('hideMMPopup') === 'true') {
+    return;
+  }
+
+  // Open /join.html in a new popup window
+  // Dimensions: 600px wide × 900px tall (optimal for form)
+  // Centered on screen
+  const width = 600;
+  const height = 900;
+  const left = window.screenX + (window.outerWidth - width) / 2;
+  const top = window.screenY + (window.outerHeight - height) / 2;
+
+  window.open(
+    '/join.html',
+    'RegisterForm',  // Window name (reuses same window if clicked again)
+    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+  );
+}
+</script>
 
 </body>
 </html>
