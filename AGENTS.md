@@ -61,3 +61,10 @@ Neo (Operations) prefers agents to **just do the things they safely can** — ta
 report, rather than asking for confirmation on every low-risk, reversible step. Still confirm
 before destructive/irreversible actions (e.g. deleting resources, merging PRs) unless already
 told to proceed.
+
+## Zoho SalesIQ chat widget (added 2026-09-08)
+- Every public page (root `*.html` + `journals/*.html`, excluding `test-*.html` and the iframe demo pages `hero-3d.html` / `comparison_3d.html`) carries the SalesIQ
+  snippet right before `</body>` (`<script id="zsiqscript" …>`). It uses the **GoBizIT.ai brand**
+  in the SalesIQ portal `kiwicrm` (salesiq.zoho.com) — no separate brand for makemoney; domain
+  restriction on that brand is off, so the subdomain is allowed.
+- New journal pages must include the same snippet (copy it from `journals/index.html`).
