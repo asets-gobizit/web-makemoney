@@ -277,8 +277,13 @@
 <script>
 // Gate check: redirect unregistered users to /join.html
 function checkRegistration() {
-    const token = localStorage.getItem('mmgate_token');
-    if (!token) {
+    // Registered, or explicitly ticked "Don't show this popup again" on /join -> let them in.
+    let token = null, hidePopup = null;
+    try {
+        token = localStorage.getItem('mmgate_token');
+        hidePopup = localStorage.getItem('hideMMPopup');
+    } catch (e) { /* storage blocked: never trap the visitor in a redirect loop */ return; }
+    if (!token && hidePopup !== 'true') {
         window.location.href = '/join.html';
     }
 }
