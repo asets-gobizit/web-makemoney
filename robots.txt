@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /comparison
+Disallow: /comparison_3d
+Disallow: /hero-3d
+Disallow: /test-canvas
+Disallow: /test-three
+
+Sitemap: https://makemoney.gobizit.ai/sitemap.xml
