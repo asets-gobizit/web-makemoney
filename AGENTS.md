@@ -68,3 +68,4 @@ told to proceed.
   in the SalesIQ portal `kiwicrm` (salesiq.zoho.com) — no separate brand for makemoney; domain
   restriction on that brand is off, so the subdomain is allowed.
 - New journal pages must include the same snippet (copy it from `journals/index.html`).
+- 2026-09-10: widget code switched to `wc=siq8691394e…c68d2` on all 15 public pages (was `siqaea3e08…447b`). Keep every page on the same code.
