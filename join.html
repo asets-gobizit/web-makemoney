@@ -430,6 +430,20 @@
 
 <body>
   <script>
+    // Show this popup at most once. If the visitor already registered, or ticked
+    // "Don't show this popup again", send them straight to the content instead.
+    (function () {
+      var done = false;
+      try {
+        done = !!localStorage.getItem('mmgate_token')
+            || localStorage.getItem('hideMMPopup') === 'true';
+      } catch (e) { done = false; }   // storage blocked: show the form normally
+      if (done) {
+        // replace() so the back button can't bounce them into the popup again
+        window.location.replace('/journals/');
+      }
+    })();
+
     // CRITICAL: Disable bfcache to prevent page doubling on back/forward
     window.addEventListener('unload', function() {});
 
