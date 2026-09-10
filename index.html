@@ -590,6 +590,30 @@
     }
   </script>
 
+  <script>
+    // Hero background opens the early-access popup, but:
+    //  - never when the click was on a real link/button (View Research, Get Advisory, nav, language)
+    //  - never more than once per browser
+    //  - never once the visitor registered or ticked "Don't show this popup again"
+    document.addEventListener('DOMContentLoaded', function () {
+      var hero = document.getElementById('hero');
+      if (!hero) return;
+      hero.addEventListener('click', function (event) {
+        var t = event.target;
+        if (t && t.closest && t.closest('a, button, input, select, label, .lang-toggle')) return;
+        var seen;
+        try {
+          seen = !!localStorage.getItem('mmgate_token')
+              || localStorage.getItem('hideMMPopup') === 'true'
+              || localStorage.getItem('mmPopupShown') === 'true';
+        } catch (e) { return; }   // storage blocked: never auto-open the popup
+        if (seen) return;
+        try { localStorage.setItem('mmPopupShown', 'true'); } catch (e) {}
+        window.location.href = '/join.html';
+      });
+    });
+  </script>
+
 <header>
   <div class="container nav">
     <div class="nav-links">
@@ -607,7 +631,7 @@
   </div>
 </header>
 
-<section class="hero" onclick="if(localStorage.getItem('hideMMPopup') !== 'true') { window.location.href='/join.html'; }">
+<section class="hero" id="hero">
   <iframe class="hero-video" src="hero-3d.html" frameborder="0" allowfullscreen aria-hidden="true"></iframe>
   <div class="hero-overlay" style="cursor: pointer;"></div>
   <div class="container">
