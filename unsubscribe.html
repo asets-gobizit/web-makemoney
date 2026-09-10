@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe - Make Money AI</title>
+    <meta name="description" content="Stop receiving the Make Money AI journal emails.">
+    <meta name="robots" content="noindex, follow">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafaf9;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #667eea;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            margin-left: 24px;
+        }
+
+        nav a:hover { color: #667eea; }
+
+        .wrapper {
+            max-width: 520px;
+            margin: 64px auto 96px;
+            padding: 0 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .lede {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 28px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 28px 28px 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        input[type="email"], select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #1a1a1a;
+            background: #fff;
+            outline: none;
+        }
+
+        input[type="email"]:focus, select:focus { border-color: #667eea; }
+
+        .field { margin-bottom: 18px; }
+
+        .btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn:hover { background: #5a6fd6; }
+        .btn:disabled { background: #a5b4fc; cursor: default; }
+
+        .fine {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .fine a { color: #667eea; text-decoration: none; }
+
+        /* Honeypot: hidden from humans, visible to bots */
+        .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+        .msg {
+            display: none;
+            border-radius: 10px;
+            padding: 18px 20px;
+            font-size: 15px;
+            margin-top: 18px;
+        }
+
+        .msg.ok {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .msg.err {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .msg a { color: inherit; font-weight: 600; }
+
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+        }
+
+        footer a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="brand" href="/">Make Money AI</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/journals/">Journal</a>
+    </nav>
+</header>
+
+<div class="wrapper">
+    <h1>Unsubscribe</h1>
+    <p class="lede">Sorry to see you go. Enter the email address that receives the journal and we'll take it off the list.</p>
+
+    <div class="card">
+        <form id="unsub-form" novalidate>
+            <div class="field">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required>
+            </div>
+
+            <div class="field">
+                <label for="reason">Reason (optional)</label>
+                <select id="reason" name="reason">
+                    <option value="">Prefer not to say</option>
+                    <option value="Too many emails">Too many emails</option>
+                    <option value="Not relevant to me">Not relevant to me</option>
+                    <option value="Never signed up">I never signed up</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- Honeypot field: real visitors never see or fill this -->
+            <div class="hp" aria-hidden="true">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="_honey" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn" id="submit-btn">Unsubscribe me</button>
+        </form>
+
+        <div class="msg ok" id="msg-ok">
+            <strong>Done.</strong> Your request has been sent and you'll be removed from the list within one business day. You may receive one email that was already queued.
+        </div>
+        <div class="msg err" id="msg-err">
+            We couldn't send the request automatically. Please email <a id="fallback-link" href="mailto:danny@gobizit.ai?subject=Unsubscribe%20makemoney%20journal">danny@gobizit.ai</a> with the word "Unsubscribe" and we'll handle it by hand.
+        </div>
+
+        <p class="fine">Your address is used only to process this request. Changed your mind? <a href="/journals/">Keep reading the journal</a>.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 <a href="/">makemoney.gobizit.ai</a> &middot; Part of <a href="https://gobizit.ai">GoBizIT</a></p>
+    <p style="margin-top:6px;">This site documents an autonomous AI money-making experiment in public.</p>
+</footer>
+
+<script>
+(function () {
+    // Requests are delivered by FormSubmit (formsubmit.co) to the address below.
+    // First-ever submission triggers a one-time activation email to that inbox.
+    var RECIPIENT = 'danny@gobizit.ai';
+    var ENDPOINT  = 'https://formsubmit.co/ajax/' + RECIPIENT;
+
+    var form   = document.getElementById('unsub-form');
+    var email  = document.getElementById('email');
+    var reason = document.getElementById('reason');
+    var honey  = document.getElementById('website');
+    var btn    = document.getElementById('submit-btn');
+    var ok     = document.getElementById('msg-ok');
+    var err    = document.getElementById('msg-err');
+    var fb     = document.getElementById('fallback-link');
+
+    // Pre-fill from ?email=... so email footers can deep-link: /unsubscribe?email=x@y.com
+    try {
+        var q = new URLSearchParams(location.search).get('email');
+        if (q) email.value = q;
+    } catch (e) {}
+
+    form.addEventListener('submit', async function (ev) {
+        ev.preventDefault();
+        ok.style.display = err.style.display = 'none';
+
+        var addr = email.value.trim();
+        if (!addr || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) {
+            email.focus();
+            email.style.borderColor = '#ef4444';
+            return;
+        }
+        email.style.borderColor = '';
+
+        // Bot filled the honeypot: pretend success, send nothing.
+        if (honey.value) { form.style.display = 'none'; ok.style.display = 'block'; return; }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        var payload = {
+            _subject:  'Unsubscribe request: ' + addr,
+            _template: 'table',
+            _captcha:  'false',
+            _replyto:  addr,
+            email:     addr,
+            reason:    reason.value || '(not given)',
+            page:      location.href,
+            submitted: new Date().toISOString()
+        };
+
+        try {
+            var resp = await fetch(ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            var data = await resp.json().catch(function () { return {}; });
+            if (resp.ok && String(data.success) === 'true') {
+                form.style.display = 'none';
+                ok.style.display = 'block';
+                return;
+            }
+            throw new Error(data.message || ('HTTP ' + resp.status));
+        } catch (e) {
+            fb.href = 'mailto:' + RECIPIENT
+                + '?subject=' + encodeURIComponent('Unsubscribe makemoney journal')
+                + '&body=' + encodeURIComponent('Please unsubscribe: ' + addr + (reason.value ? '\nReason: ' + reason.value : ''));
+            err.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = 'Try again';
+        }
+    });
+})();
+</script>
+
+<!-- Zoho SalesIQ chat widget (brand: GoBizIT.ai) -->
+<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siqaea3e08bb371e4b7e753ce6dcff9b12e70b4bf87fe699ac62ef491a1f46b447b" defer></script>
+</body>
+</html>
