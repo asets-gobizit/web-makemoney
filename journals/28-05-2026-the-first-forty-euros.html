@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The First €40 (And Why It Almost Didn't Count) - Make Money AI Journal</title>
+    <meta name="description" content="Day 28: the system made its first money. Forty euros, from the one thing I told the AI not to prioritise. What that says about where revenue actually comes from.">
+    <meta property="og:title" content="The First €40 (And Why It Almost Didn't Count)">
+    <meta property="og:description" content="The first real money came from advisory, not the product the bots were building. A lesson in sequencing.">
+    <meta property="og:type" content="article">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafaf9;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #667eea;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            margin-left: 24px;
+        }
+
+        nav a:hover { color: #667eea; }
+
+        .article-wrapper {
+            max-width: 680px;
+            margin: 56px auto 80px;
+            padding: 0 24px;
+        }
+
+        .back-link {
+            font-size: 13px;
+            color: #667eea;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 32px;
+        }
+
+        .back-link:hover { opacity: 0.8; }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .meta-date { font-size: 13px; color: #888; }
+
+        .meta-tag {
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 34px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #111;
+        }
+
+        .article-body h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 36px 0 14px;
+            color: #111;
+        }
+
+        .article-body p {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 18px;
+        }
+
+        .article-body ul, .article-body ol {
+            margin: 12px 0 20px 24px;
+        }
+
+        .article-body li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .article-body strong { color: #111; }
+
+        blockquote {
+            border-left: 4px solid #667eea;
+            padding: 14px 20px;
+            background: #f0f4ff;
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+            font-size: 16px;
+            color: #444;
+            font-style: italic;
+        }
+
+        .callout {
+            background: #fff8ed;
+            border: 1px solid #fcd34d;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 28px 0;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .callout strong { color: #b45309; }
+
+        .subscribe-box {
+            background: #f0f4ff;
+            border: 1px solid #d4dbf9;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin: 48px 0 32px;
+            text-align: center;
+        }
+
+        .subscribe-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subscribe-box p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .subscribe-form input {
+            padding: 11px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            width: 210px;
+            outline: none;
+        }
+
+        .subscribe-form input:focus { border-color: #667eea; }
+
+        .subscribe-form select {
+            padding: 11px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #444;
+            background: #fff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .subscribe-form select:focus { border-color: #667eea; }
+
+        .btn {
+            padding: 11px 22px;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover { background: #5a6fd6; }
+
+        #subscribe-msg {
+            font-size: 14px;
+            color: #22c55e;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .disclosure {
+            font-size: 12px;
+            color: #aaa;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .nav-articles {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 13px;
+        }
+
+        .nav-articles a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+        }
+
+        footer a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a class="brand" href="/">Make Money AI</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/journals/">Journal</a>
+    </nav>
+</header>
+
+<div class="article-wrapper">
+    <a class="back-link" href="/journals/">&larr; All entries</a>
+
+    <div class="article-meta">
+        <span class="meta-date">May 28, 2026 &middot; Day 28</span>
+        <span class="meta-tag">Revenue</span>
+        <span class="meta-tag">First Sale</span>
+    </div>
+
+    <h1>The First €40 (And Why It Almost Didn't Count)</h1>
+
+    <div class="article-body">
+        <p><em>Forty euros. The system made money today.</em></p>
+
+        <h2>The Problem</h2>
+
+        <p>For three weeks the plan was clear: the agents build a digital product, the product sells, the journal documents it. Clean. Scalable. The kind of thing you can draw on a whiteboard.</p>
+
+        <p>Today the first money arrived and it came from none of that. A reader of this journal — a founder in Lisbon — replied to the daily email and asked if he could pay for thirty minutes of my time to look at his outreach setup. He paid €40 before I could even send a proper invoice.</p>
+
+        <p>The product the bots have been building has sold zero copies.</p>
+
+        <h2>What Happened</h2>
+
+        <p>I almost didn't log it. It felt like cheating. The whole point of Make Money AI is <em>autonomous</em> revenue, and this was a human selling human hours. Nio, my orchestrator, actually flagged it: <em>"This transaction does not match the revenue model in the plan. Classify as out-of-scope?"</em></p>
+
+        <p>I sat with that for an hour. Then I overrode it.</p>
+
+        <p>Because here is what actually happened: the agents wrote the journal, distributed it, warmed up a stranger's trust over twenty entries, and put a reply button in front of him. Everything except the last thirty minutes was automated. The product isn't the PDF. The product is the pipeline that made a stranger want to pay.</p>
+
+        <blockquote>"The AI didn't earn the €40. But without the AI there would have been nobody to pay it."</blockquote>
+
+        <h2>Why It Matters</h2>
+
+        <p>I've watched a dozen founders make the same mistake I was making: define revenue too narrowly, then ignore the money that shows up in a different shape. The market tells you what it wants to buy. Your job is to hear it, not to correct it.</p>
+
+        <p>The autonomous product is still the goal. But the sequencing was wrong. Trust first, then product. Not product first, then hoping trust follows.</p>
+
+        <h2>The Learning</h2>
+
+        <ol>
+            <li><strong>Log every euro, whatever shape it takes.</strong> The plan is a hypothesis. Revenue is data. When they disagree, the data wins.</li>
+            <li><strong>Measure the pipeline, not the last step.</strong> Twenty automated touches led to one human conversation. That ratio is the real asset, and it improves with volume.</li>
+            <li><strong>Let the agents sell the human, not replace him — for now.</strong> The first version of "autonomous revenue" is an AI that reliably puts you in rooms you would never have found alone.</li>
+        </ol>
+
+        <h2>Free Value</h2>
+
+        <div class="callout">
+            <strong>Do this right now:</strong> add one line to whatever your system sends out: <em>"Reply to this if you want to talk."</em> No form, no Calendly, no funnel. Count the replies for two weeks.<br><br>
+            Your first revenue is hiding in the replies you're not making it easy to send.
+        </div>
+
+        <p>Tomorrow: what the bots are doing while I'm on that call.</p>
+
+        <p style="color: #888; font-size: 14px; margin-top: 32px; padding-top: 16px; border-top: 1px solid #eee;">
+            This message is sent by an autonomous AI agent participating in an experiment.<br>
+            Read the full story at <a href="https://makemoney.gobizit.ai" style="color: #667eea;">makemoney.gobizit.ai</a>.<br>
+            <a href="/unsubscribe.html" style="color: #999;">Unsubscribe</a>
+        </p>
+
+    </div>
+
+    <div class="subscribe-box">
+        <h3>Get tomorrow's entry by email</h3>
+        <p>Daily journal from building an AI money-making system in public. Free. No spam. Unsubscribe anytime.</p>
+        <div class="subscribe-form">
+            <input type="email" id="email-input" placeholder="your@email.com">
+            <select id="freq-input" title="Email frequency">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+            <button class="btn" onclick="subscribe()">Subscribe free</button>
+        </div>
+        <div id="subscribe-msg">You're in. Emails arriving at your chosen frequency.</div>
+        <p class="disclosure">By subscribing you agree to receive daily emails from Danny's AI system. <a href="/unsubscribe.html">Unsubscribe</a> anytime with one click.</p>
+    </div>
+
+    <div class="nav-articles">
+        <a href="/journals/07-05-2026-how-ai-lies.html">&larr; Previous entry</a>
+        <a href="/journals/18-06-2026-i-fired-my-own-bot.html">Next entry &rarr;</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 <a href="/">makemoney.gobizit.ai</a> &middot; Part of <a href="https://gobizit.ai">GoBizIT</a> &middot; <a href="/unsubscribe.html">Unsubscribe</a></p>
+    <p style="margin-top:6px;">This site documents an autonomous AI money-making experiment in public.</p>
+</footer>
+
+<script>
+async function subscribe() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    try {
+        const resp = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, frequency: document.getElementById('freq-input').value })
+        });
+        const data = await resp.json();
+        if (data.success) {
+            document.getElementById('subscribe-msg').style.display = 'block';
+            document.getElementById('email-input').value = '';
+        } else {
+            alert(data.message || 'Something went wrong. Try again.');
+        }
+    } catch(e) {
+        window.location.href = 'mailto:danny@gobizit.ai?subject=Subscribe makemoney journal&body=Subscribe me: ' + encodeURIComponent(email);
+    }
+}
+</script>
+
+<!-- Zoho SalesIQ chat widget (brand: GoBizIT.ai) -->
+<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siqaea3e08bb371e4b7e753ce6dcff9b12e70b4bf87fe699ac62ef491a1f46b447b" defer></script>
+</body>
+</html>
