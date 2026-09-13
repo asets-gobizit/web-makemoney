@@ -62,6 +62,11 @@
       z-index: 10;
     }
     #loading.hidden { display: none; }
+    /* Mouse instructions and the mouse-angle readout make no sense on phones/touch screens,
+       and the panel sat on top of the hero headline there. Hide both on narrow or touch-only screens. */
+    @media (max-width: 900px), (hover: none) {
+      #controls, #info { display: none; }
+    }
     .spinner {
       border: 3px solid rgba(0, 217, 255, 0.2);
       border-top: 3px solid #00D9FF;

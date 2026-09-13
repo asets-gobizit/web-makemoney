@@ -39,6 +39,9 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    /* Safety net: nothing may widen the page beyond the screen (clip, not hidden, so the sticky header keeps working) */
+    html, body { overflow-x: clip; }
+    img, video, iframe { max-width: 100%; }
     body {
       margin: 0;
       font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -76,7 +79,7 @@
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
-      padding: 14px 0;
+      padding: 14px 24px; /* keep the container's side gutter (was 14px 0, which removed it) */
       gap: 24px;
     }
     .nav-links {
@@ -170,10 +173,35 @@
       color: var(--green);
     }
     @media (max-width: 800px) {
-      .nav { padding: 14px 0; }
-      .logo-img { height: 48px; }
+      /* Stack the header: logo + language on the first row, the gift CTA on its own full-width row.
+         The 3-column grid (About + pill | logo | EN/ES/FR) does not fit a phone and pushed the page
+         wider than the screen. */
+      .nav {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "logo lang" "links links";
+        padding: 10px 16px 12px;
+        gap: 10px 12px;
+      }
+      .logos { grid-area: logo; grid-column: auto; justify-content: flex-start; min-width: 0; }
+      .lang-toggle { grid-area: lang; grid-column: auto; }
+      .nav-links { grid-area: links; justify-content: space-between; gap: 12px; min-width: 0; }
+      .nav-links a:not(.nav-cta-button) { flex-shrink: 0; }
+      .nav-cta-button {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 9px 14px;
+        font-size: 0.88rem;
+        line-height: 1.25;
+        text-align: center;
+      }
+      .logo-img, .logos .logo-img[style] { height: 44px !important; }
+      .lang-toggle button { padding: 6px 10px; font-size: 0.85rem; }
       .mm-badge { padding: 9px 16px; }
       .mm-badge .logo-img { height: 40px; }
+    }
+    @media (max-width: 380px) {
+      .lang-toggle button { padding: 5px 8px; font-size: 0.8rem; }
+      .nav-cta-button { font-size: 0.82rem; padding: 8px 12px; }
     }
 
     /* Hero */
@@ -561,9 +589,15 @@
     section.block.tinted { background: var(--green-soft); }
 
     @media (max-width: 800px) {
-      .hero { padding: 60px 0 80px; }
+      .hero { padding: 56px 0 64px; min-height: 0; }
+      /* The 3D scene is mouse-driven; on touch screens it is decoration only.
+         Letting touches pass through keeps page scrolling reliable over the hero. */
+      .hero-video { pointer-events: none; }
+      .hero-video:hover { transform: none; }
+      .hero-sub { font-size: 1.05rem; }
+      .hero-sector-pill { padding: 7px 14px; font-size: 0.9rem; }
+      .hero-cta-row { gap: 12px; }
       .two-up, .sectors, .partnership-routes { grid-template-columns: 1fr; }
-      .nav { flex-wrap: wrap; gap: 12px; }
       section.block { padding: 50px 0; }
       .get-started { padding: 64px 0 70px; }
       .get-heading { font-size: 1.9rem; }
