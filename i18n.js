@@ -10,6 +10,7 @@ const translations = {
     "hero.sector4": "AI Services",
     "hero.cta": "View Research →",
     "hero.cta2": "Get Advisory →",
+    "hero.tagline": "Show You The Money",
 
     "snap.eyebrow": "The Opportunity",
     "snap.problem.title": "The Challenge",
@@ -83,6 +84,7 @@ const translations = {
     "hero.sector4": "Servicios de IA",
     "hero.cta": "Ver Investigación →",
     "hero.cta2": "Obtener Asesoría →",
+    "hero.tagline": "Te Mostramos el Dinero",
 
     "snap.eyebrow": "La Oportunidad",
     "snap.problem.title": "El Desafío",
@@ -156,6 +158,7 @@ const translations = {
     "hero.sector4": "Services IA",
     "hero.cta": "Voir la Recherche →",
     "hero.cta2": "Obtenir des Conseils →",
+    "hero.tagline": "On Vous Montre l'Argent",
 
     "snap.eyebrow": "L'Opportunité",
     "snap.problem.title": "Le Défi",
