@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
     <title>Memory Is the Product - Make Money AI Journal</title>
     <meta name="description" content="Day 91: I stopped counting how many things the agents can do and started counting how much they remember. Everything changed.">
     <meta property="og:title" content="Memory Is the Product">
@@ -20,57 +21,58 @@
             line-height: 1.7;
         }
 
-        /* Site-wide header — matches the main site (index.html) so the journal reads as part of the same site */
+        /* Site header — same style as research.html / about.html so the journal reads as part of the same site */
         :root {
             --navy: #0B1B3D;
             --green: #10B981;
             --green-dark: #059669;
+            --green-soft: #d1fae5;
             --ink-soft: #4a5070;
             --line: #e3e7f0;
         }
-        header.site-header {
-            position: sticky; top: 0; z-index: 50;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(10px);
+        header {
+            background: rgba(255,255,255,0.95);
             border-bottom: 1px solid var(--line);
-            padding: 0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
-        .site-nav {
-            max-width: 1140px;
+        header .container {
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            padding: 14px 24px;
-            gap: 16px;
+            gap: 14px;
         }
-        .site-logo-link { display: flex; align-items: center; flex-shrink: 0; }
-        .site-logo-img { height: 40px; width: auto; display: block; }
-        .site-nav-links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
-        .site-nav-links a {
+        .logo-link {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-link:hover { color: var(--green-dark); }
+        header nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        header nav a {
             color: var(--ink-soft);
+            text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
-            text-decoration: none;
+            transition: color 0.2s;
         }
-        .site-nav-links a:hover { color: var(--green); }
-        .site-nav-links a.current { color: var(--navy); font-weight: 700; }
-        .site-nav-cta {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: var(--green); color: #fff;
-            padding: 9px 18px;
-            border-radius: 999px;
-            font-size: 0.9rem; font-weight: 800;
-            text-decoration: none; white-space: nowrap;
-        }
-        .site-nav-cta:hover { background: var(--green-dark); }
-        @media (max-width: 640px) {
-            .site-nav { padding: 12px 16px; gap: 10px; }
-            .site-nav-links { width: 100%; justify-content: space-between; gap: 10px; }
-            .site-nav-cta { flex: 1 1 auto; padding: 8px 12px; font-size: 0.85rem; }
-            .site-logo-img { height: 32px; }
-        }
+        header nav a:hover { color: var(--green); }
+        header nav a.current { color: var(--navy); font-weight: 700; }
 
         .article-wrapper {
             max-width: 680px;
@@ -272,15 +274,16 @@
 </head>
 <body>
 
-<header class="site-header">
-    <div class="site-nav">
-        <a href="/" class="site-logo-link"><img class="site-logo-img" src="/logo.png" alt="Make Money AI"></a>
-        <div class="site-nav-links">
+<header>
+    <div class="container">
+        <a href="/" class="logo-link">Make Money AI</a>
+        <nav>
             <a href="/">Home</a>
-            <a href="/journals/" class="current">Journal</a>
+            <a href="/journals/">Journal</a>
+            <a href="/research.html">Research</a>
             <a href="/about.html">About</a>
-            <a href="/join.html" class="site-nav-cta">You do not wanna miss this gift 🎁</a>
-        </div>
+            <a href="/join.html">Join</a>
+        </nav>
     </div>
 </header>
 

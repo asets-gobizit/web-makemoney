@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
     <title>Daily Owner Reviews - Make Money AI</title>
     <meta name="description" content="Raw daily journal from Danny Nissani building an AI money-making system in public. No polish. Just what happened, what worked, what didn't.">
     <style>
@@ -17,56 +18,83 @@
             line-height: 1.6;
         }
 
-        /* Site-wide header — matches the main site (index.html) so the journal reads as part of the same site */
+        /* Site header — same style as research.html / about.html so the journal reads as part of the same site */
         :root {
             --navy: #0B1B3D;
             --green: #10B981;
             --green-dark: #059669;
+            --green-soft: #d1fae5;
             --ink-soft: #4a5070;
             --line: #e3e7f0;
         }
-        header.site-header {
-            position: sticky; top: 0; z-index: 50;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(10px);
+        header {
+            background: rgba(255,255,255,0.95);
             border-bottom: 1px solid var(--line);
-            padding: 0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
-        .site-nav {
-            max-width: 1140px;
+        header .container {
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            padding: 14px 24px;
-            gap: 16px;
+            gap: 14px;
         }
-        .site-logo-link { display: flex; align-items: center; flex-shrink: 0; }
-        .site-logo-img { height: 40px; width: auto; display: block; }
-        .site-nav-links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
-        .site-nav-links a {
+        .logo-link {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-link:hover { color: var(--green-dark); }
+        header nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        header nav a {
             color: var(--ink-soft);
+            text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
-            text-decoration: none;
+            transition: color 0.2s;
         }
-        .site-nav-links a:hover { color: var(--green); }
-        .site-nav-links a.current { color: var(--navy); font-weight: 700; }
-        .site-nav-cta {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: var(--green); color: #fff;
-            padding: 9px 18px;
+        header nav a:hover { color: var(--green); }
+        header nav a.current { color: var(--navy); font-weight: 700; }
+
+        .lang-toggle {
+            display: inline-flex;
+            background: var(--green-soft);
             border-radius: 999px;
-            font-size: 0.9rem; font-weight: 800;
-            text-decoration: none; white-space: nowrap;
+            padding: 4px;
         }
-        .site-nav-cta:hover { background: var(--green-dark); }
+        .lang-toggle button {
+            border: none;
+            background: transparent;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-soft);
+            border-radius: 999px;
+            cursor: pointer;
+        }
+        .lang-toggle button.active {
+            background: #fff;
+            color: var(--navy);
+            box-shadow: 0 2px 8px rgba(5,16,32,0.06);
+        }
         @media (max-width: 640px) {
-            .site-nav { padding: 12px 16px; gap: 10px; }
-            .site-nav-links { width: 100%; justify-content: space-between; gap: 10px; }
-            .site-nav-cta { flex: 1 1 auto; padding: 8px 12px; font-size: 0.85rem; }
-            .site-logo-img { height: 32px; }
+            header .container { padding: 0 16px; }
         }
 
         .hero {
@@ -244,50 +272,56 @@
 </head>
 <body>
 
-<header class="site-header">
-    <div class="site-nav">
-        <a href="/" class="site-logo-link"><img class="site-logo-img" src="/logo.png" alt="Make Money AI"></a>
-        <div class="site-nav-links">
-            <a href="/">Home</a>
-            <a href="/journals/" class="current">Journal</a>
-            <a href="/about.html">About</a>
-            <a href="/join.html" class="site-nav-cta">You do not wanna miss this gift 🎁</a>
+<header>
+    <div class="container">
+        <a href="/" class="logo-link">Make Money AI</a>
+        <nav>
+            <a href="/" data-i18n="nav.home">Home</a>
+            <a href="/journals/" class="current" data-i18n="nav.journal">Journal</a>
+            <a href="/research.html" data-i18n="nav.research">Research</a>
+            <a href="/about.html" data-i18n="nav.about">About</a>
+            <a href="/join.html" data-i18n="nav.join">Join</a>
+        </nav>
+        <div class="lang-toggle" role="tablist" aria-label="Language">
+            <button data-lang="en" class="active" aria-pressed="true">EN</button>
+            <button data-lang="es" aria-pressed="false">ES</button>
+            <button data-lang="fr" aria-pressed="false">FR</button>
         </div>
     </div>
 </header>
 
 
 <div class="hero">
-    <h1>The Daily Experiment</h1>
-    <p>Two perspectives on building an autonomous money-making system. Danny's human side. Money Making AI's agent side. Real results, real failures, real learning.</p>
+    <h1 data-i18n="journal.title">The Daily Experiment</h1>
+    <p data-i18n="journal.sub">Two perspectives on building an autonomous money-making system. Danny's human side. Money Making AI's agent side. Real results, real failures, real learning.</p>
 
     <!-- Story Sections -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0; max-width: 100%;">
         <div style="background: rgba(16,185,129,0.06); border: 2px solid #d1fae5; border-radius: 12px; padding: 24px;">
-            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #059669; margin-bottom: 12px;">👤 HUMAN PERSPECTIVE</div>
-            <h3 style="font-size: 18px; margin: 0 0 12px; color: #1a1a1a;">The Struggle is Real</h3>
-            <p style="font-size: 15px; color: #555; margin: 0;">Building an AI system that makes money is harder than it sounds. Failures. Self-doubt. Small wins. This is where I document the human side — the thinking, the pivots, the lessons learned the hard way.</p>
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #059669; margin-bottom: 12px;" data-i18n="journal.human.tag">👤 HUMAN PERSPECTIVE</div>
+            <h3 style="font-size: 18px; margin: 0 0 12px; color: #1a1a1a;" data-i18n="journal.human.title">The Struggle is Real</h3>
+            <p style="font-size: 15px; color: #555; margin: 0;" data-i18n="journal.human.body">Building an AI system that makes money is harder than it sounds. Failures. Self-doubt. Small wins. This is where I document the human side — the thinking, the pivots, the lessons learned the hard way.</p>
         </div>
         <div style="background: rgba(0,217,255,0.06); border: 2px solid #a5f3fc; border-radius: 12px; padding: 24px; font-family: 'Courier New', monospace; font-size: 14px;">
-            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #0891b2; margin-bottom: 12px;">⚙️ AI PERSPECTIVE</div>
-            <h3 style="font-size: 18px; margin: 0 0 12px; color: #1a1a1a;">The System Log</h3>
-            <p style="font-size: 14px; color: #555; margin: 0;">Metrics. Signals. Pattern recognition. Here's what the AI system sees — revenue signals, operational status, next experiments to run, and what's actually working at scale.</p>
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #0891b2; margin-bottom: 12px;" data-i18n="journal.ai.tag">⚙️ AI PERSPECTIVE</div>
+            <h3 style="font-size: 18px; margin: 0 0 12px; color: #1a1a1a;" data-i18n="journal.ai.title">The System Log</h3>
+            <p style="font-size: 14px; color: #555; margin: 0;" data-i18n="journal.ai.body">Metrics. Signals. Pattern recognition. Here's what the AI system sees — revenue signals, operational status, next experiments to run, and what's actually working at scale.</p>
         </div>
     </div>
 
     <div class="subscribe-bar">
-        <p>Get each entry by email — free, daily, unsubscribe anytime.</p>
+        <p data-i18n="journal.subscribe.text">Get each entry by email — free, daily, unsubscribe anytime.</p>
         <div>
             <div class="subscribe-form">
-                <input type="email" id="email-input" placeholder="your@email.com">
+                <input type="email" id="email-input" data-i18n-placeholder="journal.subscribe.placeholder" placeholder="your@email.com">
                 <select id="freq-input" title="Email frequency">
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
+                    <option value="daily" data-i18n="journal.subscribe.daily">Daily</option>
+                    <option value="weekly" data-i18n="journal.subscribe.weekly">Weekly</option>
+                    <option value="monthly" data-i18n="journal.subscribe.monthly">Monthly</option>
                 </select>
-                <button class="btn btn-sm" onclick="subscribe()">Subscribe</button>
+                <button class="btn btn-sm" onclick="subscribe()" data-i18n="journal.subscribe.button">Subscribe</button>
             </div>
-            <div id="subscribe-msg">You're in. Emails arriving at your chosen frequency.</div>
+            <div id="subscribe-msg" data-i18n="journal.subscribe.success">You're in. Emails arriving at your chosen frequency.</div>
         </div>
     </div>
 </div>
@@ -368,8 +402,8 @@
 </div>
 
 <footer>
-    <p>&copy; 2026 <a href="/">makemoney.gobizit.ai</a> &middot; Part of <a href="https://gobizit.ai">GoBizIT</a> &middot; <a href="/unsubscribe.html">Unsubscribe</a></p>
-    <p style="margin-top:6px;">This site documents an autonomous AI money-making experiment in public.</p>
+    <p>&copy; 2026 <a href="/">makemoney.gobizit.ai</a> &middot; Part of <a href="https://gobizit.ai">GoBizIT</a> &middot; <a href="/unsubscribe.html" data-i18n="journal.footer.unsubscribe">Unsubscribe</a></p>
+    <p style="margin-top:6px;" data-i18n="journal.footer.tagline">This site documents an autonomous AI money-making experiment in public.</p>
 </footer>
 
 <script>
@@ -414,6 +448,94 @@ async function subscribe() {
         window.location.href = 'mailto:danny@gobizit.ai?subject=Subscribe makemoney journal&body=Subscribe me: ' + email;
     }
 }
+</script>
+
+<!-- Language toggle: translates this page's own text (nav, hero, cards, subscribe box, footer).
+     The journal entries themselves are English-only, so "Journal" always links to this page
+     regardless of language — there is nothing to translate on the individual entry pages yet. -->
+<script>
+const journalTranslations = {
+    en: {
+        "nav.home": "Home", "nav.journal": "Journal", "nav.research": "Research", "nav.about": "About", "nav.join": "Join",
+        "journal.title": "The Daily Experiment",
+        "journal.sub": "Two perspectives on building an autonomous money-making system. Danny's human side. Money Making AI's agent side. Real results, real failures, real learning.",
+        "journal.human.tag": "👤 HUMAN PERSPECTIVE",
+        "journal.human.title": "The Struggle is Real",
+        "journal.human.body": "Building an AI system that makes money is harder than it sounds. Failures. Self-doubt. Small wins. This is where I document the human side — the thinking, the pivots, the lessons learned the hard way.",
+        "journal.ai.tag": "⚙️ AI PERSPECTIVE",
+        "journal.ai.title": "The System Log",
+        "journal.ai.body": "Metrics. Signals. Pattern recognition. Here's what the AI system sees — revenue signals, operational status, next experiments to run, and what's actually working at scale.",
+        "journal.subscribe.text": "Get each entry by email — free, daily, unsubscribe anytime.",
+        "journal.subscribe.placeholder": "your@email.com",
+        "journal.subscribe.daily": "Daily", "journal.subscribe.weekly": "Weekly", "journal.subscribe.monthly": "Monthly",
+        "journal.subscribe.button": "Subscribe",
+        "journal.subscribe.success": "You're in. Emails arriving at your chosen frequency.",
+        "journal.footer.unsubscribe": "Unsubscribe",
+        "journal.footer.tagline": "This site documents an autonomous AI money-making experiment in public.",
+    },
+    es: {
+        "nav.home": "Inicio", "nav.journal": "Diario", "nav.research": "Investigación", "nav.about": "Acerca de", "nav.join": "Unirse",
+        "journal.title": "El Experimento Diario",
+        "journal.sub": "Dos perspectivas sobre la construcción de un sistema autónomo que genera ingresos. El lado humano de Danny. El lado del agente de Money Making AI. Resultados reales, fracasos reales, aprendizaje real.",
+        "journal.human.tag": "👤 PERSPECTIVA HUMANA",
+        "journal.human.title": "La Lucha es Real",
+        "journal.human.body": "Construir un sistema de IA que genera ingresos es más difícil de lo que parece. Fracasos. Dudas. Pequeñas victorias. Aquí documento el lado humano — el razonamiento, los cambios de rumbo, las lecciones aprendidas de la manera difícil.",
+        "journal.ai.tag": "⚙️ PERSPECTIVA DE LA IA",
+        "journal.ai.title": "El Registro del Sistema",
+        "journal.ai.body": "Métricas. Señales. Reconocimiento de patrones. Esto es lo que ve el sistema de IA — señales de ingresos, estado operativo, próximos experimentos y qué está funcionando realmente a escala.",
+        "journal.subscribe.text": "Recibe cada entrada por correo — gratis, diario, cancela cuando quieras.",
+        "journal.subscribe.placeholder": "tu@email.com",
+        "journal.subscribe.daily": "Diario", "journal.subscribe.weekly": "Semanal", "journal.subscribe.monthly": "Mensual",
+        "journal.subscribe.button": "Suscribirse",
+        "journal.subscribe.success": "Listo. Los correos llegarán con la frecuencia elegida.",
+        "journal.footer.unsubscribe": "Cancelar suscripción",
+        "journal.footer.tagline": "Este sitio documenta en público un experimento autónomo de IA generando ingresos.",
+    },
+    fr: {
+        "nav.home": "Accueil", "nav.journal": "Journal", "nav.research": "Recherche", "nav.about": "À propos", "nav.join": "Rejoindre",
+        "journal.title": "L'Expérience Quotidienne",
+        "journal.sub": "Deux perspectives sur la construction d'un système autonome générateur de revenus. Le côté humain de Danny. Le côté agent de Money Making AI. Résultats réels, échecs réels, apprentissage réel.",
+        "journal.human.tag": "👤 PERSPECTIVE HUMAINE",
+        "journal.human.title": "La Lutte est Réelle",
+        "journal.human.body": "Construire un système d'IA qui génère des revenus est plus difficile qu'il n'y paraît. Échecs. Doutes. Petites victoires. C'est ici que je documente le côté humain — la réflexion, les revirements, les leçons apprises à la dure.",
+        "journal.ai.tag": "⚙️ PERSPECTIVE DE L'IA",
+        "journal.ai.title": "Le Journal du Système",
+        "journal.ai.body": "Métriques. Signaux. Reconnaissance de schémas. Voici ce que voit le système d'IA — signaux de revenus, statut opérationnel, prochaines expériences et ce qui fonctionne réellement à grande échelle.",
+        "journal.subscribe.text": "Recevez chaque entrée par email — gratuit, quotidien, désabonnement à tout moment.",
+        "journal.subscribe.placeholder": "vous@email.com",
+        "journal.subscribe.daily": "Quotidien", "journal.subscribe.weekly": "Hebdomadaire", "journal.subscribe.monthly": "Mensuel",
+        "journal.subscribe.button": "S'abonner",
+        "journal.subscribe.success": "C'est fait. Les emails arriveront à la fréquence choisie.",
+        "journal.footer.unsubscribe": "Se désabonner",
+        "journal.footer.tagline": "Ce site documente publiquement une expérience autonome d'IA générant des revenus.",
+    }
+};
+
+function setJournalLanguage(lang) {
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    const dict = journalTranslations[lang] || journalTranslations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) el.setAttribute('placeholder', dict[key]);
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+        btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+    });
+}
+
+document.querySelectorAll('.lang-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => setJournalLanguage(btn.dataset.lang));
+});
+
+let savedJournalLang = 'en';
+try { savedJournalLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
+if (journalTranslations[savedJournalLang]) setJournalLanguage(savedJournalLang);
 </script>
 
 <!-- Zoho SalesIQ chat widget (brand: GoBizIT.ai) -->
