@@ -959,18 +959,14 @@
       </div>
 
       <div class="gift-field">
-        <label data-i18n="gift.freqLabel">How do you want to receive updates? * (select at least one)</label>
+        <label data-i18n="gift.freqLabel">How do you want to receive updates? * (pick one)</label>
         <div class="gift-checkbox-group">
           <div class="gift-checkbox-item">
-            <input type="checkbox" id="gift-daily" name="frequency" value="daily">
-            <label for="gift-daily"><span data-i18n="gift.freqDaily">Daily</span> <span class="gift-freq-note" data-i18n="gift.freqDailyNote">(fresh insights every morning)</span></label>
-          </div>
-          <div class="gift-checkbox-item">
-            <input type="checkbox" id="gift-weekly" name="frequency" value="weekly">
+            <input type="radio" id="gift-weekly" name="frequency" value="weekly">
             <label for="gift-weekly"><span data-i18n="gift.freqWeekly">Weekly</span> <span class="gift-freq-note" data-i18n="gift.freqWeeklyNote">(curated weekly recap)</span></label>
           </div>
           <div class="gift-checkbox-item">
-            <input type="checkbox" id="gift-monthly" name="frequency" value="monthly">
+            <input type="radio" id="gift-monthly" name="frequency" value="monthly">
             <label for="gift-monthly"><span data-i18n="gift.freqMonthly">Monthly</span> <span class="gift-freq-note" data-i18n="gift.freqMonthlyNote">(monthly deep-dive)</span></label>
           </div>
         </div>
