@@ -3,68 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
     <title>You're In — Make Money AI</title>
     <meta name="description" content="You're confirmed. Welcome behind the curtain of the Make Money AI journal.">
     <meta name="robots" content="noindex, follow">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🤖</text></svg>" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --navy: #0B1B3D;
-            --green: #10B981;
-            --green-dark: #059669;
-            --green-soft: #d1fae5;
-            --cream: #faf8f5;
-            --ink: #1a1f3a;
-            --ink-soft: #4a5070;
-            --line: #e3e7f0;
-            --white: #ffffff;
-            --radius-pill: 999px;
-        }
+        html, body { overflow-x: clip; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--cream);
-            color: var(--ink);
+            background: #fafaf9;
+            color: #1a1a1a;
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        header {
-            background: var(--white);
-            border-bottom: 1px solid var(--line);
-            padding: 16px 24px;
+        /* Site header — same style as research.html / about.html / journals so this page reads as part of the same site */
+        :root {
+            --navy: #0B1B3D;
+            --green: #10B981;
+            --green-dark: #059669;
+            --green-soft: #d1fae5;
+            --ink-soft: #4a5070;
+            --line: #e3e7f0;
         }
-
+        header {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 1px solid var(--line);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
         header .container {
             max-width: 1000px;
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
         }
-
         .logo-link {
-            color: var(--green);
+            font-size: 1.1rem;
             font-weight: 700;
+            color: var(--green);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
+        .logo-link:hover { color: var(--green-dark); }
         header nav {
             display: flex;
-            gap: 24px;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
         }
-
         header nav a {
             color: var(--ink-soft);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
         }
+        header nav a:hover { color: var(--green); }
 
-        header nav a:hover { color: var(--green-dark); }
+        .lang-toggle {
+            display: inline-flex;
+            background: var(--green-soft);
+            border-radius: 999px;
+            padding: 4px;
+        }
+        .lang-toggle button {
+            border: none;
+            background: transparent;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-soft);
+            border-radius: 999px;
+            cursor: pointer;
+        }
+        .lang-toggle button.active {
+            background: #fff;
+            color: var(--navy);
+            box-shadow: 0 2px 8px rgba(5,16,32,0.06);
+        }
+        @media (max-width: 640px) {
+            header .container { padding: 0 16px; }
+        }
 
         main {
             flex: 1;
@@ -115,7 +148,7 @@
         .btn {
             display: inline-block;
             padding: 12px 24px;
-            border-radius: var(--radius-pill);
+            border-radius: 999px;
             font-weight: 600;
             font-size: 15px;
             text-decoration: none;
@@ -123,14 +156,14 @@
 
         .btn-primary {
             background: var(--green);
-            color: var(--white);
+            color: #fff;
         }
 
         .btn-primary:hover { background: var(--green-dark); }
 
         .btn-secondary {
-            background: var(--white);
-            color: var(--ink);
+            background: #fff;
+            color: #1a1a1a;
             border: 1px solid var(--line);
         }
 
@@ -158,20 +191,28 @@
     <div class="container">
         <a href="/" class="logo-link">Make Money AI</a>
         <nav>
-            <a href="/">Home</a>
-            <a href="/journals/">Journal</a>
+            <a href="/" data-i18n="nav.home">Home</a>
+            <a href="/journals/" data-i18n="nav.journal">Journal</a>
+            <a href="/research.html" data-i18n="nav.research">Research</a>
+            <a href="/about.html" data-i18n="nav.about">About</a>
+            <a href="/join.html" data-i18n="nav.join">Join</a>
         </nav>
+        <div class="lang-toggle" role="tablist" aria-label="Language">
+            <button data-lang="en" class="active" aria-pressed="true">EN</button>
+            <button data-lang="es" aria-pressed="false">ES</button>
+            <button data-lang="fr" aria-pressed="false">FR</button>
+        </div>
     </div>
 </header>
 
 <main>
     <div class="card">
         <div class="badge">🎉</div>
-        <h1>You're behind the curtain.</h1>
-        <p class="lede">Thanks for signing up — check your inbox for a confirmation, and keep an eye out for the next journal entry. You now have free lifetime access to everything we publish.</p>
+        <h1 data-i18n="ty.title">You're behind the curtain.</h1>
+        <p class="lede" data-i18n="ty.lede">Thanks for signing up — check your inbox for a confirmation, and keep an eye out for the next journal entry. You now have free lifetime access to everything we publish.</p>
         <div class="actions">
-            <a href="/journals/" class="btn btn-primary">Read the journal</a>
-            <a href="/" class="btn btn-secondary">Back to home</a>
+            <a href="/journals/" class="btn btn-primary" data-i18n="ty.readJournal">Read the journal</a>
+            <a href="/" class="btn btn-secondary" data-i18n="ty.backHome">Back to home</a>
         </div>
     </div>
 </main>
@@ -179,6 +220,55 @@
 <footer>
     <p>&copy; 2026 <a href="/">makemoney.gobizit.ai</a> &middot; Part of <a href="https://gobizit.ai">GoBizIT</a></p>
 </footer>
+
+<!-- Self-contained i18n for this page, matching the pattern used on /journals/ -->
+<script>
+const thankYouTranslations = {
+    en: {
+        "nav.home": "Home", "nav.journal": "Journal", "nav.research": "Research", "nav.about": "About", "nav.join": "Join",
+        "ty.title": "You're behind the curtain.",
+        "ty.lede": "Thanks for signing up — check your inbox for a confirmation, and keep an eye out for the next journal entry. You now have free lifetime access to everything we publish.",
+        "ty.readJournal": "Read the journal",
+        "ty.backHome": "Back to home"
+    },
+    es: {
+        "nav.home": "Inicio", "nav.journal": "Diario", "nav.research": "Investigación", "nav.about": "Acerca de", "nav.join": "Unirse",
+        "ty.title": "Ya estás detrás del telón.",
+        "ty.lede": "Gracias por registrarte — revisa tu bandeja de entrada para confirmar, y no te pierdas la próxima entrada del diario. Ahora tienes acceso gratuito de por vida a todo lo que publicamos.",
+        "ty.readJournal": "Leer el diario",
+        "ty.backHome": "Volver al inicio"
+    },
+    fr: {
+        "nav.home": "Accueil", "nav.journal": "Journal", "nav.research": "Recherche", "nav.about": "À propos", "nav.join": "Rejoindre",
+        "ty.title": "Vous êtes dans les coulisses.",
+        "ty.lede": "Merci de votre inscription — vérifiez votre boîte de réception pour confirmer, et ne manquez pas la prochaine entrée du journal. Vous avez désormais un accès gratuit à vie à tout ce que nous publions.",
+        "ty.readJournal": "Lire le journal",
+        "ty.backHome": "Retour à l'accueil"
+    }
+};
+
+function setThankYouLanguage(lang) {
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    const dict = thankYouTranslations[lang] || thankYouTranslations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+        btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+    });
+}
+
+document.querySelectorAll('.lang-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => setThankYouLanguage(btn.dataset.lang));
+});
+
+let savedThankYouLang = 'en';
+try { savedThankYouLang = localStorage.getItem('lang') || 'en'; } catch (e) {}
+if (thankYouTranslations[savedThankYouLang]) setThankYouLanguage(savedThankYouLang);
+</script>
 
 <!-- Zoho SalesIQ chat widget (brand: GoBizIT.ai) -->
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq8691394e5348953689df6ff8c07df2500be2ffcde1fffca3f09006bafc2c68d2" defer></script>
