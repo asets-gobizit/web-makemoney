@@ -11,6 +11,28 @@ const translations = {
     "hero.cta": "View Research →",
     "hero.cta2": "Get Advisory →",
     "hero.tagline": "Show You The Money",
+    "nav.gift": "You do not wanna miss this gift 🎁",
+
+    "gift.badge": "⏰ Early Access Offer",
+    "gift.title": "Get Behind the Curtain",
+    "gift.sub": "Watch a real AI money-making system being built — wins, losses, breakthroughs — completely unfiltered.",
+    "gift.offer": "🎁 <strong>Limited-Time Offer:</strong> New members get <strong>free lifetime access</strong> to all journals. Future members will pay to access this content. Lock in your spot now — it's completely free.",
+    "gift.bullet1": "Real daily experiments with autonomous AI agents",
+    "gift.bullet2": "Human perspective (struggles, failures, wins) + AI agent perspective (metrics, patterns, optimization)",
+    "gift.bullet3": "No fluff — just the raw data and decisions from building a money-making AI system in public",
+    "gift.nameLabel": "First Name *",
+    "gift.namePlaceholder": "Your first name",
+    "gift.emailLabel": "Email Address *",
+    "gift.emailPlaceholder": "your@email.com",
+    "gift.freqLabel": "How do you want to receive updates? * (select at least one)",
+    "gift.freqDaily": "Daily", "gift.freqDailyNote": "(fresh insights every morning)",
+    "gift.freqWeekly": "Weekly", "gift.freqWeeklyNote": "(curated weekly recap)",
+    "gift.freqMonthly": "Monthly", "gift.freqMonthlyNote": "(monthly deep-dive)",
+    "gift.submit": "Get Instant Access →",
+    "gift.hidePopup": "Don't show this popup again",
+    "gift.errorEmail": "Please enter a valid email address.",
+    "gift.errorFreq": "Please select at least one subscription option.",
+    "gift.close": "Close",
 
     "snap.eyebrow": "The Opportunity",
     "snap.problem.title": "The Challenge",
@@ -85,6 +107,28 @@ const translations = {
     "hero.cta": "Ver Investigación →",
     "hero.cta2": "Obtener Asesoría →",
     "hero.tagline": "Te Mostramos el Dinero",
+    "nav.gift": "No te quieras perder este regalo 🎁",
+
+    "gift.badge": "⏰ Oferta de Acceso Anticipado",
+    "gift.title": "Descubre Lo Que Hay Detrás",
+    "gift.sub": "Observa cómo se construye en tiempo real un sistema de IA que genera ingresos — aciertos, fracasos, avances — completamente sin filtros.",
+    "gift.offer": "🎁 <strong>Oferta por Tiempo Limitado:</strong> Los nuevos miembros obtienen <strong>acceso vitalicio gratuito</strong> a todos los diarios. Los futuros miembros pagarán para acceder a este contenido. Asegura tu lugar ahora — es completamente gratis.",
+    "gift.bullet1": "Experimentos diarios reales con agentes de IA autónomos",
+    "gift.bullet2": "Perspectiva humana (luchas, fracasos, victorias) + perspectiva del agente de IA (métricas, patrones, optimización)",
+    "gift.bullet3": "Sin relleno — solo los datos y decisiones reales de construir en público un sistema de IA que genera ingresos",
+    "gift.nameLabel": "Nombre *",
+    "gift.namePlaceholder": "Tu nombre",
+    "gift.emailLabel": "Correo Electrónico *",
+    "gift.emailPlaceholder": "tu@email.com",
+    "gift.freqLabel": "¿Cómo quieres recibir las actualizaciones? * (elige al menos una)",
+    "gift.freqDaily": "Diario", "gift.freqDailyNote": "(novedades frescas cada mañana)",
+    "gift.freqWeekly": "Semanal", "gift.freqWeeklyNote": "(resumen semanal curado)",
+    "gift.freqMonthly": "Mensual", "gift.freqMonthlyNote": "(análisis mensual a fondo)",
+    "gift.submit": "Obtener Acceso Ahora →",
+    "gift.hidePopup": "No mostrar este mensaje de nuevo",
+    "gift.errorEmail": "Por favor introduce un correo electrónico válido.",
+    "gift.errorFreq": "Por favor elige al menos una opción de suscripción.",
+    "gift.close": "Cerrar",
 
     "snap.eyebrow": "La Oportunidad",
     "snap.problem.title": "El Desafío",
@@ -159,6 +203,28 @@ const translations = {
     "hero.cta": "Voir la Recherche →",
     "hero.cta2": "Obtenir des Conseils →",
     "hero.tagline": "On Vous Montre l'Argent",
+    "nav.gift": "Ne manquez pas ce cadeau 🎁",
+
+    "gift.badge": "⏰ Offre d'Accès Anticipé",
+    "gift.title": "Découvrez les Coulisses",
+    "gift.sub": "Regardez la construction en direct d'un système d'IA générateur de revenus — succès, échecs, avancées — totalement sans filtre.",
+    "gift.offer": "🎁 <strong>Offre à Durée Limitée :</strong> Les nouveaux membres obtiennent un <strong>accès gratuit à vie</strong> à tous les journaux. Les futurs membres devront payer pour accéder à ce contenu. Réservez votre place maintenant — c'est totalement gratuit.",
+    "gift.bullet1": "De vraies expériences quotidiennes avec des agents IA autonomes",
+    "gift.bullet2": "Perspective humaine (luttes, échecs, réussites) + perspective de l'agent IA (métriques, tendances, optimisation)",
+    "gift.bullet3": "Sans fioritures — juste les données brutes et les décisions de construire en public un système d'IA générateur de revenus",
+    "gift.nameLabel": "Prénom *",
+    "gift.namePlaceholder": "Votre prénom",
+    "gift.emailLabel": "Adresse E-mail *",
+    "gift.emailPlaceholder": "vous@email.com",
+    "gift.freqLabel": "Comment souhaitez-vous recevoir les mises à jour ? * (choisissez au moins une option)",
+    "gift.freqDaily": "Quotidien", "gift.freqDailyNote": "(nouveautés fraîches chaque matin)",
+    "gift.freqWeekly": "Hebdomadaire", "gift.freqWeeklyNote": "(résumé hebdomadaire)",
+    "gift.freqMonthly": "Mensuel", "gift.freqMonthlyNote": "(bilan mensuel approfondi)",
+    "gift.submit": "Obtenir l'Accès Immédiat →",
+    "gift.hidePopup": "Ne plus afficher ce message",
+    "gift.errorEmail": "Veuillez saisir une adresse e-mail valide.",
+    "gift.errorFreq": "Veuillez choisir au moins une option d'abonnement.",
+    "gift.close": "Fermer",
 
     "snap.eyebrow": "L'Opportunité",
     "snap.problem.title": "Le Défi",
@@ -230,13 +296,27 @@ function setLanguage(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
+      // data-i18n-html opts a string into innerHTML (for the rare string that carries
+      // inline markup, e.g. <strong>); every other string stays as safe plain text.
+      if (el.hasAttribute('data-i18n-html')) {
+        el.innerHTML = translations[lang][key];
+      } else {
+        el.textContent = translations[lang][key];
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[lang] && translations[lang][key]) {
+      el.setAttribute('placeholder', translations[lang][key]);
     }
   });
 
   // Update active button
   document.querySelectorAll('.lang-toggle button').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
+    btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
   });
 }
 

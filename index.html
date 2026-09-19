@@ -603,6 +603,116 @@
       .get-heading { font-size: 1.9rem; }
       .partnership-panel { padding: 28px 22px; }
     }
+
+    /* Gift signup modal — clicking the nav gift pill opens this instead of leaving the page */
+    .gift-backdrop {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(5,16,32,0.55);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 40px 16px;
+      overflow-y: auto;
+    }
+    .gift-backdrop[hidden] { display: none; }
+    .gift-card {
+      position: relative;
+      background: var(--white);
+      color: var(--ink);
+      border-radius: 20px;
+      max-width: 480px;
+      width: 100%;
+      padding: 32px 32px 28px;
+      box-shadow: 0 24px 70px rgba(5,16,32,0.35);
+    }
+    .gift-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; background: var(--cream);
+      border-radius: 50%;
+      color: var(--ink-soft);
+      font-size: 1.1rem; line-height: 1;
+      cursor: pointer;
+    }
+    .gift-close:hover { background: var(--line); }
+    .gift-badge {
+      display: inline-block;
+      background: var(--green-soft); color: var(--green-dark);
+      padding: 6px 14px; border-radius: var(--radius-pill);
+      font-size: 0.85rem; font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .gift-card h2 {
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .gift-sub { color: var(--ink-soft); font-size: 1rem; margin-bottom: 18px; }
+    .gift-offer {
+      background: var(--green-soft);
+      border-left: 4px solid var(--green);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.92rem;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+    .gift-offer strong { color: var(--green-dark); }
+    .gift-bullets { list-style: none; padding: 0; margin: 0 0 20px; }
+    .gift-bullets li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 0.92rem; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .gift-bullets li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .gift-field { margin-bottom: 16px; }
+    .gift-field label {
+      display: block; font-size: 0.85rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 6px;
+    }
+    .gift-field input[type="text"], .gift-field input[type="email"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .gift-field input:focus { border-color: var(--green); }
+    .gift-checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+    .gift-checkbox-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.92rem; }
+    .gift-checkbox-item input { margin-top: 3px; }
+    .gift-checkbox-item .gift-freq-note { color: var(--ink-soft); font-size: 0.85rem; }
+    .gift-error {
+      display: none;
+      background: #fef2f2; border: 1px solid #fecaca; color: #991b1b;
+      border-radius: 8px; padding: 10px 14px; font-size: 0.88rem;
+      margin-bottom: 14px;
+    }
+    .gift-error.show { display: block; }
+    .gift-submit {
+      width: 100%;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--green); color: var(--white);
+      padding: 14px; border: none;
+      border-radius: var(--radius-pill);
+      font-weight: 700; font-size: 1rem;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .gift-submit:hover { background: var(--green-dark); }
+    .gift-hide-row {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 18px; padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 0.88rem; color: var(--ink-soft);
+    }
+    /* Honeypot: hidden from humans, visible to bots */
+    .gift-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 480px) {
+      .gift-backdrop { padding: 0; align-items: stretch; }
+      .gift-card { border-radius: 0; max-width: 100%; min-height: 100%; padding: 28px 20px 24px; }
+    }
   </style>
   <script src="i18n.js" defer></script>
 </head>
@@ -652,7 +762,7 @@
   <div class="container nav">
     <div class="nav-links">
       <a href="/about.html">About</a>
-      <a href="/join.html" class="nav-cta-button">You do not wanna miss this gift 🎁</a>
+      <a href="/join.html" class="nav-cta-button" id="gift-cta" data-i18n="nav.gift">You do not wanna miss this gift 🎁</a>
     </div>
     <div class="logos">
       <img class="logo-img" src="logo.png" alt="Make Money AI" style="height: 64px;">
@@ -818,6 +928,152 @@
   </div>
 </footer>
 
+
+<!-- Gift signup modal: opened by the nav gift pill, submits via FormSubmit, redirects to /thank-you.html -->
+<div class="gift-backdrop" id="gift-backdrop" hidden>
+  <div class="gift-card" role="dialog" aria-modal="true" aria-labelledby="gift-title">
+    <button type="button" class="gift-close" id="gift-close" data-i18n="gift.close" aria-label="Close">✕</button>
+    <div class="gift-badge" data-i18n="gift.badge">⏰ Early Access Offer</div>
+    <h2 id="gift-title" data-i18n="gift.title">Get Behind the Curtain</h2>
+    <p class="gift-sub" data-i18n="gift.sub">Watch a real AI money-making system being built — wins, losses, breakthroughs — completely unfiltered.</p>
+
+    <div class="gift-offer" data-i18n="gift.offer" data-i18n-html>🎁 <strong>Limited-Time Offer:</strong> New members get <strong>free lifetime access</strong> to all journals. Future members will pay to access this content. Lock in your spot now — it's completely free.</div>
+
+    <ul class="gift-bullets">
+      <li data-i18n="gift.bullet1">Real daily experiments with autonomous AI agents</li>
+      <li data-i18n="gift.bullet2">Human perspective (struggles, failures, wins) + AI agent perspective (metrics, patterns, optimization)</li>
+      <li data-i18n="gift.bullet3">No fluff — just the raw data and decisions from building a money-making AI system in public</li>
+    </ul>
+
+    <form id="gift-form" action="https://formsubmit.co/makemoney@gobizit.ai" method="POST">
+      <div class="gift-error" id="gift-error"></div>
+
+      <div class="gift-field">
+        <label for="gift-name" data-i18n="gift.nameLabel">First Name *</label>
+        <input type="text" id="gift-name" name="name" data-i18n-placeholder="gift.namePlaceholder" placeholder="Your first name" required>
+      </div>
+
+      <div class="gift-field">
+        <label for="gift-email" data-i18n="gift.emailLabel">Email Address *</label>
+        <input type="email" id="gift-email" name="email" data-i18n-placeholder="gift.emailPlaceholder" placeholder="your@email.com" required>
+      </div>
+
+      <div class="gift-field">
+        <label data-i18n="gift.freqLabel">How do you want to receive updates? * (select at least one)</label>
+        <div class="gift-checkbox-group">
+          <div class="gift-checkbox-item">
+            <input type="checkbox" id="gift-daily" name="frequency" value="daily">
+            <label for="gift-daily"><span data-i18n="gift.freqDaily">Daily</span> <span class="gift-freq-note" data-i18n="gift.freqDailyNote">(fresh insights every morning)</span></label>
+          </div>
+          <div class="gift-checkbox-item">
+            <input type="checkbox" id="gift-weekly" name="frequency" value="weekly">
+            <label for="gift-weekly"><span data-i18n="gift.freqWeekly">Weekly</span> <span class="gift-freq-note" data-i18n="gift.freqWeeklyNote">(curated weekly recap)</span></label>
+          </div>
+          <div class="gift-checkbox-item">
+            <input type="checkbox" id="gift-monthly" name="frequency" value="monthly">
+            <label for="gift-monthly"><span data-i18n="gift.freqMonthly">Monthly</span> <span class="gift-freq-note" data-i18n="gift.freqMonthlyNote">(monthly deep-dive)</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- FormSubmit config: no captcha, table-formatted email, redirect to the thank-you page, subject line -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="New Make Money AI gift signup">
+      <input type="hidden" name="_next" value="https://makemoney.gobizit.ai/thank-you.html">
+      <!-- Honeypot: real visitors never see or fill this -->
+      <div class="gift-hp" aria-hidden="true">
+        <label for="gift-website">Website</label>
+        <input type="text" id="gift-website" name="_honey" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="gift-submit" data-i18n="gift.submit">Get Instant Access →</button>
+
+      <div class="gift-hide-row">
+        <input type="checkbox" id="gift-hide-popup">
+        <label for="gift-hide-popup" data-i18n="gift.hidePopup">Don't show this popup again</label>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  var backdrop = document.getElementById('gift-backdrop');
+  var trigger  = document.getElementById('gift-cta');
+  var closeBtn = document.getElementById('gift-close');
+  var form     = document.getElementById('gift-form');
+  var errorBox = document.getElementById('gift-error');
+  var hideBox  = document.getElementById('gift-hide-popup');
+  var honey    = document.getElementById('gift-website');
+
+  function t(key) {
+    try {
+      var lang = document.documentElement.lang || 'en';
+      return (translations[lang] && translations[lang][key]) || (translations.en && translations.en[key]) || '';
+    } catch (e) { return ''; }
+  }
+
+  function openGift(e) {
+    if (e) e.preventDefault();
+    backdrop.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeGift() {
+    backdrop.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  if (trigger) trigger.addEventListener('click', openGift);
+  if (closeBtn) closeBtn.addEventListener('click', closeGift);
+  backdrop.addEventListener('click', function (e) { if (e.target === backdrop) closeGift(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !backdrop.hidden) closeGift(); });
+
+  if (hideBox) {
+    hideBox.addEventListener('change', function () {
+      try {
+        if (this.checked) localStorage.setItem('hideMMPopup', 'true');
+        else localStorage.removeItem('hideMMPopup');
+      } catch (e) {}
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    errorBox.classList.remove('show');
+
+    var email = document.getElementById('gift-email').value.trim();
+    if (!email || !email.includes('@')) {
+      e.preventDefault();
+      errorBox.textContent = t('gift.errorEmail') || 'Please enter a valid email address.';
+      errorBox.classList.add('show');
+      return;
+    }
+
+    var checked = form.querySelectorAll('input[name="frequency"]:checked');
+    if (checked.length === 0) {
+      e.preventDefault();
+      errorBox.textContent = t('gift.errorFreq') || 'Please select at least one subscription option.';
+      errorBox.classList.add('show');
+      return;
+    }
+
+    // Bot filled the honeypot: pretend success, submit nothing.
+    if (honey && honey.value) {
+      e.preventDefault();
+      closeGift();
+      return;
+    }
+
+    // Real submission: remember this visitor so they aren't gated again, then let the
+    // form POST to FormSubmit proceed (it redirects to _next = /thank-you.html on success).
+    try {
+      var name = document.getElementById('gift-name').value.trim();
+      var subscriptions = Array.from(checked).map(function (b) { return b.value; });
+      localStorage.setItem('mmgate_token', JSON.stringify({ name: name, email: email, subscriptions: subscriptions, timestamp: new Date().toISOString() }));
+    } catch (err) {}
+  });
+})();
+</script>
 
 <!-- Zoho SalesIQ chat widget (brand: GoBizIT.ai) -->
 <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq8691394e5348953689df6ff8c07df2500be2ffcde1fffca3f09006bafc2c68d2" defer></script>
