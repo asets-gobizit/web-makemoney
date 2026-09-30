@@ -1,0 +1,17 @@
+{
+  "name": "Make Money AI",
+  "install": "python3 -m pip install --user --upgrade pillow requests",
+  "terminals": [
+    {
+      "name": "static-server",
+      "command": "python3 -m http.server 8000",
+      "description": "Serves the static landing page at http://localhost:8000 (local preview of the GitHub Pages site)."
+    }
+  ],
+  "ports": [
+    {
+      "name": "web",
+      "port": 8000
+    }
+  ]
+}
