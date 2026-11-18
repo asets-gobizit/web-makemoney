@@ -69,3 +69,8 @@ told to proceed.
   restriction on that brand is off, so the subdomain is allowed.
 - New journal pages must include the same snippet (copy it from `journals/index.html`).
 - 2026-09-10: widget code switched to `wc=siq8691394e…c68d2` on all 15 public pages (was `siqaea3e08…447b`). Keep every page on the same code.
+
+## Contact launcher (added 2026-11-18, test build)
+- `contact-launcher.js` (repo root) draws the floating orange "Contact us" menu on every public page: Chat -> SalesIQ window, Email -> mailto, WhatsApp -> wa.me, **Call us by web -> ElevenLabs voice agent "Eva - GoBizIT Voice Agent"** (bot, via `@elevenlabs/client` from jsDelivr, falls back to the ElevenLabs widget), Call us by phone -> tel: +1 213 212 3101 (same ElevenLabs agent).
+- It hides the default SalesIQ float button, so its `<script src="/contact-launcher.js?v=N" defer>` line must stay **before** the SalesIQ snippet on each page. Bump `?v=` when the file changes. New pages need both lines.
+- All numbers, the email and the agent id live in the `CONFIG` block at the top of the file. To remove the launcher, delete that script line from the pages (the SalesIQ button comes back by itself).
