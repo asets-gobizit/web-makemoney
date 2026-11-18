@@ -5,7 +5,7 @@
  *   Email us         -> mailto
  *   WhatsApp         -> wa.me link
  *   Call us by web   -> ElevenLabs voice agent, in the browser (NOT SalesIQ calls)
- *   Call us by phone -> tel: link (the same ElevenLabs agent answers this number)
+ *   Call us by phone -> tel: link (this number is answered by Eva, the gobizit.ai voice agent)
  *
  * Must be loaded BEFORE the SalesIQ snippet (both "defer"), so the default
  * SalesIQ float button is hidden as soon as the widget is ready.
@@ -21,7 +21,7 @@
     whatsapp: '34614061476',                       // digits only, international format
     phoneHref: '+12132123101',
     phoneLabel: '+1 (213) 212-3101',
-    elevenAgentId: 'agent_5601m5b8wkgee3vre8tf5vt3f67d', // "Eva - GoBizIT Voice Agent"
+    elevenAgentId: 'agent_2501m7qh1w30e59tm2z36hdmwmy0', // "Ethan - MakeMoney Voice Agent"
     elevenSdk: 'https://cdn.jsdelivr.net/npm/@elevenlabs/client/+esm',
     elevenWidget: 'https://unpkg.com/@elevenlabs/convai-widget-embed'
   };
