@@ -18,7 +18,7 @@
 
   var CONFIG = {
     email: 'makemoney@gobizit.ai',
-    whatsapp: '34614061476',                       // digits only, international format
+    whatsapp: '6421330266',                       // digits only, international format
     phoneHref: '+12132123101',
     phoneLabel: '+1 (213) 212-3101',
     elevenAgentId: 'agent_2501m7qh1w30e59tm2z36hdmwmy0', // "Ethan - MakeMoney Voice Agent"
