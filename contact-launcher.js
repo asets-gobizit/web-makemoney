@@ -62,7 +62,7 @@
     hideSiqFloat();
     try { window.$zoho.salesiq.floatwindow.minimize(hideSiqFloat); } catch (e) {}
     try { window.$zoho.salesiq.floatwindow.close(hideSiqFloat); } catch (e) {}
-    watchChatWindow();
+    setTimeout(watchChatWindow, 0);
   }
 
   // While the SalesIQ chat window is open it shows its own close button in the same corner,
