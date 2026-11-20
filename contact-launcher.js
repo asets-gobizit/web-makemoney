@@ -27,15 +27,15 @@
   };
 
   var TEXT = {
-    en: { open: 'We are available 24x7', chat: 'Chat', email: 'Email us', wa: 'WhatsApp', web: 'Call us by web',
+    en: { open: 'We are available 24x7', openSub: 'Chat, call or WhatsApp', chat: 'Chat', email: 'Email us', wa: 'WhatsApp', web: 'Call us by web',
           phone: 'Call us by phone', close: 'Close', connecting: 'Connecting…', end: 'End call',
           listening: 'Listening…', speaking: 'Agent speaking…', mic: 'Microphone access is needed for the call.',
           chatWait: 'Chat is loading…', fail: 'The call could not connect. Please try again or use the phone number.' },
-    es: { open: 'Estamos disponibles 24x7', chat: 'Chat', email: 'Escríbenos', wa: 'WhatsApp', web: 'Llámanos por web',
+    es: { open: 'Estamos disponibles 24x7', openSub: 'Chat, llamada o WhatsApp', chat: 'Chat', email: 'Escríbenos', wa: 'WhatsApp', web: 'Llámanos por web',
           phone: 'Llámanos por teléfono', close: 'Cerrar', connecting: 'Conectando…', end: 'Finalizar llamada',
           listening: 'Escuchando…', speaking: 'El agente habla…', mic: 'Se necesita acceso al micrófono para la llamada.',
           chatWait: 'Cargando el chat…', fail: 'No se pudo conectar la llamada. Inténtalo de nuevo o usa el número de teléfono.' },
-    fr: { open: 'Nous sommes disponibles 24x7', chat: 'Chat', email: 'Écrivez-nous', wa: 'WhatsApp', web: 'Appelez-nous en ligne',
+    fr: { open: 'Nous sommes disponibles 24x7', openSub: 'Chat, appel ou WhatsApp', chat: 'Chat', email: 'Écrivez-nous', wa: 'WhatsApp', web: 'Appelez-nous en ligne',
           phone: 'Appelez-nous par téléphone', close: 'Fermer', connecting: 'Connexion…', end: 'Terminer l’appel',
           listening: 'À l’écoute…', speaking: 'L’agent parle…', mic: 'L’accès au microphone est nécessaire pour l’appel.',
           chatWait: 'Chargement du chat…', fail: 'L’appel n’a pas pu être établi. Réessayez ou utilisez le numéro de téléphone.' }
@@ -217,6 +217,16 @@
     '.gbcl-toggle .gbcl-ico,.gbcl-toggle .gbcl-ico svg{width:28px;height:28px;flex-basis:28px;}',
     '.gbcl-toggle .gbcl-ico-phone,.gbcl-toggle .gbcl-ico-phone svg{width:24px;height:24px;flex-basis:24px;}',
     '.gbcl-toggle .gbcl-ico-phone{margin-left:-4px;}',
+    '.gbcl-toggle{background:linear-gradient(90deg,#ff5f6d 0%,#ff7a45 55%,#ff9a3c 100%);border:0;color:#fff;gap:12px;min-height:58px;padding:7px 24px 7px 8px;text-align:left;box-shadow:0 0 0 4px rgba(255,110,90,.22),0 10px 26px rgba(255,90,80,.45);}',
+    '.gbcl-toggle:hover{box-shadow:0 0 0 6px rgba(255,110,90,.28),0 12px 30px rgba(255,90,80,.55);}',
+    '.gbcl-badge{position:relative;flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:#fff;color:#ff4d6d;display:flex;align-items:center;justify-content:center;}',
+    '.gbcl-badge svg{width:22px;height:22px;display:block;}',
+    '.gbcl-badge::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(255,255,255,.75);animation:gbcl-pulse 1.8s ease-out infinite;}',
+    '@keyframes gbcl-pulse{0%{transform:scale(.9);opacity:.9;}100%{transform:scale(1.35);opacity:0;}}',
+    '.gbcl-open-txt{display:flex;flex-direction:column;line-height:1.15;}',
+    '.gbcl-open-label{font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:-.01em;}',
+    '.gbcl-open-sub{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.94);}',
+    '@media (prefers-reduced-motion:reduce){.gbcl-badge::after{animation:none;opacity:0;}}',
     '.gbcl-x{align-self:flex-end;width:62px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;}',
     '.gbcl-x svg{width:22px;height:22px;}',
     '.gbcl-busy{opacity:.750;cursor:progress;}',
@@ -251,7 +261,7 @@
         '<button type="button" class="gbcl-x" data-act="close">' + ICON.close + '</button>' +
       '</div>' +
       '<button type="button" class="gbcl-toggle" data-act="open" aria-expanded="false" aria-controls="gbcl-menu">' +
-        '<span class="gbcl-ico">' + ICON.chat + '</span><span class="gbcl-ico gbcl-ico-phone">' + ICON.phone + '</span><span class="gbcl-open-label"></span>' +
+        '<span class="gbcl-badge">' + ICON.phone + '</span><span class="gbcl-open-txt"><span class="gbcl-open-label"></span><span class="gbcl-open-sub"></span></span>' +
       '</button>';
     applyText();
   }
@@ -261,6 +271,7 @@
       root.querySelector('[data-act="' + k + '"] .gbcl-label').textContent = t(k);
     });
     root.querySelector('.gbcl-open-label').textContent = t('open');
+    root.querySelector('.gbcl-open-sub').textContent = t('openSub');
     root.querySelector('.gbcl-x').setAttribute('aria-label', t('close'));
     setCall(callState, callState === 'live' ? 'listening' : null);
   }
