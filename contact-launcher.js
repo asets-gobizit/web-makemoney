@@ -30,15 +30,15 @@
     en: { open: 'We are available 24x7', chat: 'Chat', email: 'Email us', wa: 'WhatsApp', web: 'Call us by web',
           phone: 'Call us by phone', close: 'Close', connecting: 'Connecting…', end: 'End call',
           listening: 'Listening…', speaking: 'Agent speaking…', mic: 'Microphone access is needed for the call.',
-          chatWait: 'Chat is loading…' },
+          chatWait: 'Chat is loading…', fail: 'The call could not connect. Please try again or use the phone number.' },
     es: { open: 'Estamos disponibles 24x7', chat: 'Chat', email: 'Escríbenos', wa: 'WhatsApp', web: 'Llámanos por web',
           phone: 'Llámanos por teléfono', close: 'Cerrar', connecting: 'Conectando…', end: 'Finalizar llamada',
           listening: 'Escuchando…', speaking: 'El agente habla…', mic: 'Se necesita acceso al micrófono para la llamada.',
-          chatWait: 'Cargando el chat…' },
+          chatWait: 'Cargando el chat…', fail: 'No se pudo conectar la llamada. Inténtalo de nuevo o usa el número de teléfono.' },
     fr: { open: 'Nous sommes disponibles 24x7', chat: 'Chat', email: 'Écrivez-nous', wa: 'WhatsApp', web: 'Appelez-nous en ligne',
           phone: 'Appelez-nous par téléphone', close: 'Fermer', connecting: 'Connexion…', end: 'Terminer l’appel',
           listening: 'À l’écoute…', speaking: 'L’agent parle…', mic: 'L’accès au microphone est nécessaire pour l’appel.',
-          chatWait: 'Chargement du chat…' }
+          chatWait: 'Chargement du chat…', fail: 'L’appel n’a pas pu être établi. Réessayez ou utilisez le numéro de téléphone.' }
   };
 
   function lang() {
@@ -107,6 +107,7 @@
 
   /* ---------- ElevenLabs voice agent: one-click web call ---------- */
   var conversation = null;
+  var connectedAt = 0;
   var callState = 'idle';                            // idle | connecting | live
 
   function setCall(state, statusKey) {
@@ -155,9 +156,13 @@
       .then(function (mod) {
         return mod.Conversation.startSession({
           agentId: CONFIG.elevenAgentId,
-          connectionType: 'webrtc',
-          onConnect: function () { setCall('live', 'listening'); },
-          onDisconnect: function () { conversation = null; setCall('idle'); },
+          connectionType: 'websocket',            // WebRTC is refused by the agent's domain allowlist
+          onConnect: function () { connectedAt = Date.now(); setCall('live', 'listening'); },
+          onDisconnect: function () {
+            var dropped = callState === 'live' && Date.now() - connectedAt < 4000;
+            conversation = null; setCall('idle');
+            if (dropped) setNote(t('fail'));
+          },
           onError: function () {},
           onModeChange: function (m) {
             if (callState === 'live') setCall('live', m && m.mode === 'speaking' ? 'speaking' : 'listening');
@@ -188,6 +193,10 @@
   var CSS = [
     '.gbcl{position:fixed;right:18px;bottom:84px;z-index:150;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}',
     '.gbcl *{box-sizing:border-box;}',
+    '.gbcl{touch-action:none;-webkit-user-select:none;user-select:none;}',
+    '.gbcl a{-webkit-user-drag:none;}',
+    '.gbcl-toggle{cursor:grab;}',
+    '.gbcl-dragging,.gbcl-dragging *{cursor:grabbing !important;transition:none !important;}',
     '.gbcl.gbcl-hidden{display:none;}',
     '.gbcl-menu{display:none;flex-direction:column;gap:10px;width:270px;max-width:calc(100vw - 36px);}',
     '.gbcl.gbcl-open .gbcl-menu{display:flex;}',
@@ -266,9 +275,64 @@
     var tg = root.querySelector('.gbcl-toggle');
     if (tg) tg.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (!open) setNote('');
+    keepInView();
   }
 
+  /* ---------- Drag: the launcher can be moved anywhere; the spot is remembered per browser ---------- */
+  var POS_KEY = 'gbcl_pos';
+  var drag = null, justDragged = false;
+
+  function place(right, bottom) {
+    var r = root.getBoundingClientRect();
+    var maxR = Math.max(4, window.innerWidth - r.width - 4);
+    var maxB = Math.max(4, window.innerHeight - r.height - 4);
+    root.style.right = Math.min(Math.max(4, right), maxR) + 'px';
+    root.style.bottom = Math.min(Math.max(4, bottom), maxB) + 'px';
+  }
+  function currentPos() {
+    var r = root.getBoundingClientRect();
+    return { right: window.innerWidth - r.right, bottom: window.innerHeight - r.bottom };
+  }
+  function keepInView() {
+    if (!root.style.right) return;                   // never dragged: CSS default applies
+    var p = currentPos(); place(p.right, p.bottom);
+  }
+  function restorePos() {
+    try {
+      var p = JSON.parse(localStorage.getItem(POS_KEY) || 'null');
+      if (p && typeof p.right === 'number' && typeof p.bottom === 'number') place(p.right, p.bottom);
+    } catch (e) {}
+  }
+  root.addEventListener('pointerdown', function (e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    var p = currentPos();
+    drag = { x: e.clientX, y: e.clientY, right: p.right, bottom: p.bottom, moved: false, id: e.pointerId };
+  });
+  window.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.moved && Math.abs(dx) + Math.abs(dy) < 6) return;
+    drag.moved = true;
+    root.classList.add('gbcl-dragging');
+    place(drag.right - dx, drag.bottom - dy);
+    e.preventDefault();
+  }, { passive: false });
+  function endDrag(e) {
+    if (!drag || (e && e.pointerId !== drag.id)) return;
+    if (drag.moved) {
+      justDragged = true; setTimeout(function () { justDragged = false; }, 0);
+      root.classList.remove('gbcl-dragging');
+      try { localStorage.setItem(POS_KEY, JSON.stringify(currentPos())); } catch (err) {}
+    }
+    drag = null;
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  window.addEventListener('resize', keepInView);
+  root.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
   root.addEventListener('click', function (e) {
+    if (justDragged) { e.preventDefault(); e.stopPropagation(); return; }
     var el = e.target.closest ? e.target.closest('[data-act]') : null;
     if (!el) return;
     var act = el.getAttribute('data-act');
@@ -294,6 +358,7 @@
     document.head.appendChild(style);
     render();
     document.body.appendChild(root);
+    restorePos();
   }
   if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
 })();
