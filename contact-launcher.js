@@ -62,6 +62,24 @@
     hideSiqFloat();
     try { window.$zoho.salesiq.floatwindow.minimize(hideSiqFloat); } catch (e) {}
     try { window.$zoho.salesiq.floatwindow.close(hideSiqFloat); } catch (e) {}
+    watchChatWindow();
+  }
+
+  // While the SalesIQ chat window is open it shows its own close button in the same corner,
+  // so the launcher steps aside (unless a web call is running and its End call row is needed).
+  function watchChatWindow() {
+    var tries = 0;
+    (function find() {
+      var wrap = document.getElementById('zsiq_chat_wrap');
+      if (!wrap) { if (++tries < 40) setTimeout(find, 500); return; }
+      var sync = function () {
+        var open = wrap.classList.contains('chat-iframe-open');
+        root.classList.toggle('gbcl-hidden', open && callState === 'idle');
+        if (!open) hideSiqFloat();
+      };
+      new MutationObserver(sync).observe(wrap, { attributes: true, attributeFilter: ['class'] });
+      sync();
+    })();
   }
   if (window.$zoho.salesiq.floatbutton) {
     onSiqReady();                                   // widget already loaded
@@ -170,6 +188,7 @@
   var CSS = [
     '.gbcl{position:fixed;right:18px;bottom:18px;z-index:150;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}',
     '.gbcl *{box-sizing:border-box;}',
+    '.gbcl.gbcl-hidden{display:none;}',
     '.gbcl-menu{display:none;flex-direction:column;gap:10px;width:270px;max-width:calc(100vw - 36px);}',
     '.gbcl.gbcl-open .gbcl-menu{display:flex;}',
     '.gbcl.gbcl-open .gbcl-toggle{display:none;}',
